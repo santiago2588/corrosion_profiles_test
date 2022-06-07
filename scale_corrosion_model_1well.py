@@ -612,9 +612,9 @@ def run():
 
     if add_selectbox == 'Individual':
              
-        BOPD = st.slider(label = 'BPPD', min_value = 0,
+        BOPD = st.number_input(label = 'BPPD', min_value = 0,
                           max_value = 2000 ,
-                          value = 500,step=1)
+                          value = 500)
               
         BWPD = st.slider(label = 'BWPD', min_value = 0,
                           max_value = 5000 ,
