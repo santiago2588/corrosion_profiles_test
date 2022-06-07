@@ -838,7 +838,7 @@ def run():
             output1=str("%.2f" % np.float_(df9))
             st.success('Criticidad total: {}'.format(output1))
             
-            output2=str(df24)
+            output2=nivel_critic
             st.success('Prioridad para tratamiento quimico: {}'.format(output2))
             
             #Perfil de la velocidad de corrosion
