@@ -835,11 +835,7 @@ def run():
                                   'Criticidad produccion':df6,
                                   'Criticidad corrosion':df7,'Criticidad scale':df8,
                                   'Criticidad total':df9, 'Prioridad TQ':df24})
-            
-            st.success('Los calculos se realizaron exitosamente')
-            
-        if st.button('Resultados'):
-            
+                       
             st.write(results)
             
             #Perfil de la velocidad de corrosion
