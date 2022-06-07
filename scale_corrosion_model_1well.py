@@ -838,8 +838,6 @@ def run():
             
             st.write(results)
             
-        if st.button('Perfiles'):
-            
             #Perfil de la velocidad de corrosion
             temp_array,press_array,depth_array,fy_df,ph_df,nk_df,corr_profile_risk = grahpNorskok(temperature_head,
                temperature_bottom,pressure_head,pressure_bottom,BOPD,BWPD,MSCF,co2_gas,alkalinity,
