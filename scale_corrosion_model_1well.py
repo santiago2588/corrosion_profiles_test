@@ -824,25 +824,22 @@ def run():
             df9.append(critic_tot)
             df24.append(nivel_critic)
 
-            results=pd.DataFrame({'Producción [bopd]':df5,'Velocidad de corrosion cabeza [mpy]':df1,
+            results=pd.DataFrame({'Velocidad de corrosion cabeza [mpy]':df1,
                                   'Riesgo de corrosion cabeza':df20,
                                   'Velocidad de corrosion fondo [mpy]':df2,
                                   'Riesgo de corrosion fondo':df21,
                                   'Indice de saturacion cabeza':df3,
                                   'Riesgo de incrustaciones cabeza':df22,
                                   'Indice de saturacion fondo':df4,
-                                  'Riesgo de incrustaciones fondo':df23,
-                                  'Criticidad produccion':df6,
-                                  'Criticidad corrosion':df7,'Criticidad scale':df8,
-                                  'Criticidad total':df9, 'Prioridad TQ':df24})
+                                  'Riesgo de incrustaciones fondo':df23})
                        
             st.write(results)
             
-            output1=str("%.2f" % np.float_(df1)) + ' mpy'
-            st.success('Velocidad de corrosion en cabeza: {}'.format(output1))
+            output1=str("%.2f" % np.float_(df9))
+            st.success('Criticidad total: {}'.format(output1))
             
-            output2=str(df20)
-            st.success('Riesgo de corrosion en cabeza: {}'.format(output2))
+            output2=str(df24)
+            st.success('Prioridad para tratamiento quimico: {}'.format(output2))
             
             #Perfil de la velocidad de corrosion
             temp_array,press_array,depth_array,fy_df,ph_df,nk_df,corr_profile_risk = grahpNorskok(temperature_head,
