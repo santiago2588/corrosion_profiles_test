@@ -725,7 +725,7 @@ def run():
     
             #Velocidad de corrosion en fondo
             nk_temp1, corr_ic_temp1,corr_risk_temp1 = calcNorsok(temperature_bottom,
-               pressure_head,BOPD,BWPD,MSCF,co2_gas,alkalinity,chlorides,sodium,
+               pressure_bottom,BOPD,BWPD,MSCF,co2_gas,alkalinity,chlorides,sodium,
                potassium,magnesium,calcium,strontium,barium,sulphates,carb_acids,
                pipe_diameter,IC_eff,'FONDO')
     
