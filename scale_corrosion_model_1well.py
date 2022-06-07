@@ -611,9 +611,7 @@ def run():
     st.title("Corrosion Prediction Web App")
 
     if add_selectbox == 'Individual':
-        
-        i=st.text_input=('Nombre pozo', "")
-        
+             
         BOPD = st.slider(label = 'BPPD', min_value = 0,
                           max_value = 2000 ,
                           value = 500,step=1)
@@ -837,7 +835,7 @@ def run():
             df9.append(critic_tot)
             df24.append(nivel_critic)
 
-            results=pd.DataFrame({'Pozo':df0,'Producción [bopd]':df5,'Velocidad de corrosion cabeza [mpy]':df1,
+            results=pd.DataFrame({'Producción [bopd]':df5,'Velocidad de corrosion cabeza [mpy]':df1,
                                   'Riesgo de corrosion cabeza':df20,
                                   'Velocidad de corrosion fondo [mpy]':df2,
                                   'Riesgo de corrosion fondo':df21,
