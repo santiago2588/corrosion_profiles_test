@@ -695,6 +695,7 @@ def run():
         well_depth = st.slider(label = 'Profundidad pozo_ppm', min_value = 0,
                           max_value = 12000,
                           value = 9000,step=10)
+        i='Pozo_1'
         
         output=""
 
