@@ -833,7 +833,7 @@ def run():
                                   'Indice de saturacion fondo':df4,
                                   'Riesgo de incrustaciones fondo':df23})
                        
-            st.write(results)
+            st.dataframe(results)
             
             output1=str("%.2f" % np.float_(df9))
             st.success('Criticidad total: {}'.format(output1))
