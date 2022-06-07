@@ -713,9 +713,9 @@ def run():
         
         features_df  = pd.DataFrame([features])
         
-        st.table(features_df) 
+        #st.table(features_df) 
 
-        if st.button('Predecir'):
+        if st.button('Calcular'):
                          
             #Velocidad de corrosion en cabeza
             nk_temp, corr_ic_temp,corr_risk_temp = calcNorsok(temperature_head,
