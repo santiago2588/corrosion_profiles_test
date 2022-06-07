@@ -838,7 +838,7 @@ def run():
                        
             st.write(results)
             
-            output1=str("%.2f" % df1.astype('float')) + ' mpy'
+            output1=str("%.2f" % float(df1)) + ' mpy'
             st.success('Velocidad de corrosion en cabeza: {}'.format(output1))
             
             #Perfil de la velocidad de corrosion
