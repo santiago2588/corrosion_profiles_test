@@ -729,12 +729,7 @@ def run():
                potassium,magnesium,calcium,strontium,barium,sulphates,carb_acids,
                pipe_diameter,IC_eff,'FONDO')
     
-            #Perfil de la velocidad de corrosion
-            temp_array,press_array,depth_array,fy_df,ph_df,nk_df,corr_profile_risk = grahpNorskok(temperature_head,
-               temperature_bottom,pressure_head,pressure_bottom,BOPD,BWPD,MSCF,co2_gas,alkalinity,
-               chlorides,sodium,potassium,magnesium,calcium,strontium,barium,sulphates,carb_acids,
-               pipe_diameter,IC_eff,well_depth,i)
-    
+             
             #Indice de saturacion en cabeza
             calcite_si_temp, solid_temp,scale_risk_temp=calCalcite(pressure_head,
                temperature_head,sodium,potassium,magnesium,
@@ -747,14 +742,7 @@ def run():
                temperature_bottom,sodium,potassium,magnesium,
                calcium,strontium,barium,chlorides,sulphates,
                alkalinity,co2_gas,carb_acids,BOPD,
-               BWPD,MSCF,"FONDO")
-      
-            #Perfil del indice de saturacion
-            temp_array, press_array, depth_array, fy, ph1, calcite, ptb1,scale_profile_risk=graphCalcite(temperature_head,
-                temperature_bottom,pressure_head,pressure_bottom,
-                well_depth,BOPD,BWPD,MSCF,co2_gas,alkalinity,
-                chlorides,sodium,potassium,magnesium,calcium,
-                strontium,barium,sulphates,carb_acids,i)    
+               BWPD,MSCF,"FONDO")   
     
             #Calculo de la criticidad  
             prod=BOPD
@@ -847,7 +835,24 @@ def run():
                                   'Criticidad produccion':df6,
                                   'Criticidad corrosion':df7,'Criticidad scale':df8,
                                   'Criticidad total':df9, 'Prioridad TQ':df24})
-
+            
+            st.write(results)
+            
+        if st.button('Perfiles'):
+            
+            #Perfil de la velocidad de corrosion
+            temp_array,press_array,depth_array,fy_df,ph_df,nk_df,corr_profile_risk = grahpNorskok(temperature_head,
+               temperature_bottom,pressure_head,pressure_bottom,BOPD,BWPD,MSCF,co2_gas,alkalinity,
+               chlorides,sodium,potassium,magnesium,calcium,strontium,barium,sulphates,carb_acids,
+               pipe_diameter,IC_eff,well_depth,i)
+            
+            #Perfil del indice de saturacion
+            temp_array, press_array, depth_array, fy, ph1, calcite, ptb1,scale_profile_risk=graphCalcite(temperature_head,
+                temperature_bottom,pressure_head,pressure_bottom,
+                well_depth,BOPD,BWPD,MSCF,co2_gas,alkalinity,
+                chlorides,sodium,potassium,magnesium,calcium,
+                strontium,barium,sulphates,carb_acids,i)
+            
             #Guardar los resultados del perfil de velocidad de corrosion en un data frame
             df10.append(temp_array)
             df11.append(press_array)
@@ -873,10 +878,6 @@ def run():
                                   'Profundidad [ft]':df12,'Fugacidad CO2':df16,
                                   'pH':df17,'Indice de saturacion calcita':df18,'Solidos [PTB]':df19,
                                   'Riesgo de incrustaciones':df26}).set_index(['Pozo']).apply(pd.Series.explode).reset_index()
-           
-            st.write(results)
-            
-        if st.button('Perfiles'):
             
             fig_corr=px.line(results_corr,x='Profundidad [ft]',y='Velocidad de corrosion (mpy)',title='Perfil de velocidad de corrosion',
                 hover_name='Pozo',hover_data=['Presion [psi]','Temperatura [F]','Riesgo de corrosion'])
