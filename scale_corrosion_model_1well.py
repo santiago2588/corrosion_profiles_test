@@ -876,6 +876,8 @@ def run():
            
             st.write(results)
             
+        if st.button('Perfiles'):
+            
             fig_corr=px.line(results_corr,x='Profundidad [ft]',y='Velocidad de corrosion (mpy)',title='Perfil de velocidad de corrosion',
                 hover_name='Pozo',hover_data=['Presion [psi]','Temperatura [F]','Riesgo de corrosion'])
 
