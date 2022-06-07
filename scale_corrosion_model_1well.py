@@ -652,7 +652,7 @@ def run():
                           max_value = 3000,
                           value = 500,step=1)
         
-        sodium = st.st.number_input(label = 'Sodio, ppm', min_value = 0,
+        sodium = st.number_input(label = 'Sodio, ppm', min_value = 0,
                           max_value = 5000,
                           value = 500,step=1)
         
