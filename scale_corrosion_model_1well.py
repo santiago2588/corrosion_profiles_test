@@ -713,7 +713,7 @@ def run():
         
         features_df  = pd.DataFrame([features])
         
-        #st.table(features_df) 
+        #st.dataframe(features_df) 
 
         if st.button('Calcular'):
                          
