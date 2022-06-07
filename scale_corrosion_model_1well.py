@@ -612,89 +612,89 @@ def run():
 
     if add_selectbox == 'Individual':
              
-        BOPD = st.number_input(label = 'BPPD', min_value = 0,
+        BOPD = st.number_input(label = 'Barriles de petroleo por dia, BPPD', min_value = 0,
                           max_value = 2000 ,
-                          value = 500)
+                          value = 500,step=1)
               
-        BWPD = st.slider(label = 'BWPD', min_value = 0,
+        BWPD = st.number_input(label = 'Barriles de agua por dia, BWPD', min_value = 0,
                           max_value = 5000 ,
                           value = 1000,step=1)
                           
-        MSCF = st.slider(label = 'Caudal_gas_MSCFD', min_value = 0,
+        MSCF = st.number_input(label = 'Caudal de gas, MSCFD', min_value = 0,
                           max_value = 1000 ,
                           value = 100,step=1)
    
-        pressure_head = st.slider(label = 'Presion_cabeza_psi', min_value = 0,
+        pressure_head = st.st.number_input(label = 'Presion de cabeza, psi', min_value = 0,
                           max_value = 500,
                           value = 150,step=1)
 
-        temperature_head = st.slider(label = 'Temperatura_cabeza_F', min_value = 0,
+        temperature_head = st.number_input(label = 'Temperatura de cabeza, F', min_value = 0,
                           max_value = 300 ,
                           value = 150,step=1)
         
-        pressure_bottom = st.slider(label = 'Presion_fondo_psi', min_value = 0,
+        pressure_bottom = st.number_input(label = 'Presion de fondo, psi', min_value = 0,
                           max_value = 5000,
                           value = 3000,step=1)
 
-        temperature_bottom = st.slider(label = 'Temperatura_fondo_F', min_value = 0,
+        temperature_bottom = st.number_input(label = 'Temperatura de fondo, F', min_value = 0,
                           max_value = 500 ,
                           value = 300,step=1)
 
-        chlorides = st.slider(label = 'Cloruros_ppm', min_value = 0,
+        chlorides = st.number_input(label = 'Cloruros, ppm', min_value = 0,
                           max_value = 100000 ,
-                          value = 50000,step=100)
+                          value = 50000,step=1)
 
-        co2_gas = st.slider(label = 'CO2_gas', min_value = 0.0,
-                          max_value = 1.0 ,
-                          value = 0.5,step=0.1)
+        co2_gas = st.number_input(label = 'CO2 gas, fraccion', min_value = 0.00,
+                          max_value = 1.00 ,
+                          value = 0.50,step=0.01)
                           
-        alkalinity = st.slider(label = 'Alcalinidad_ppm', min_value = 0,
+        alkalinity = st.number_input(label = 'Alcalinidad, ppm', min_value = 0,
                           max_value = 3000,
                           value = 500,step=1)
         
-        sodium = st.slider(label = 'Sodio_ppm', min_value = 0,
+        sodium = st.st.number_input(label = 'Sodio, ppm', min_value = 0,
                           max_value = 5000,
                           value = 500,step=1)
         
-        potassium = st.slider(label = 'Potasio_ppm', min_value = 0,
+        potassium = st.number_input(label = 'Potasio, ppm', min_value = 0,
                           max_value = 5000,
                           value = 500,step=1)
         
-        magnesium = st.slider(label = 'Magnesio_ppm', min_value = 0,
+        magnesium = st.number_input(label = 'Magnesio, ppm', min_value = 0,
                           max_value = 5000,
                           value = 500,step=1)
         
-        calcium = st.slider(label = 'Calcio_ppm', min_value = 0,
+        calcium = st.number_input(label = 'Calcio, ppm', min_value = 0,
                           max_value = 5000,
                           value = 500,step=1)
         
-        strontium = st.slider(label = 'Estroncio_ppm', min_value = 0,
+        strontium = st.number_input(label = 'Estroncio, ppm', min_value = 0,
                           max_value = 5000,
                           value = 500,step=1)
         
-        barium = st.slider(label = 'Bario_ppm', min_value = 0,
+        barium = st.number_input(label = 'Bario, ppm', min_value = 0,
                           max_value = 5000,
                           value = 500,step=1)
         
-        sulphates = st.slider(label = 'Sulfatos_ppm', min_value = 0,
+        sulphates = st.number_input(label = 'Sulfatos, ppm', min_value = 0,
                           max_value = 5000,
                           value = 500,step=1)
         
-        carb_acids = st.slider(label = 'Acidos carboxilicos_ppm', min_value = 0,
+        carb_acids = st.number_input(label = 'Acidos carboxilicos, ppm', min_value = 0,
                           max_value = 5000,
                           value = 500,step=1)
         
-        pipe_diameter = st.slider(label = 'Diametro tuberia_in', min_value = 3.0,
+        pipe_diameter = st.number_input(label = 'Diametro tuberia, in', min_value = 3.0,
                           max_value = 5.0,
                           value = 3.5,step=0.1)
         
-        IC_eff = st.slider(label = 'Eficiencia IC_ppm', min_value = 0,
+        IC_eff = st.number_input(label = 'Eficiencia IC, %', min_value = 0,
                           max_value = 100,
                           value = 95,step=1)
         
-        well_depth = st.slider(label = 'Profundidad pozo_ppm', min_value = 0,
+        well_depth = st.number_input(label = 'Profundidad pozo, ft', min_value = 0,
                           max_value = 12000,
-                          value = 9000,step=10)
+                          value = 9000,step=1)
         i='Pozo_1'
         
         output=""
