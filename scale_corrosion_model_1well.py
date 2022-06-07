@@ -624,7 +624,7 @@ def run():
                           max_value = 1000 ,
                           value = 100,step=1)
    
-        pressure_head = st.st.number_input(label = 'Presion de cabeza, psi', min_value = 0,
+        pressure_head = st.number_input(label = 'Presion de cabeza, psi', min_value = 0,
                           max_value = 500,
                           value = 150,step=1)
 
