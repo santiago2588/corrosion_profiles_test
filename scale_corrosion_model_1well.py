@@ -837,9 +837,7 @@ def run():
             
             output1=str("%.2f" % np.float_(df9))
             st.success('Criticidad total: {}'.format(output1))
-            
-            output2=nivel_critic
-            st.success('Prioridad para tratamiento quimico: {}'.format(output2))
+            st.success('Prioridad para tratamiento quimico: {}'.format(nivel_critic))
             
             #Perfil de la velocidad de corrosion
             temp_array,press_array,depth_array,fy_df,ph_df,nk_df,corr_profile_risk = grahpNorskok(temperature_head,
