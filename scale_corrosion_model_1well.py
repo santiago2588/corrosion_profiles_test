@@ -1131,8 +1131,6 @@ def run():
                                       'Riesgo de incrustaciones cabeza':df22,
                                       'Indice de saturacion fondo':df4,
                                       'Riesgo de incrustaciones fondo':df23,
-                                      'Criticidad produccion':df6,
-                                      'Criticidad corrosion':df7,'Criticidad scale':df8,
                                       'Criticidad total':df9, 'Prioridad TQ':df24})
                                 
                 #Guardar los resultados del perfil de velocidad de corrosion en un data frame
