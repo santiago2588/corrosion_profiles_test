@@ -611,7 +611,7 @@ def run():
     
     st.sidebar.success('https://www.pungoapp.com')
     
-    st.title("Corrosion Prediction Web App")
+    st.title("Calculo de velocidad de corrosion e indice de saturacion en pozos petroleros")
 
     if add_selectbox == 'Individual':
              
@@ -900,6 +900,293 @@ def run():
             
             st.plotly_chart(fig_sca, use_container_width=True)
 
+    if add_selectbox == 'Batch':
+        
+        file_upload = st.file_uploader("Upload csv file for predictions", type=["csv"])
+
+        if file_upload is not None:
+            data = pd.read_csv(file_upload)
+            
+            parameters = dict()
+            parameters_names = np.array(["BOPD", "BWPD", "MSCF", "Temperature Head", "Temperature Bottom", "Pressure Head", "Pressure Bottom",
+                    "CO2 Fraction in Gas", "Alkalinity", "Chlorides", "Sodium", "Magnesium", "Potassium","Calcium", "Strontium",
+                    "Barium", "Sulphates", "Carboxylic acids", "Well Depth", "Well Pipe Diameter", "Corrosion Inhibitor Efficiency",
+                    "aux"])
+            
+            for i in data.drop(["Well", "Unit"], axis = 1).columns:
+                for id_j, j in enumerate(parameters_names):
+                    parameters[j] = float(data[i].iloc[int(np.where(data["Well"] == j)[0])])
+
+                #Velocidad de corrosion en cabeza
+                nk_temp, corr_ic_temp,corr_risk_temp = calcNorsok(parameters["Temperature Head"],
+                           parameters["Pressure Head"],
+                           parameters["BOPD"],
+                           parameters["BWPD"],
+                           parameters["MSCF"],
+                           parameters["CO2 Fraction in Gas"],
+                           parameters["Alkalinity"],
+                           parameters["Chlorides"],
+                           parameters["Sodium"],
+                           parameters["Potassium"],
+                           parameters["Magnesium"],
+                           parameters["Calcium"],
+                           parameters["Strontium"],
+                           parameters["Barium"],
+                           parameters["Sulphates"],
+                           parameters["Carboxylic acids"],
+                           parameters["Well Pipe Diameter"],
+                           parameters["Corrosion Inhibitor Efficiency"],
+                           'CABEZA')
+
+                #Velocidad de corrosion en fondo
+                nk_temp1, corr_ic_temp1,corr_risk_temp1 = calcNorsok(parameters["Temperature Bottom"],
+                           parameters["Pressure Bottom"],
+                           parameters["BOPD"],
+                           parameters["BWPD"],
+                           parameters["MSCF"],
+                           parameters["CO2 Fraction in Gas"],
+                           parameters["Alkalinity"],
+                           parameters["Chlorides"],
+                           parameters["Sodium"],
+                           parameters["Potassium"],
+                           parameters["Magnesium"],
+                           parameters["Calcium"],
+                           parameters["Strontium"],
+                           parameters["Barium"],
+                           parameters["Sulphates"],
+                           parameters["Carboxylic acids"],
+                           parameters["Well Pipe Diameter"],
+                           parameters["Corrosion Inhibitor Efficiency"],
+                           'FONDO')
+
+                #Perfil de la velocidad de corrosion
+                temp_array,press_array,depth_array,fy_df,ph_df,nk_df,corr_profile_risk = grahpNorskok(parameters["Temperature Head"],
+                           parameters["Temperature Bottom"],
+                           parameters["Pressure Head"],
+                           parameters["Pressure Bottom"],
+                           parameters["BOPD"],
+                           parameters["BWPD"],
+                           parameters["MSCF"],
+                           parameters["CO2 Fraction in Gas"],
+                           parameters["Alkalinity"],
+                           parameters["Chlorides"],
+                           parameters["Sodium"],
+                           parameters["Potassium"],
+                           parameters["Magnesium"],
+                           parameters["Calcium"],
+                           parameters["Strontium"],
+                           parameters["Barium"],
+                           parameters["Sulphates"],
+                           parameters["Carboxylic acids"],
+                           parameters["Well Pipe Diameter"],
+                           parameters["Corrosion Inhibitor Efficiency"],
+                           parameters["Well Depth"],
+                           i)
+
+                #Indice de saturacion en cabeza
+                calcite_si_temp, solid_temp,scale_risk_temp=calCalcite(parameters["Pressure Head"],
+                           parameters["Temperature Head"],
+                           parameters["Sodium"],
+                           parameters["Potassium"],
+                           parameters["Magnesium"],
+                           parameters["Calcium"],
+                           parameters["Strontium"],
+                           parameters["Barium"],
+                           parameters["Chlorides"],
+                           parameters["Sulphates"],
+                           parameters["Alkalinity"],
+                           parameters["CO2 Fraction in Gas"],
+                           parameters["Carboxylic acids"],
+                           parameters["BOPD"],
+                           parameters["BWPD"],
+                           parameters["MSCF"],
+                           "CABEZA")
+
+                #Indice de saturacion en fondo
+                calcite_si_temp1, solid_temp1,scale_risk_temp1=calCalcite(parameters["Pressure Bottom"],
+                           parameters["Temperature Bottom"],
+                           parameters["Sodium"],
+                           parameters["Potassium"],
+                           parameters["Magnesium"],
+                           parameters["Calcium"],
+                           parameters["Strontium"],
+                           parameters["Barium"],
+                           parameters["Chlorides"],
+                           parameters["Sulphates"],
+                           parameters["Alkalinity"],
+                           parameters["CO2 Fraction in Gas"],
+                           parameters["Carboxylic acids"],
+                           parameters["BOPD"],
+                           parameters["BWPD"],
+                           parameters["MSCF"],
+                           "FONDO")
+
+                #Perfil del indice de saturacion
+                temp_array, press_array, depth_array, fy, ph1, calcite, ptb1,scale_profile_risk=graphCalcite(parameters["Temperature Head"],
+                            parameters["Temperature Bottom"],
+                            parameters["Pressure Head"],
+                            parameters["Pressure Bottom"],
+                            parameters["Well Depth"],
+                            parameters["BOPD"],
+                            parameters["BWPD"],
+                            parameters["MSCF"],
+                            parameters["CO2 Fraction in Gas"],
+                            parameters["Alkalinity"],
+                            parameters["Chlorides"],
+                            parameters["Sodium"],
+                            parameters["Potassium"],
+                            parameters["Magnesium"],
+                            parameters["Calcium"],
+                            parameters["Strontium"],
+                            parameters["Barium"],
+                            parameters["Sulphates"],
+                            parameters["Carboxylic acids"],
+                            i)    
+
+                #Calculo de la criticidad  
+                prod=parameters['BOPD']
+                corr_c=corr_ic_temp
+                corr_b=corr_ic_temp1
+                scale_c=calcite_si_temp
+                scale_b=calcite_si_temp1
+
+                if prod > 500:
+                    critic_prod=4
+                if prod >350 and prod<=500:
+                    critic_prod=3
+                if prod >200 and prod<=350:
+                    critic_prod=2
+                if prod <= 200:
+                    critic_prod=1
+
+                if corr_c > 10:
+                    critic_corr_cab=2
+                if corr_c >5 and corr_c<=10:
+                    critic_corr_cab=1.5
+                if corr_c >1 and corr_c<=5:
+                    critic_corr_cab=1
+                if corr_c <= 1:
+                    critic_corr_cab=0.5 
+
+                if corr_b > 10:
+                    critic_corr_bot=2
+                if corr_b >5 and corr_b<=10:
+                    critic_corr_bot=1.5
+                if corr_b >1 and corr_b<=5:
+                    critic_corr_bot=1
+                if corr_b <= 1:
+                    critic_corr_bot=0.5     
+
+                if scale_c > 2.5:
+                    critic_si_cab=2
+                if scale_c >1.5 and scale_c<=2.5:
+                    critic_si_cab=1.5
+                if scale_c >0.5 and scale_c<=1.5:
+                    critic_si_cab=1
+                if scale_c <= 0.5:
+                    critic_si_cab=0.5
+
+                if scale_b > 2.5:
+                    critic_si_bot=2
+                if scale_b >1.5 and scale_b<=2.5:
+                    critic_si_bot=1.5
+                if scale_b >0.5 and scale_b<=1.5:
+                    critic_si_bot=1
+                if scale_b<= 0.5:
+                    critic_si_bot=0.5
+
+                critic_tot=critic_prod*(critic_corr_cab+critic_corr_bot)*(critic_si_cab+critic_si_bot)
+
+                if critic_tot>32:
+                    nivel_critic='Muy alta'
+                if critic_tot >16 and critic_tot<=32:
+                    nivel_critic='Alta'
+                if critic_tot >8 and critic_tot<=16:
+                    nivel_critic='Moderada'
+                if critic_tot<=8:
+                    nivel_critic='Baja'   
+
+                #Guardar los resultados de cabeza y fondo en un data frame
+                df0.append(i)
+                df1.append(corr_ic_temp)
+                df20.append(corr_risk_temp)
+                df2.append(corr_ic_temp1)
+                df21.append(corr_risk_temp1)
+                df3.append(calcite_si_temp)
+                df22.append(scale_risk_temp)
+                df4.append(calcite_si_temp1)
+                df23.append(scale_risk_temp1)
+                df5.append(parameters['BOPD'])
+                df6.append(critic_prod)
+                df7.append(critic_corr_cab+critic_corr_bot)
+                df8.append(critic_si_cab+critic_si_bot)
+                df9.append(critic_tot)
+                df24.append(nivel_critic)
+
+                results=pd.DataFrame({'Pozo':df0,'Producción [bopd]':df5,'Velocidad de corrosion cabeza [mpy]':df1,
+                                      'Riesgo de corrosion cabeza':df20,
+                                      'Velocidad de corrosion fondo [mpy]':df2,
+                                      'Riesgo de corrosion fondo':df21,
+                                      'Indice de saturacion cabeza':df3,
+                                      'Riesgo de incrustaciones cabeza':df22,
+                                      'Indice de saturacion fondo':df4,
+                                      'Riesgo de incrustaciones fondo':df23,
+                                      'Criticidad produccion':df6,
+                                      'Criticidad corrosion':df7,'Criticidad scale':df8,
+                                      'Criticidad total':df9, 'Prioridad TQ':df24})
+                
+                st.dataframe(results)
+                
+                #Guardar los resultados del perfil de velocidad de corrosion en un data frame
+                df10.append(temp_array)
+                df11.append(press_array)
+                df12.append(depth_array)
+                df13.append(fy_df)
+                df14.append(ph_df)
+                df15.append(nk_df)
+                df25.append(corr_profile_risk)
+
+                results_corr=pd.DataFrame({'Pozo':df0,'Temperatura [F]':df10,'Presion [psi]':df11,
+                                      'Profundidad [ft]':df12,'Fugacidad CO2':df13,
+                                      'pH':df14,'Velocidad de corrosion (mpy)':df15,
+                                      'Riesgo de corrosion':df25}).set_index(['Pozo']).apply(pd.Series.explode).reset_index()
+
+                for i, (Pozo, subdf) in enumerate(results_corr.groupby('Pozo'), 1):
+                    locals()[f'well_corr{i}'] = subdf
+
+
+                #Guardar los resultados del perfil del indice de saturacion en un data frame
+                df16.append(fy)
+                df17.append(ph1)
+                df18.append(calcite)
+                df19.append(ptb1)
+                df26.append(scale_profile_risk)
+
+                results_scale=pd.DataFrame({'Pozo':df0,'Temperatura [F]':df10,'Presion [psi]':df11,
+                                      'Profundidad [ft]':df12,'Fugacidad CO2':df16,
+                                      'pH':df17,'Indice de saturacion calcita':df18,'Solidos [PTB]':df19,
+                                      'Riesgo de incrustaciones':df26}).set_index(['Pozo']).apply(pd.Series.explode).reset_index()
+
+                for i, (Pozo, subdf) in enumerate(results_scale.groupby('Pozo'), 1):
+                    locals()[f'well_scale{i}'] = subdf
+                    
+                fig_crit=px.bar(results, x='Pozo', y='Criticidad total',hover_data=['Prioridad TQ'])
+                fig_crit.update_layout(xaxis={'categoryorder':'total descending'}, title='Criticidad total Pozos')
+                st.plotly_chart(fig_crit, use_container_width=True)
+                
+                y1=results['Criticidad produccion']
+                y2=results['Criticidad corrosion']
+                y3=results['Criticidad scale']
+                ytot=y1+y2+y3
+
+                fig_con=go.Figure()
+                fig_con.add_trace(go.Bar(x=results['Pozo'], y=(y1/ytot)*100,name='Produccion'))
+                fig_con.add_trace(go.Bar(x=results['Pozo'], y=(y2/ytot)*100,name='Corrosion'))
+                fig_con.add_trace(go.Bar(x=results['Pozo'], y=(y3/ytot)*100,name='Escala'))
+                fig_con.update_layout(barmode='stack', title='Contribuciones (%) a la Criticidad total',yaxis_title='Contribucion, %')
+                st.plotly_chart(fig_con, use_container_width=True)
+            
+            
 
 # In[20]:
 
