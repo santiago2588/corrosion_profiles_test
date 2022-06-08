@@ -698,7 +698,7 @@ def run():
                           value = 95,step=1)
         
         well_depth = st.number_input(label = 'Profundidad pozo, ft', min_value = 0,
-                          max_value = 12000,
+                          max_value = 20000,
                           value = 9000,step=1)
         i='Pozo_1'
         
