@@ -601,19 +601,19 @@ df26=[]
 def run():
     
     add_selectbox = st.sidebar.selectbox(
-    "Que desea predecir?",
-    ("Individual", "Batch"))
+    "Que deseas predecir?",
+    ("Un solo pozo", "Varios pozos"))
     
-    st.sidebar.info('Esta es una aplicación web para predecir las tasas de corrosión de los pozos de petróleo en función de\
-         varias funciones que puedes ver en la barra lateral. Por favor, ajuste el\
-         valor de cada característica. Después de eso, haga clic en el botón Calcular en la parte inferior para\
+    st.sidebar.info('Esta es una aplicación web para predecir la velocidad de corrosión, índice de saturacion, y criticidad de los pozos de petróleo en función de\
+         varios parametros que puedes ver en la pantalla. Por favor, ajusta el\
+         valor de cada parametro. Después de eso, da clic en el botón Calcular en la parte inferior para\
          ver las predicciones del modelo.')
     
     st.sidebar.success('https://www.pungoapp.com')
     
-    st.title("Calculo de velocidad de corrosion e indice de saturacion en pozos petroleros")
+    st.title("Cálculo de velocidad de corrosión, índice de saturacion, y criticidad de pozos petroleros")
 
-    if add_selectbox == 'Individual':
+    if add_selectbox == 'Un solo pozo':
              
         BOPD = st.number_input(label = 'Barriles de petroleo por dia, BPPD', min_value = 0,
                           max_value = 2000 ,
@@ -900,9 +900,9 @@ def run():
             
             st.plotly_chart(fig_sca, use_container_width=True)
 
-    if add_selectbox == 'Batch':
+    if add_selectbox == 'Varios pozos':
         
-        file_upload = st.file_uploader("Upload csv file for predictions", type=["csv"])
+        file_upload = st.file_uploader("Subir archivo CSV para las predicciones", type=["csv"])
 
         if file_upload is not None:
             data = pd.read_csv(file_upload)
