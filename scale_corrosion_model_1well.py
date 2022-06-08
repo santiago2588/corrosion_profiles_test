@@ -658,8 +658,8 @@ def run():
                           value = 500,step=1)
         
         sodium = st.number_input(label = 'Sodio, ppm', min_value = 0,
-                          max_value = 5000,
-                          value = 500,step=1)
+                          max_value = 100000,
+                          value = 20000,step=1)
         
         potassium = st.number_input(label = 'Potasio, ppm', min_value = 0,
                           max_value = 5000,
