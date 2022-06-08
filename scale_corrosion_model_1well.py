@@ -1170,7 +1170,14 @@ def run():
                 for i, (Pozo, subdf) in enumerate(results_scale.groupby('Pozo'), 1):
                     locals()[f'well_scale{i}'] = subdf
                     
-            st.dataframe(results)    
+            st.dataframe(results)
+            
+            def convert_df(df):
+                return df.to_csv().encode('utf-8')
+
+            csv = convert_df(results)
+
+            st.download_button("📥Press to Download",csv,"file.csv","text/csv",key='download-csv')
                     
             fig_crit=px.bar(results, x='Pozo', y='Criticidad total',hover_data=['Prioridad TQ'])
             fig_crit.update_layout(xaxis={'categoryorder':'total descending'}, title='Criticidad total Pozos')
