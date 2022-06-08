@@ -670,8 +670,8 @@ def run():
                           value = 500,step=1)
         
         calcium = st.number_input(label = 'Calcio, ppm', min_value = 0,
-                          max_value = 5000,
-                          value = 500,step=1)
+                          max_value = 50000,
+                          value = 5000,step=1)
         
         strontium = st.number_input(label = 'Estroncio, ppm', min_value = 0,
                           max_value = 5000,
