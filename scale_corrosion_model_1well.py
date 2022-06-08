@@ -902,6 +902,8 @@ def run():
 
     if add_selectbox == 'Varios pozos':
         
+        st.subheader("Predicciones para múltiples pozos")
+        
         file_upload = st.file_uploader("Subir archivo CSV para las predicciones", type=["csv"])
 
         if file_upload is not None:
