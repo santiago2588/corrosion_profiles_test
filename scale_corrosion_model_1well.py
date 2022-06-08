@@ -649,9 +649,9 @@ def run():
                           max_value = 150000 ,
                           value = 50000,step=1)
 
-        co2_gas = st.number_input(label = 'CO2 gas, fraccion', min_value = 0.0000,
-                          max_value = 1.0000 ,
-                          value = 0.5000,step=0.0001)
+        co2_gas = st.number_input(label = 'CO2 gas, fraccion', min_value = 0.000,
+                          max_value = 1.000 ,
+                          value = 0.500,step=0.001)
                           
         alkalinity = st.number_input(label = 'Alcalinidad, ppm', min_value = 0,
                           max_value = 5000,
