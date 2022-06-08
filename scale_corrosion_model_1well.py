@@ -625,9 +625,9 @@ def run():
                           max_value = 10000 ,
                           value = 1000,step=1)
                           
-        MSCF = st.number_input(label = 'Caudal de gas, MSCFD', min_value = 0,
-                          max_value = 1000 ,
-                          value = 100,step=1)
+        MSCF = st.number_input(label = 'Caudal de gas, MSCFD', min_value = 0.0,
+                          max_value = 1000.0 ,
+                          value = 100.0,step=0.1)
    
         pressure_head = st.number_input(label = 'Presion de cabeza, psi', min_value = 0,
                           max_value = 1000,
