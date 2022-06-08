@@ -1172,9 +1172,9 @@ def run():
             fig_crit.update_layout(xaxis={'categoryorder':'total descending'}, title='Criticidad total Pozos')
             st.plotly_chart(fig_crit, use_container_width=True)
                 
-            y1=df6
-            y2=df7
-            y3=df8
+            y1=np.float_(df6)
+            y2=np.float_(df7)
+            y3=np.float_(df8)
             ytot=y1+y2+y3
 
             fig_con=go.Figure()
