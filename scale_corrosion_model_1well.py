@@ -630,7 +630,7 @@ def run():
                           value = 100,step=1)
    
         pressure_head = st.number_input(label = 'Presion de cabeza, psi', min_value = 0,
-                          max_value = 500,
+                          max_value = 1000,
                           value = 150,step=1)
 
         temperature_head = st.number_input(label = 'Temperatura de cabeza, F', min_value = 0,
