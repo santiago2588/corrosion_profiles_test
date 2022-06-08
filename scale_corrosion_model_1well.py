@@ -1134,9 +1134,7 @@ def run():
                                       'Criticidad produccion':df6,
                                       'Criticidad corrosion':df7,'Criticidad scale':df8,
                                       'Criticidad total':df9, 'Prioridad TQ':df24})
-                
-            st.dataframe(results)
-                
+                                
                 #Guardar los resultados del perfil de velocidad de corrosion en un data frame
                 df10.append(temp_array)
                 df11.append(press_array)
@@ -1170,21 +1168,23 @@ def run():
                 for i, (Pozo, subdf) in enumerate(results_scale.groupby('Pozo'), 1):
                     locals()[f'well_scale{i}'] = subdf
                     
-                fig_crit=px.bar(results, x='Pozo', y='Criticidad total',hover_data=['Prioridad TQ'])
-                fig_crit.update_layout(xaxis={'categoryorder':'total descending'}, title='Criticidad total Pozos')
-                st.plotly_chart(fig_crit, use_container_width=True)
+            st.dataframe(results)    
+                    
+            fig_crit=px.bar(results, x='Pozo', y='Criticidad total',hover_data=['Prioridad TQ'])
+            fig_crit.update_layout(xaxis={'categoryorder':'total descending'}, title='Criticidad total Pozos')
+            st.plotly_chart(fig_crit, use_container_width=True)
                 
-                y1=results['Criticidad produccion']
-                y2=results['Criticidad corrosion']
-                y3=results['Criticidad scale']
-                ytot=y1+y2+y3
+            y1=results['Criticidad produccion']
+            y2=results['Criticidad corrosion']
+            y3=results['Criticidad scale']
+            ytot=y1+y2+y3
 
-                fig_con=go.Figure()
-                fig_con.add_trace(go.Bar(x=results['Pozo'], y=(y1/ytot)*100,name='Produccion'))
-                fig_con.add_trace(go.Bar(x=results['Pozo'], y=(y2/ytot)*100,name='Corrosion'))
-                fig_con.add_trace(go.Bar(x=results['Pozo'], y=(y3/ytot)*100,name='Escala'))
-                fig_con.update_layout(barmode='stack', title='Contribuciones (%) a la Criticidad total',yaxis_title='Contribucion, %')
-                st.plotly_chart(fig_con, use_container_width=True)
+            fig_con=go.Figure()
+            fig_con.add_trace(go.Bar(x=results['Pozo'], y=(y1/ytot)*100,name='Produccion'))
+            fig_con.add_trace(go.Bar(x=results['Pozo'], y=(y2/ytot)*100,name='Corrosion'))
+            fig_con.add_trace(go.Bar(x=results['Pozo'], y=(y3/ytot)*100,name='Escala'))
+            fig_con.update_layout(barmode='stack', title='Contribuciones (%) a la Criticidad total',yaxis_title='Contribucion, %')
+            st.plotly_chart(fig_con, use_container_width=True)
             
             
 
