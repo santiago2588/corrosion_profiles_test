@@ -1135,7 +1135,7 @@ def run():
                                       'Criticidad corrosion':df7,'Criticidad scale':df8,
                                       'Criticidad total':df9, 'Prioridad TQ':df24})
                 
-                st.dataframe(results)
+            st.dataframe(results)
                 
                 #Guardar los resultados del perfil de velocidad de corrosion en un data frame
                 df10.append(temp_array)
