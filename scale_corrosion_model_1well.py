@@ -604,7 +604,10 @@ def run():
     "Que desea predecir?",
     ("Individual", "Batch"))
     
-    st.sidebar.info('This is a web app to predict corrosion rates of oil wells based on         several features that you can see in the sidebar. Please adjust the         value of each feature. After that, click on the Predict button at the bottom to         see the predictions of the model.')
+    st.sidebar.info('Esta es una aplicación web para predecir las tasas de corrosión de los pozos de petróleo en función de\
+         varias funciones que puedes ver en la barra lateral. Por favor, ajuste el\
+         valor de cada característica. Después de eso, haga clic en el botón Calcular en la parte inferior para\
+         ver las predicciones del modelo.')
     
     st.sidebar.success('https://www.pungoapp.com')
     
