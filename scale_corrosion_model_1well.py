@@ -614,6 +614,8 @@ def run():
     st.title("Cálculo de velocidad de corrosión, índice de saturacion, y criticidad de pozos petroleros")
 
     if add_selectbox == 'Un solo pozo':
+        
+        st.subheader("Predicciones para un solo pozo")
              
         BOPD = st.number_input(label = 'Barriles de petroleo por dia, BPPD', min_value = 0,
                           max_value = 2000 ,
