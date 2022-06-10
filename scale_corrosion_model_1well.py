@@ -889,7 +889,7 @@ def run():
             fig_corr.update_traces(mode="markers+lines")
             fig_corr.update_xaxes(showspikes=True, spikecolor='black')
             fig_corr.update_yaxes(showspikes=True,spikecolor='black')
-            fig_corr.update_yaxes(autorange="reversed", row, col)
+            fig_corr.update_yaxes(autorange="reversed")
 
             st.plotly_chart(fig_corr, use_container_width=True)
             
