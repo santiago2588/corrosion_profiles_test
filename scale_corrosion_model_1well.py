@@ -883,7 +883,7 @@ def run():
                                   'pH':df17,'Indice de saturacion calcita':df18,'Solidos [PTB]':df19,
                                   'Riesgo de incrustaciones':df26}).set_index(['Pozo']).apply(pd.Series.explode).reset_index()
             
-            fig_corr=px.line(results_corr,x='Profundidad [ft]',y='Velocidad de corrosion (mpy)',title='Perfil de velocidad de corrosion',
+            fig_corr=px.line(results_corr,x='Velocidad de corrosion (mpy)',y='Profundidad [ft]',title='Perfil de velocidad de corrosion',
                 hover_name='Pozo',hover_data=['Presion [psi]','Temperatura [F]','Riesgo de corrosion'])
 
             fig_corr.update_traces(mode="markers+lines")
@@ -893,7 +893,7 @@ def run():
             st.plotly_chart(fig_corr, use_container_width=True)
             
             
-            fig_sca=px.line(results_scale,x='Profundidad [ft]',y='Indice de saturacion calcita',title='Perfil del indice de saturacion',
+            fig_sca=px.line(results_scale,x='Indice de saturacion calcita', y='Profundidad [ft]',title='Perfil del indice de saturacion',
                 hover_name='Pozo',hover_data=['Presion [psi]','Temperatura [F]','Solidos [PTB]','Riesgo de incrustaciones'])
 
             fig_sca.update_traces(mode="markers+lines")
