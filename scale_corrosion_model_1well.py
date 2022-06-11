@@ -1191,7 +1191,7 @@ def run():
                 fig_corr.update_xaxes(showspikes=True, spikecolor='black')
                 fig_corr.update_yaxes(showspikes=True,spikecolor='black')
                 fig_corr.update_yaxes(autorange="reversed")
-            st.plotly_chart(fig_corr, use_container_width=True)
+                st.plotly_chart(fig_corr, use_container_width=True)
                 
                 
             scale_sliced=[v for k, v in results_scale.groupby('Pozo')]
@@ -1204,7 +1204,7 @@ def run():
                 fig_sca.update_xaxes(showspikes=True, spikecolor='black')
                 fig_sca.update_yaxes(showspikes=True,spikecolor='black')
                 fig_sca.update_yaxes(autorange="reversed")
-            st.plotly_chart(fig_sca, use_container_width=True)   
+                st.plotly_chart(fig_sca, use_container_width=True)   
             
             fig_crit=px.bar(results, x='Pozo', y='Criticidad total',hover_data=['Prioridad TQ'])
             fig_crit.update_layout(xaxis={'categoryorder':'total descending'}, title='Criticidad total Pozos')
