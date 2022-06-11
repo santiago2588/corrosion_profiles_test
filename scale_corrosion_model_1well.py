@@ -1181,30 +1181,32 @@ def run():
 
             st.download_button("📥Press to Download",csv,"file.csv","text/csv",key='download-csv')
                     
-            corr_sliced=[v for k, v in results_corr.groupby('Pozo')]
+            if st.button('Perfil velocidad de corrosion'):
+            
+                corr_sliced=[v for k, v in results_corr.groupby('Pozo')]
 
-            for df in corr_sliced:
-                fig_corr=px.line(df,x='Velocidad de corrosion (mpy)',y='Profundidad [ft]',title='Perfil de velocidad de corrosion',
+                for df in corr_sliced:
+                    fig_corr=px.line(df,x='Velocidad de corrosion (mpy)',y='Profundidad [ft]',title='Perfil de velocidad de corrosion',
                     hover_name='Pozo',hover_data=['Presion [psi]','Temperatura [F]','Riesgo de corrosion'])
 
-                fig_corr.update_traces(mode="markers+lines")
-                fig_corr.update_xaxes(showspikes=True, spikecolor='black')
-                fig_corr.update_yaxes(showspikes=True,spikecolor='black')
-                fig_corr.update_yaxes(autorange="reversed")
-                st.plotly_chart(fig_corr, use_container_width=True)
+                    fig_corr.update_traces(mode="markers+lines")
+                    fig_corr.update_xaxes(showspikes=True, spikecolor='black')
+                    fig_corr.update_yaxes(showspikes=True,spikecolor='black')
+                    fig_corr.update_yaxes(autorange="reversed")
+                    st.plotly_chart(fig_corr, use_container_width=True)
                 
-                
-            scale_sliced=[v for k, v in results_scale.groupby('Pozo')]
+            if st.button('Perfil indice de saturacion'):   
+                scale_sliced=[v for k, v in results_scale.groupby('Pozo')]
 
-            for df in scale_sliced:
-                fig_sca=px.line(df,x='Indice de saturacion calcita',y='Profundidad [ft]',title='Perfil del indice de saturacion',
+                for df in scale_sliced:
+                    fig_sca=px.line(df,x='Indice de saturacion calcita',y='Profundidad [ft]',title='Perfil del indice de saturacion',
                     hover_name='Pozo',hover_data=['Presion [psi]','Temperatura [F]','Solidos [PTB]','Riesgo de incrustaciones'])
 
-                fig_sca.update_traces(mode="markers+lines")
-                fig_sca.update_xaxes(showspikes=True, spikecolor='black')
-                fig_sca.update_yaxes(showspikes=True,spikecolor='black')
-                fig_sca.update_yaxes(autorange="reversed")
-                st.plotly_chart(fig_sca, use_container_width=True)   
+                    fig_sca.update_traces(mode="markers+lines")
+                    fig_sca.update_xaxes(showspikes=True, spikecolor='black')
+                    fig_sca.update_yaxes(showspikes=True,spikecolor='black')
+                    fig_sca.update_yaxes(autorange="reversed")
+                    st.plotly_chart(fig_sca, use_container_width=True)   
             
             fig_crit=px.bar(results, x='Pozo', y='Criticidad total',hover_data=['Prioridad TQ'])
             fig_crit.update_layout(xaxis={'categoryorder':'total descending'}, title='Criticidad total Pozos')
