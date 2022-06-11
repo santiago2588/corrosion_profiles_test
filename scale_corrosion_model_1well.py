@@ -600,6 +600,8 @@ df26=[]
 
 def run():
     
+    st.set_page_config(layout="wide")
+    
     add_selectbox = st.sidebar.selectbox(
     "Que deseas predecir?",
     ("Un solo pozo", "Varios pozos"))
