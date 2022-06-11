@@ -1208,21 +1208,23 @@ def run():
                     fig_sca.update_yaxes(autorange="reversed")
                     st.plotly_chart(fig_sca, use_container_width=True)   
             
-            fig_crit=px.bar(results, x='Pozo', y='Criticidad total',hover_data=['Prioridad TQ'])
-            fig_crit.update_layout(xaxis={'categoryorder':'total descending'}, title='Criticidad total Pozos')
-            st.plotly_chart(fig_crit, use_container_width=True)
+            if st.button('Criticidad de pozos'): 
+            
+                fig_crit=px.bar(results, x='Pozo', y='Criticidad total',hover_data=['Prioridad TQ'])
+                fig_crit.update_layout(xaxis={'categoryorder':'total descending'}, title='Criticidad total Pozos')
+                st.plotly_chart(fig_crit, use_container_width=True)
                 
-            y1=np.float_(df6)
-            y2=np.float_(df7)
-            y3=np.float_(df8)
-            ytot=y1+y2+y3
+                y1=np.float_(df6)
+                y2=np.float_(df7)
+                y3=np.float_(df8)
+                ytot=y1+y2+y3
 
-            fig_con=go.Figure()
-            fig_con.add_trace(go.Bar(x=results['Pozo'], y=(y1/ytot)*100,name='Produccion'))
-            fig_con.add_trace(go.Bar(x=results['Pozo'], y=(y2/ytot)*100,name='Corrosion'))
-            fig_con.add_trace(go.Bar(x=results['Pozo'], y=(y3/ytot)*100,name='Escala'))
-            fig_con.update_layout(barmode='stack', title='Contribuciones (%) a la Criticidad total',yaxis_title='Contribucion, %')
-            st.plotly_chart(fig_con, use_container_width=True)
+                fig_con=go.Figure()
+                fig_con.add_trace(go.Bar(x=results['Pozo'], y=(y1/ytot)*100,name='Produccion'))
+                fig_con.add_trace(go.Bar(x=results['Pozo'], y=(y2/ytot)*100,name='Corrosion'))
+                fig_con.add_trace(go.Bar(x=results['Pozo'], y=(y3/ytot)*100,name='Escala'))
+                fig_con.update_layout(barmode='stack', title='Contribuciones (%) a la Criticidad total',yaxis_title='Contribucion, %')
+                st.plotly_chart(fig_con, use_container_width=True)
             
             
 
