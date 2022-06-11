@@ -605,7 +605,7 @@ def run():
     ("Un solo pozo", "Varios pozos"))
     
     st.sidebar.info('Esta es una aplicación web para predecir la velocidad de corrosión, índice de saturacion, y criticidad de los pozos de petróleo en función de\
-         varios parametros que puedes ver en la pantalla. \nPor favor, ajusta el\
+         varios parametros que puedes ver en la pantalla. Por favor, ajusta el\
          valor de cada parametro. Después de eso, da clic en el botón Calcular en la parte inferior para\
          ver las predicciones del modelo.')
     
