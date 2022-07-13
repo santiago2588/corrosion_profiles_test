@@ -623,85 +623,85 @@ def run():
                           max_value = 10000 ,
                           value = 5000,step=1)
               
-        BWPD = st.number_input(label = 'Barriles de agua por dia, BWPD', min_value = 0,
+        BWPD = st.slider(label = 'Barriles de agua por dia, BWPD', min_value = 0,
                           max_value = 10000 ,
-                          value = 0,step=1)
+                          value = 5000,step=1)
                           
-        MSCF = st.number_input(label = 'Caudal de gas, MSCFD', min_value = 0.0,
+        MSCF = st.slider(label = 'Caudal de gas, MSCFD', min_value = 0.0,
                           max_value = 1000.0 ,
-                          value = 0.0,step=0.1)
+                          value = 200.0,step=0.1)
    
-        pressure_head = st.number_input(label = 'Presion de cabeza, psi', min_value = 0.0,
+        pressure_head = st.slider(label = 'Presion de cabeza, psi', min_value = 0.0,
                           max_value = 1000.0,
-                          value = 0.0,step=0.1)
+                          value = 150.0,step=0.1)
 
-        temperature_head = st.number_input(label = 'Temperatura de cabeza, F', min_value = 0.0,
+        temperature_head = st.slider(label = 'Temperatura de cabeza, F', min_value = 0.0,
                           max_value = 300.0 ,
-                          value = 0.0,step=0.1)
+                          value = 150.0,step=0.1)
         
-        pressure_bottom = st.number_input(label = 'Presion de fondo, psi', min_value = 0.0,
+        pressure_bottom = st.slider(label = 'Presion de fondo, psi', min_value = 0.0,
                           max_value = 5000.0,
-                          value = 0.0,step=0.1)
+                          value = 2000.0,step=0.1)
 
-        temperature_bottom = st.number_input(label = 'Temperatura de fondo, F', min_value = 0.0,
+        temperature_bottom = st.slider(label = 'Temperatura de fondo, F', min_value = 0.0,
                           max_value = 500.0,
-                          value = 0.0,step=0.1)
+                          value = 300.0,step=0.1)
 
         chlorides = st.number_input(label = 'Cloruros, ppm', min_value = 0,
                           max_value = 150000 ,
                           value = 0,step=1)
 
-        co2_gas = st.number_input(label = 'CO2 gas, fraccion', min_value = 0.000,
+        co2_gas = st.slider(label = 'CO2 gas, fraccion', min_value = 0.000,
                           max_value = 1.000 ,
-                          value = 0.000,step=0.001)
+                          value = 0.500,step=0.001)
                           
-        alkalinity = st.number_input(label = 'Alcalinidad, ppm', min_value = 0,
+        alkalinity = st.slider(label = 'Alcalinidad, ppm', min_value = 0,
                           max_value = 5000,
-                          value = 0,step=1)
+                          value = 500,step=1)
         
-        sodium = st.number_input(label = 'Sodio, ppm', min_value = 0,
+        sodium = st.slider(label = 'Sodio, ppm', min_value = 0,
                           max_value = 100000,
-                          value = 0,step=1)
+                          value = 1000,step=1)
         
-        potassium = st.number_input(label = 'Potasio, ppm', min_value = 0,
+        potassium = st.slider(label = 'Potasio, ppm', min_value = 0,
                           max_value = 5000,
-                          value = 0,step=1)
+                          value = 500,step=1)
         
-        magnesium = st.number_input(label = 'Magnesio, ppm', min_value = 0,
+        magnesium = st.slider(label = 'Magnesio, ppm', min_value = 0,
                           max_value = 5000,
-                          value = 0,step=1)
+                          value = 500,step=1)
         
-        calcium = st.number_input(label = 'Calcio, ppm', min_value = 0,
+        calcium = st.slider(label = 'Calcio, ppm', min_value = 0,
                           max_value = 50000,
-                          value = 0,step=1)
+                          value = 500,step=1)
         
-        strontium = st.number_input(label = 'Estroncio, ppm', min_value = 0,
+        strontium = st.slider(label = 'Estroncio, ppm', min_value = 0,
                           max_value = 5000,
-                          value = 0,step=1)
+                          value = 100,step=1)
         
-        barium = st.number_input(label = 'Bario, ppm', min_value = 0,
+        barium = st.slider(label = 'Bario, ppm', min_value = 0,
                           max_value = 5000,
-                          value = 0,step=1)
+                          value = 100,step=1)
         
-        sulphates = st.number_input(label = 'Sulfatos, ppm', min_value = 0,
+        sulphates = st.slider(label = 'Sulfatos, ppm', min_value = 0,
                           max_value = 5000,
-                          value = 0,step=1)
+                          value = 100,step=1)
         
-        carb_acids = st.number_input(label = 'Acidos carboxilicos, ppm', min_value = 0,
+        carb_acids = st.slider(label = 'Acidos carboxilicos, ppm', min_value = 0,
                           max_value = 5000,
-                          value = 0,step=1)
+                          value = 100,step=1)
         
-        pipe_diameter = st.number_input(label = 'Diametro tuberia, in', min_value = 3.0,
+        pipe_diameter = st.slider(label = 'Diametro tuberia, in', min_value = 3.0,
                           max_value = 5.0,
                           value = 3.5,step=0.1)
         
-        IC_eff = st.number_input(label = 'Eficiencia IC, %', min_value = 0,
+        IC_eff = st.slider(label = 'Eficiencia IC, %', min_value = 0,
                           max_value = 100,
                           value = 95,step=1)
         
-        well_depth = st.number_input(label = 'Profundidad pozo, ft', min_value = 0,
+        well_depth = st.slider(label = 'Profundidad pozo, ft', min_value = 0,
                           max_value = 20000,
-                          value = 0,step=1)
+                          value = 10000,step=1)
         i='Pozo_1'
         
         output=""
