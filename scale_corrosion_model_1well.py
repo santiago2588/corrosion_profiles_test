@@ -644,8 +644,8 @@ def run():
                           value = 2000.0,step=0.1)
 
         temperature_bottom = st.slider(label = 'Temperatura de fondo, F', min_value = 0.0,
-                          max_value = 500.0,
-                          value = 300.0,step=0.1)
+                          max_value = 300.0,
+                          value = 250.0,step=0.1)
 
         chlorides = st.slider(label = 'Cloruros, ppm', min_value = 0,
                           max_value = 150000 ,
