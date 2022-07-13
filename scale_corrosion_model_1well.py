@@ -647,9 +647,9 @@ def run():
                           max_value = 500.0,
                           value = 300.0,step=0.1)
 
-        chlorides = st.number_input(label = 'Cloruros, ppm', min_value = 0,
+        chlorides = st.slider(label = 'Cloruros, ppm', min_value = 0,
                           max_value = 150000 ,
-                          value = 0,step=1)
+                          value = 50000,step=1)
 
         co2_gas = st.slider(label = 'CO2 gas, fraccion', min_value = 0.000,
                           max_value = 1.000 ,
