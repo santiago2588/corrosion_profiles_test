@@ -619,7 +619,7 @@ def run():
         
         st.subheader("Predicciones para un solo pozo")
              
-        BOPD = st.sidebar.slider(label = 'Barriles de petroleo por dia, BPPD', min_value = 0,
+        BOPD = st.slider(label = 'Barriles de petroleo por dia, BPPD', min_value = 0,
                           max_value = 10000 ,
                           value = 5000,step=1)
               
