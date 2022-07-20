@@ -1420,7 +1420,7 @@ def run():
             if st.button('Optimizar dosis de quimicos'):
                 
                 st.dataframe(results_opt)
-                ahorro_total_opt=results_opt['Ahorro total [USD/año'].sum()
+                ahorro_total_opt=results_opt['Ahorro total [USD/año]'].sum()
                 output4=str("%.2f" % ahorro_total_opt) + ' USD/año'
                 st.success('El ahorro total por optimizacion de quimicos es {}'.format(output4))
 
