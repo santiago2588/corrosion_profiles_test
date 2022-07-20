@@ -603,6 +603,7 @@ df35=[]
 df36=[]
 df37=[]
 df38=[]
+df39=[]
 
 # Calculo de los resultados
 
