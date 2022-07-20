@@ -1361,8 +1361,8 @@ def run():
                                          'Dosis recomendada de antiescala [gal/dia]':df37,
                                          'Ahorro por optimizacion de antiescala [USD/año]':df38,
                                          'Ahorro total [USD/año]':df39})
-            for i in ahorro_total:
-                ahorro_total_opt=sum(ahorro_total)
+                for i in ahorro_total:
+                    ahorro_total_opt=sum(ahorro_total)
                                  
             st.dataframe(results)
             
