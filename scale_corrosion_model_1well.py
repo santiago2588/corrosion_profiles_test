@@ -597,7 +597,12 @@ df29=[]
 df30=[]
 df31=[]
 df32=[]
-df33=[] 
+df33=[]
+df34=[]
+df35=[]
+df36=[]
+df37=[]
+df38=[]
 
 # Calculo de los resultados
 
@@ -1415,7 +1420,9 @@ def run():
                 fig_con.update_layout(barmode='stack', title='Contribuciones (%) a la Criticidad total',yaxis_title='Contribucion, %')
                 st.plotly_chart(fig_con, use_container_width=True)
                 
+                
             if st.button('Optimizar dosis de quimicos'):
+                
                 precio_ic=20
                 precio_is=20
                 BWPD=parameters['BWPD']
@@ -1501,19 +1508,19 @@ def run():
                 ahorro_anual_is=diferencia_dosis_is * precio_is *30*12
 
                 #Guardar los resultados de cabeza y fondo en un data frame
-                df27.append(dosis_ic)
-                df28.append(dosis_recomendada_ic)
-                df29.append(ahorro_anual_ic)
-                df30.append(dosis_is)
-                df31.append(dosis_recomendada_is)
-                df32.append(ahorro_anual_is)
+                df33.append(dosis_ic)
+                df34.append(dosis_recomendada_ic)
+                df35.append(ahorro_anual_ic)
+                df36.append(dosis_is)
+                df37.append(dosis_recomendada_is)
+                df38.append(ahorro_anual_is)
 
-                results_opt=pd.DataFrame({'Pozo':df0,'Dosis actual de anticorrosivo [gal/dia]':df27,
-                                         'Dosis recomendada de anticorrosivo [gal/dia]':df28,
-                                         'Ahorro por optimizacion de anticorrosivo [USD/año]':df29,
-                                         'Dosis actual de antiescala [gal/dia]':df30,
-                                         'Dosis recomendada de antiescala [gal/dia]':df31,
-                                         'Ahorro por optimizacion de antiescala [USD/año]':df32})
+                results_opt=pd.DataFrame({'Pozo':df0,'Dosis actual de anticorrosivo [gal/dia]':df33,
+                                         'Dosis recomendada de anticorrosivo [gal/dia]':df34,
+                                         'Ahorro por optimizacion de anticorrosivo [USD/año]':df35,
+                                         'Dosis actual de antiescala [gal/dia]':df36,
+                                         'Dosis recomendada de antiescala [gal/dia]':df37,
+                                         'Ahorro por optimizacion de antiescala [USD/año]':df38})
 
                 st.dataframe(results_opt)
 
