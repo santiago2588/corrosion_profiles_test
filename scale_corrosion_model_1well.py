@@ -895,7 +895,7 @@ def run():
         df15.append(nk_df)
         df25.append(corr_profile_risk)
 
-        results_corr=pd.DataFrame({'Pozo':df0,'Temperatura [F]':df10,'Presion [psi]':df11,
+        results_corr_profile=pd.DataFrame({'Pozo':df0,'Temperatura [F]':df10,'Presion [psi]':df11,
                               'Profundidad [ft]':df12,'Fugacidad CO2':df13,
                               'pH':df14,'Velocidad de corrosion (mpy)':df15,
                               'Riesgo de corrosion':df25}).set_index(['Pozo']).apply(pd.Series.explode).reset_index()  
@@ -907,12 +907,12 @@ def run():
         df19.append(ptb1)
         df26.append(scale_profile_risk)
 
-        results_scale=pd.DataFrame({'Pozo':df0,'Temperatura [F]':df10,'Presion [psi]':df11,
+        results_scale_profile=pd.DataFrame({'Pozo':df0,'Temperatura [F]':df10,'Presion [psi]':df11,
                               'Profundidad [ft]':df12,'Fugacidad CO2':df16,
                               'pH':df17,'Indice de saturacion calcita':df18,'Solidos [PTB]':df19,
                               'Riesgo de incrustaciones':df26}).set_index(['Pozo']).apply(pd.Series.explode).reset_index()
 
-        fig_corr=px.line(results_corr,x='Velocidad de corrosion (mpy)',y='Profundidad [ft]',title='Perfil de velocidad de corrosion',
+        fig_corr=px.line(results_corr_profile,x='Velocidad de corrosion (mpy)',y='Profundidad [ft]',title='Perfil de velocidad de corrosion',
             hover_name='Pozo',hover_data=['Presion [psi]','Temperatura [F]','Riesgo de corrosion'])
 
         fig_corr.update_traces(mode="markers+lines")
@@ -920,7 +920,7 @@ def run():
         fig_corr.update_yaxes(showspikes=True,spikecolor='black')
         fig_corr.update_yaxes(autorange="reversed")
         
-        fig_sca=px.line(results_scale,x='Indice de saturacion calcita', y='Profundidad [ft]',title='Perfil del indice de saturacion',
+        fig_sca=px.line(results_scale_profile,x='Indice de saturacion calcita', y='Profundidad [ft]',title='Perfil del indice de saturacion',
                     hover_name='Pozo',hover_data=['Presion [psi]','Temperatura [F]','Solidos [PTB]','Riesgo de incrustaciones'])
 
         fig_sca.update_traces(mode="markers+lines")
@@ -1005,12 +1005,7 @@ def run():
                 st.success('Criticidad total: {}'.format(output1))
                 st.success('Prioridad para tratamiento quimico: {}'.format(nivel_critic))
 
-                st.write("")
-                st.write('Perfil de la velocidad de corrosion')
                 st.plotly_chart(fig_corr, use_container_width=True)
-
-                st.write("")
-                st.write('Perfil del indice de saturacion')
                 st.plotly_chart(fig_sca, use_container_width=True)
                 
         with col2:
