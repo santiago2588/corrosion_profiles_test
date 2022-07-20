@@ -1282,7 +1282,7 @@ def run():
                 diferencia_dosis_is=dosis_is - dosis_recomendada_is
                 ahorro_anual_is=diferencia_dosis_is * precio_is *30*12
                 
-                ahorro_total=ahorro_anual_ic+ahorro_anual_is
+                ahorro_total_opt=ahorro_anual_ic+ahorro_anual_is
 
                 #Guardar los resultados de cabeza y fondo en un data frame
                 df0.append(i)
@@ -1420,7 +1420,7 @@ def run():
             if st.button('Optimizar dosis de quimicos'):
                 
                 st.dataframe(results_opt)   
-                output4=str("%.2f" % ahorro_total) + ' USD/año'
+                output4=str("%.2f" % ahorro_total_opt) + ' USD/año'
                 st.success('El ahorro total por optimizacion de quimicos es {}'.format(output4))
 
                 st.info('Nota: se asume un precio de 20 USD/gal para el anticorrosivo y el antiescala')
