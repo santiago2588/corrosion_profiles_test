@@ -1419,6 +1419,8 @@ def run():
                 precio_ic=20
                 precio_is=20
                 BWPD=parameters['BWPD']
+                dosis_ic=parameters["dosis_ic"]
+                dosis_is=parameters["dosis_is"]
                 
                 corr_c=corr_ic_temp
                 corr_b=corr_ic_temp1
