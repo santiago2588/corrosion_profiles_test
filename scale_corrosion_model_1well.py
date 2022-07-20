@@ -1106,7 +1106,7 @@ def run():
             parameters_names = np.array(["BOPD", "BWPD", "MSCF", "Temperature Head", "Temperature Bottom", "Pressure Head", "Pressure Bottom",
                     "CO2 Fraction in Gas", "Alkalinity", "Chlorides", "Sodium", "Magnesium", "Potassium","Calcium", "Strontium",
                     "Barium", "Sulphates", "Carboxylic acids", "Well Depth", "Well Pipe Diameter", "Corrosion Inhibitor Efficiency",
-                    "aux","dosis_IC","dosis_IS"])
+                    "aux","dosis_ic","dosis_is"])
             
             for i in data.drop(["Well", "Unit"], axis = 1).columns:
                 for id_j, j in enumerate(parameters_names):
