@@ -1282,7 +1282,7 @@ def run():
                 diferencia_dosis_is=dosis_is - dosis_recomendada_is
                 ahorro_anual_is=diferencia_dosis_is * precio_is *30*12
                 
-                ahorro_total_opt=ahorro_anual_ic+ahorro_anual_is
+                ahorro_total=ahorro_anual_ic+ahorro_anual_is
 
                 #Guardar los resultados de cabeza y fondo en un data frame
                 df0.append(i)
@@ -1361,7 +1361,9 @@ def run():
                                          'Dosis recomendada de antiescala [gal/dia]':df37,
                                          'Ahorro por optimizacion de antiescala [USD/año]':df38,
                                          'Ahorro total [USD/año]':df39})
-         
+            for i in ahorro_total:
+                ahorro_total_opt=sum(ahorro_total)
+                                 
             st.dataframe(results)
             
             def convert_df(df):
