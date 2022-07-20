@@ -617,7 +617,7 @@ def run():
         st.image(image)
     
     with col2: 
-        st.subheader('DIGITALIZACIÓN QUE GENERA IMPACTO: Desarrollamos soluciones digitales que te permiten optimizar tus recursos (tiempo, dinero) y mejorar el desempeno de los pozos petroleros')
+        st.header('DIGITALIZACIÓN QUE GENERA IMPACTO: Desarrollamos soluciones digitales que te permiten optimizar tus recursos (tiempo, dinero) y mejorar el desempeno de los pozos petroleros')
     
     add_selectbox = st.sidebar.selectbox(
     "Que deseas predecir?",
