@@ -1361,8 +1361,6 @@ def run():
                                          'Dosis recomendada de antiescala [gal/dia]':df37,
                                          'Ahorro por optimizacion de antiescala [USD/año]':df38,
                                          'Ahorro total [USD/año]':df39})
-                for i in ahorro_total:
-                    ahorro_total_opt=sum(ahorro_total)
                                  
             st.dataframe(results)
             
@@ -1422,7 +1420,7 @@ def run():
             if st.button('Optimizar dosis de quimicos'):
                 
                 st.dataframe(results_opt)   
-                output4=str("%.2f" % ahorro_total_opt) + ' USD/año'
+                output4=str("%.2f" % ahorro_total) + ' USD/año'
                 st.success('El ahorro total por optimizacion de quimicos es {}'.format(output4))
 
                 st.info('Nota: se asume un precio de 20 USD/gal para el anticorrosivo y el antiescala')
