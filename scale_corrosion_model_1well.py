@@ -1418,6 +1418,7 @@ def run():
             if st.button('Optimizar dosis de quimicos'):
                 precio_ic=20
                 precio_is=20
+                BWPD=parameters['BWPD']
                 
                 corr_c=corr_ic_temp
                 corr_b=corr_ic_temp1
