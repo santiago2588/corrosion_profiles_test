@@ -728,13 +728,13 @@ def run():
                           max_value = 20000,
                           value = 10000,step=1)
         
-        dosis_ic = st.slider(label = 'Dosis Anticorrosivo, gal/dia', min_value = 0.0,
-                          max_value = 20.0,
-                          value = 10.0,step=0.1)
+        dosis_ic = st.slider(label = 'Dosis Anticorrosivo, gal/dia', min_value = 0,
+                          max_value = 20,
+                          value = 10,step=1)
          
-        dosis_is = st.slider(label = 'Dosis Antiescala, gal/dia', min_value = 0.0,
-                          max_value = 20.0,
-                          value = 10.0,step=0.1)
+        dosis_is = st.slider(label = 'Dosis Antiescala, gal/dia', min_value = 0,
+                          max_value = 20,
+                          value = 10,step=1)
         
         i='Pozo_1'
         
@@ -1250,16 +1250,16 @@ def run():
 
                 if critic_tot_corr>=3.5:
                     nivel_critic_corr='Muy alto'
-                    dosis_recomendada_ic= 80*BWPD/23810
+                    dosis_recomendada_ic= math.ceil(80*BWPD/23810)
                 if critic_tot_corr >=2.5 and critic_tot_corr<3.5:
                     nivel_critic_corr='Alto'
-                    dosis_recomendada_ic= 60*BWPD/23810
+                    dosis_recomendada_ic= math.ceil(60*BWPD/23810)
                 if critic_tot_corr >=1.5 and critic_tot_corr<2.5:
                     nivel_critic_corr='Moderado'
-                    dosis_recomendada_ic= 40*BWPD/23810
+                    dosis_recomendada_ic= math.ceil(40*BWPD/23810)
                 if critic_tot_corr<1.5:
                     nivel_critic_corr='Bajo'
-                    dosis_recomendada_ic= 20*BWPD/23810 
+                    dosis_recomendada_ic= math.ceil(20*BWPD/23810) 
 
                 diferencia_dosis_ic=dosis_ic - dosis_recomendada_ic    
                 ahorro_anual_ic=diferencia_dosis_ic * precio_ic *30*12
@@ -1268,16 +1268,16 @@ def run():
 
                 if critic_tot_si>=3.5:
                     nivel_critic_si='Muy alto'
-                    dosis_recomendada_is= 80*BWPD/23810
+                    dosis_recomendada_is= math.ceil(80*BWPD/23810)
                 if critic_tot_si >=2.5 and critic_tot_si<3.5:
                     nivel_critic_si='Alto'
-                    dosis_recomendada_is= 60*BWPD/23810
+                    dosis_recomendada_is= math.ceil(60*BWPD/23810)
                 if critic_tot_si >=1.5 and critic_tot_si<2.5:
                     nivel_critic_si='Moderado'
-                    dosis_recomendada_is= 40*BWPD/23810
+                    dosis_recomendada_is= math.ceil(40*BWPD/23810)
                 if critic_tot_si<1.5:
                     nivel_critic_si='Bajo'
-                    dosis_recomendada_is= 20*BWPD/23810 
+                    dosis_recomendada_is= math.ceil(20*BWPD/23810) 
 
                 diferencia_dosis_is=dosis_is - dosis_recomendada_is
                 ahorro_anual_is=diferencia_dosis_is * precio_is *30*12
