@@ -1494,8 +1494,8 @@ def run():
             if st.button('Optimizar dosis de quimicos'):
                 
                 st.dataframe(results_opt)   
-                #output4=str("%.2f" % ahorro_total) + ' USD/año'
-                #st.success('El ahorro total por optimizacion de quimicos es {}'.format(output4))
+                output4=str("%.2f" % ahorro_total) + ' USD/año'
+                st.success('El ahorro total por optimizacion de quimicos es {}'.format(output4))
 
                 st.info('Nota: se asume un precio de 20 USD/gal para el anticorrosivo y el antiescala')
         
