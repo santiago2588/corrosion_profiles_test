@@ -1433,7 +1433,8 @@ def run():
                                          'Ahorro por optimizacion de anticorrosivo [USD/año]':df35,
                                          'Dosis actual de antiescala [gal/dia]':df36,
                                          'Dosis recomendada de antiescala [gal/dia]':df37,
-                                         'Ahorro por optimizacion de antiescala [USD/año]':df38})
+                                         'Ahorro por optimizacion de antiescala [USD/año]':df38,
+                                         'Ahorro total [USD/año]':df39})
          
             st.dataframe(results)
             
