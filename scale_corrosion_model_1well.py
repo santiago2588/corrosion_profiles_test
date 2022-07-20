@@ -1415,6 +1415,13 @@ def run():
                 fig_con.update_layout(barmode='stack', title='Contribuciones (%) a la Criticidad total',yaxis_title='Contribucion, %')
                 st.plotly_chart(fig_con, use_container_width=True)
             
+        
+    st.write('')
+    st.header("Felicitaciones, has comenzado a desbloquear algunos de los beneficios de la digitalización y los modelos cientificos,\
+            pero quedan inmensas oportunidades para aumentar la productividad y optimizar el desempeño de los pozos petroleros.\
+            Si estás listo para emprender este camino y llevar la digitalización al siguiente nivel, contactate con nosotros.")
+    
+    st.success('www.pungoapp.com')
             
 
 # In[20]:
