@@ -628,7 +628,7 @@ def run():
          valor de cada parametro. Después de eso, da clic en el botón Calcular en la parte inferior para\
          ver las predicciones del modelo.')
     
-    st.info('Esta herramienta tambien permite optimizar las dosis de los quimicos anticorrosivo y antiescala en funcion de los resultados\
+    st.sidebar.info('Esta herramienta tambien permite optimizar las dosis de los quimicos anticorrosivo y antiescala en funcion de los resultados\
             obtenidos en el modelo (riesgo de corrosion, incrustaciones y criticidad). Para ello, da clic en el boton Optimizar en la parte inferior\
             y obtendras las dosis recomendadas de los quimicos, junto con el ahorro generado')
     
