@@ -1111,7 +1111,7 @@ def run():
             parameters_names = np.array(["BOPD", "BWPD", "MSCF", "Temperature Head", "Temperature Bottom", "Pressure Head", "Pressure Bottom",
                     "CO2 Fraction in Gas", "Alkalinity", "Chlorides", "Sodium", "Magnesium", "Potassium","Calcium", "Strontium",
                     "Barium", "Sulphates", "Carboxylic acids", "Well Depth", "Well Pipe Diameter", "Corrosion Inhibitor Efficiency",
-                    "aux","dosis_ic","dosis_is"])
+                    "aux","dosis_ic","dosis_is","precio_ic","precio_is"])
             
             for i in data.drop(["Well", "Unit"], axis = 1).columns:
                 for id_j, j in enumerate(parameters_names):
@@ -1304,7 +1304,58 @@ def run():
                 if critic_tot >8 and critic_tot<=16:
                     nivel_critic='Moderada'
                 if critic_tot<=8:
-                    nivel_critic='Baja'   
+                    nivel_critic='Baja'
+                    
+                #Calculo de la dosis de quimico recomendada y el ahorro
+                
+                BWPD=parameters['BWPD']
+                dosis_ic=parameters["dosis_ic"]
+                dosis_is=parameters["dosis_is"]
+                precio_ic=parameters["precio_ic"]
+                precio_is=parameters["precio_is"]
+                
+                corr_c=corr_ic_temp
+                corr_b=corr_ic_temp1
+                scale_c=calcite_si_temp
+                scale_b=calcite_si_temp1
+
+                critic_tot_corr=critic_corr_cab+critic_corr_bot
+
+                if critic_tot_corr>=3.5:
+                    nivel_critic_corr='Muy alto'
+                    dosis_recomendada_ic= 80*BWPD/23810
+                if critic_tot_corr >=2.5 and critic_tot_corr<3.5:
+                    nivel_critic_corr='Alto'
+                    dosis_recomendada_ic= 60*BWPD/23810
+                if critic_tot_corr >=1.5 and critic_tot_corr<2.5:
+                    nivel_critic_corr='Moderado'
+                    dosis_recomendada_ic= 40*BWPD/23810
+                if critic_tot_corr<1.5:
+                    nivel_critic_corr='Bajo'
+                    dosis_recomendada_ic= 20*BWPD/23810 
+
+                diferencia_dosis_ic=dosis_ic - dosis_recomendada_ic    
+                ahorro_anual_ic=diferencia_dosis_ic * precio_ic *30*12
+
+                critic_tot_si=critic_si_cab+critic_si_bot
+
+                if critic_tot_si>=3.5:
+                    nivel_critic_si='Muy alto'
+                    dosis_recomendada_is= 80*BWPD/23810
+                if critic_tot_si >=2.5 and critic_tot_si<3.5:
+                    nivel_critic_si='Alto'
+                    dosis_recomendada_is= 60*BWPD/23810
+                if critic_tot_si >=1.5 and critic_tot_si<2.5:
+                    nivel_critic_si='Moderado'
+                    dosis_recomendada_is= 40*BWPD/23810
+                if critic_tot_si<1.5:
+                    nivel_critic_si='Bajo'
+                    dosis_recomendada_is= 20*BWPD/23810 
+
+                diferencia_dosis_is=dosis_is - dosis_recomendada_is
+                ahorro_anual_is=diferencia_dosis_is * precio_is *30*12
+                
+                ahorro_total=ahorro_anual_ic+ahorro_anual_is
 
                 #Guardar los resultados de cabeza y fondo en un data frame
                 df0.append(i)
@@ -1365,7 +1416,24 @@ def run():
 
                 for i, (Pozo, subdf) in enumerate(results_scale.groupby('Pozo'), 1):
                     locals()[f'well_scale{i}'] = subdf
-                    
+                
+                
+                #Guardar los resultados de dosis recomendadas y ahorro en un data frame
+                df33.append(dosis_ic)
+                df34.append(dosis_recomendada_ic)
+                df35.append(ahorro_anual_ic)
+                df36.append(dosis_is)
+                df37.append(dosis_recomendada_is)
+                df38.append(ahorro_anual_is)
+                df39.append(ahorro_total)
+
+                results_opt=pd.DataFrame({'Pozo':df0,'Dosis actual de anticorrosivo [gal/dia]':df33,
+                                         'Dosis recomendada de anticorrosivo [gal/dia]':df34,
+                                         'Ahorro por optimizacion de anticorrosivo [USD/año]':df35,
+                                         'Dosis actual de antiescala [gal/dia]':df36,
+                                         'Dosis recomendada de antiescala [gal/dia]':df37,
+                                         'Ahorro por optimizacion de antiescala [USD/año]':df38})
+         
             st.dataframe(results)
             
             def convert_df(df):
@@ -1421,114 +1489,14 @@ def run():
                 st.plotly_chart(fig_con, use_container_width=True)
                 
                 
-                if st.button('Optimizar dosis de quimicos'):
+            if st.button('Optimizar dosis de quimicos'):
+                
+                st.dataframe(results_opt)   
+                #output4=str("%.2f" % ahorro_total) + ' USD/año'
+                #st.success('El ahorro total por optimizacion de quimicos es {}'.format(output4))
 
-                    precio_ic=20
-                    precio_is=20
-                    BWPD=parameters['BWPD']
-                    dosis_ic=parameters["dosis_ic"]
-                    dosis_is=parameters["dosis_is"]
-
-                    corr_c=corr_ic_temp
-                    corr_b=corr_ic_temp1
-                    scale_c=calcite_si_temp
-                    scale_b=calcite_si_temp1
-
-                    if corr_c > 10:
-                        critic_corr_cab=2
-                    if corr_c >5 and corr_c<=10:
-                        critic_corr_cab=1.5
-                    if corr_c >1 and corr_c<=5:
-                        critic_corr_cab=1
-                    if corr_c <= 1:
-                        critic_corr_cab=0.5 
-
-                    if corr_b > 10:
-                        critic_corr_bot=2
-                    if corr_b >5 and corr_b<=10:
-                        critic_corr_bot=1.5
-                    if corr_b >1 and corr_b<=5:
-                        critic_corr_bot=1
-                    if corr_b <= 1:
-                        critic_corr_bot=0.5    
-
-                    critic_tot_corr=critic_corr_cab+critic_corr_bot
-
-                    if critic_tot_corr>=3.5:
-                        nivel_critic_corr='Muy alto'
-                        dosis_recomendada_ic= 80*BWPD/23810
-                    if critic_tot_corr >=2.5 and critic_tot_corr<3.5:
-                        nivel_critic_corr='Alto'
-                        dosis_recomendada_ic= 60*BWPD/23810
-                    if critic_tot_corr >=1.5 and critic_tot_corr<2.5:
-                        nivel_critic_corr='Moderado'
-                        dosis_recomendada_ic= 40*BWPD/23810
-                    if critic_tot_corr<1.5:
-                        nivel_critic_corr='Bajo'
-                        dosis_recomendada_ic= 20*BWPD/23810 
-
-                    diferencia_dosis_ic=dosis_ic - dosis_recomendada_ic    
-                    ahorro_anual_ic=diferencia_dosis_ic * precio_ic *30*12
-
-
-                    if scale_c > 2.5:
-                        critic_si_cab=2
-                    if scale_c >1.5 and scale_c<=2.5:
-                        critic_si_cab=1.5
-                    if scale_c >0.5 and scale_c<=1.5:
-                        critic_si_cab=1
-                    if scale_c <= 0.5:
-                        critic_si_cab=0.5
-
-                    if scale_b > 2.5:
-                        critic_si_bot=2
-                    if scale_b >1.5 and scale_b<=2.5:
-                        critic_si_bot=1.5
-                    if scale_b >0.5 and scale_b<=1.5:
-                        critic_si_bot=1
-                    if scale_b<= 0.5:
-                        critic_si_bot=0.5
-
-                    critic_tot_si=critic_si_cab+critic_si_bot
-
-                    if critic_tot_si>=3.5:
-                        nivel_critic_si='Muy alto'
-                        dosis_recomendada_is= 80*BWPD/23810
-                    if critic_tot_si >=2.5 and critic_tot_si<3.5:
-                        nivel_critic_si='Alto'
-                        dosis_recomendada_is= 60*BWPD/23810
-                    if critic_tot_si >=1.5 and critic_tot_si<2.5:
-                        nivel_critic_si='Moderado'
-                        dosis_recomendada_is= 40*BWPD/23810
-                    if critic_tot_si<1.5:
-                        nivel_critic_si='Bajo'
-                        dosis_recomendada_is= 20*BWPD/23810 
-
-                    diferencia_dosis_is=dosis_is - dosis_recomendada_is
-                    ahorro_anual_is=diferencia_dosis_is * precio_is *30*12
-
-                    #Guardar los resultados de cabeza y fondo en un data frame
-                    df33.append(dosis_ic)
-                    df34.append(dosis_recomendada_ic)
-                    df35.append(ahorro_anual_ic)
-                    df36.append(dosis_is)
-                    df37.append(dosis_recomendada_is)
-                    df38.append(ahorro_anual_is)
-
-                    results_opt=pd.DataFrame({'Pozo':df0,'Dosis actual de anticorrosivo [gal/dia]':df33,
-                                             'Dosis recomendada de anticorrosivo [gal/dia]':df34,
-                                             'Ahorro por optimizacion de anticorrosivo [USD/año]':df35,
-                                             'Dosis actual de antiescala [gal/dia]':df36,
-                                             'Dosis recomendada de antiescala [gal/dia]':df37,
-                                             'Ahorro por optimizacion de antiescala [USD/año]':df38})
-
-                    st.dataframe(results_opt)
-
-                    ahorro_total=ahorro_anual_ic+ahorro_anual_is
-                    output4=str("%.2f" % ahorro_total) + ' USD/año'
-                    st.success('El ahorro total por optimizacion de quimicos es {}'.format(output4))
-
-                    st.info('Nota: se asume un precio de 20 USD/gal para el anticorrosivo y el antiescala')
+                st.info('Nota: se asume un precio de 20 USD/gal para el anticorrosivo y el antiescala')
+        
         
     st.write('')
     st.header("Felicitaciones, has comenzado a desbloquear algunos de los beneficios de la digitalización y los modelos cientificos,\
