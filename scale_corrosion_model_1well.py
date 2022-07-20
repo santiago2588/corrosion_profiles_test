@@ -936,16 +936,16 @@ def run():
 
         if critic_tot_corr>=3.5:
             nivel_critic_corr='Muy alto'
-            dosis_recomendada_ic= 80*BWPD/23810
+            dosis_recomendada_ic= math.ceil(80*BWPD/23810)
         if critic_tot_corr >=2.5 and critic_tot_corr<3.5:
             nivel_critic_corr='Alto'
-            dosis_recomendada_ic= 60*BWPD/23810
+            dosis_recomendada_ic= math.ceil(60*BWPD/23810)
         if critic_tot_corr >=1.5 and critic_tot_corr<2.5:
             nivel_critic_corr='Moderado'
-            dosis_recomendada_ic= 40*BWPD/23810
+            dosis_recomendada_ic= math.ceil(40*BWPD/23810)
         if critic_tot_corr<1.5:
             nivel_critic_corr='Bajo'
-            dosis_recomendada_ic= 20*BWPD/23810 
+            dosis_recomendada_ic= math.ceil(20*BWPD/23810) 
 
         diferencia_dosis_ic=dosis_ic - dosis_recomendada_ic    
         ahorro_anual_ic=diferencia_dosis_ic * precio_ic *30*12
@@ -963,16 +963,16 @@ def run():
 
         if critic_tot_si>=3.5:
             nivel_critic_si='Muy alto'
-            dosis_recomendada_is= 80*BWPD/23810
+            dosis_recomendada_is= math.ceil(80*BWPD/23810)
         if critic_tot_si >=2.5 and critic_tot_si<3.5:
             nivel_critic_si='Alto'
-            dosis_recomendada_is= 60*BWPD/23810
+            dosis_recomendada_is= math.ceil(60*BWPD/23810)
         if critic_tot_si >=1.5 and critic_tot_si<2.5:
             nivel_critic_si='Moderado'
-            dosis_recomendada_is= 40*BWPD/23810
+            dosis_recomendada_is= math.ceil(40*BWPD/23810)
         if critic_tot_si<1.5:
             nivel_critic_si='Bajo'
-            dosis_recomendada_is= 20*BWPD/23810 
+            dosis_recomendada_is= math.ceil(20*BWPD/23810) 
 
         diferencia_dosis_is=dosis_is - dosis_recomendada_is
         ahorro_anual_is=diferencia_dosis_is * precio_is *30*12
