@@ -754,345 +754,276 @@ def run():
         
         features_df  = pd.DataFrame([features])
         
-        #st.dataframe(features_df) 
+        #st.dataframe(features_df)
         
+        #Velocidad de corrosion en cabeza
+        nk_temp, corr_ic_temp,corr_risk_temp = calcNorsok(temperature_head,
+           pressure_head,BOPD,BWPD,MSCF,co2_gas,alkalinity,chlorides,sodium,
+           potassium,magnesium,calcium,strontium,barium,sulphates,carb_acids,
+           pipe_diameter,IC_eff,'CABEZA')
+
+        #Velocidad de corrosion en fondo
+        nk_temp1, corr_ic_temp1,corr_risk_temp1 = calcNorsok(temperature_bottom,
+           pressure_bottom,BOPD,BWPD,MSCF,co2_gas,alkalinity,chlorides,sodium,
+           potassium,magnesium,calcium,strontium,barium,sulphates,carb_acids,
+           pipe_diameter,IC_eff,'FONDO')
+
+        #Indice de saturacion en cabeza
+        calcite_si_temp, solid_temp,scale_risk_temp=calCalcite(pressure_head,
+           temperature_head,sodium,potassium,magnesium,
+           calcium,strontium,barium,chlorides,sulphates,
+           alkalinity,co2_gas,carb_acids,BOPD,
+           BWPD,MSCF,"CABEZA")
+
+        #Indice de saturacion en fondo
+        calcite_si_temp1, solid_temp1,scale_risk_temp1=calCalcite(pressure_bottom,
+           temperature_bottom,sodium,potassium,magnesium,
+           calcium,strontium,barium,chlorides,sulphates,
+           alkalinity,co2_gas,carb_acids,BOPD,
+           BWPD,MSCF,"FONDO")   
+
+        #Calculo de la criticidad  
+        prod=BOPD
+        corr_c=corr_ic_temp
+        corr_b=corr_ic_temp1
+        scale_c=calcite_si_temp
+        scale_b=calcite_si_temp1
+
+        if prod > 500:
+            critic_prod=4
+        if prod >350 and prod<=500:
+            critic_prod=3
+        if prod >200 and prod<=350:
+            critic_prod=2
+        if prod <= 200:
+            critic_prod=1
+
+        if corr_c > 10:
+            critic_corr_cab=2
+        if corr_c >5 and corr_c<=10:
+            critic_corr_cab=1.5
+        if corr_c >1 and corr_c<=5:
+            critic_corr_cab=1
+        if corr_c <= 1:
+            critic_corr_cab=0.5 
+
+        if corr_b > 10:
+            critic_corr_bot=2
+        if corr_b >5 and corr_b<=10:
+            critic_corr_bot=1.5
+        if corr_b >1 and corr_b<=5:
+            critic_corr_bot=1
+        if corr_b <= 1:
+            critic_corr_bot=0.5     
+
+        if scale_c > 2.5:
+            critic_si_cab=2
+        if scale_c >1.5 and scale_c<=2.5:
+            critic_si_cab=1.5
+        if scale_c >0.5 and scale_c<=1.5:
+            critic_si_cab=1
+        if scale_c <= 0.5:
+            critic_si_cab=0.5
+
+        if scale_b > 2.5:
+            critic_si_bot=2
+        if scale_b >1.5 and scale_b<=2.5:
+            critic_si_bot=1.5
+        if scale_b >0.5 and scale_b<=1.5:
+            critic_si_bot=1
+        if scale_b<= 0.5:
+            critic_si_bot=0.5
+
+        critic_tot=critic_prod*(critic_corr_cab+critic_corr_bot)*(critic_si_cab+critic_si_bot)
+
+        if critic_tot>32:
+            nivel_critic='Muy alta'
+        if critic_tot >16 and critic_tot<=32:
+            nivel_critic='Alta'
+        if critic_tot >8 and critic_tot<=16:
+            nivel_critic='Moderada'
+        if critic_tot<=8:
+            nivel_critic='Baja'   
+
+        #Guardar los resultados de cabeza y fondo en un data frame
+        df0.append(i)
+        df1.append(corr_ic_temp)
+        df20.append(corr_risk_temp)
+        df2.append(corr_ic_temp1)
+        df21.append(corr_risk_temp1)
+        df3.append(calcite_si_temp)
+        df22.append(scale_risk_temp)
+        df4.append(calcite_si_temp1)
+        df23.append(scale_risk_temp1)
+        df5.append(BOPD)
+        df6.append(critic_prod)
+        df7.append(critic_corr_cab+critic_corr_bot)
+        df8.append(critic_si_cab+critic_si_bot)
+        df9.append(critic_tot)
+        df24.append(nivel_critic)
+        
+        
+        results_corr=pd.DataFrame({'Velocidad de corrosion cabeza [mpy]':df1,
+                                          'Riesgo de corrosion cabeza':df20,
+                                          'Velocidad de corrosion fondo [mpy]':df2,
+                                          'Riesgo de corrosion fondo':df21})
+        
+        results_esc=pd.DataFrame({'Indice de saturacion cabeza':df3,
+                                          'Riesgo de incrustaciones cabeza':df22,
+                                          'Indice de saturacion fondo':df4,
+                                          'Riesgo de incrustaciones fondo':df23})  
+        
+        #Perfil de la velocidad de corrosion
+        temp_array,press_array,depth_array,fy_df,ph_df,nk_df,corr_profile_risk = grahpNorskok(temperature_head,
+           temperature_bottom,pressure_head,pressure_bottom,BOPD,BWPD,MSCF,co2_gas,alkalinity,
+           chlorides,sodium,potassium,magnesium,calcium,strontium,barium,sulphates,carb_acids,
+           pipe_diameter,IC_eff,well_depth,i)
+
+        #Perfil del indice de saturacion
+        temp_array, press_array, depth_array, fy, ph1, calcite, ptb1,scale_profile_risk=graphCalcite(temperature_head,
+            temperature_bottom,pressure_head,pressure_bottom,
+            well_depth,BOPD,BWPD,MSCF,co2_gas,alkalinity,
+            chlorides,sodium,potassium,magnesium,calcium,
+            strontium,barium,sulphates,carb_acids,i)
+
+        #Guardar los resultados del perfil de velocidad de corrosion en un data frame
+        df10.append(temp_array)
+        df11.append(press_array)
+        df12.append(depth_array)
+        df13.append(fy_df)
+        df14.append(ph_df)
+        df15.append(nk_df)
+        df25.append(corr_profile_risk)
+
+        results_corr=pd.DataFrame({'Pozo':df0,'Temperatura [F]':df10,'Presion [psi]':df11,
+                              'Profundidad [ft]':df12,'Fugacidad CO2':df13,
+                              'pH':df14,'Velocidad de corrosion (mpy)':df15,
+                              'Riesgo de corrosion':df25}).set_index(['Pozo']).apply(pd.Series.explode).reset_index()  
+
+        #Guardar los resultados del perfil del indice de saturacion en un data frame
+        df16.append(fy)
+        df17.append(ph1)
+        df18.append(calcite)
+        df19.append(ptb1)
+        df26.append(scale_profile_risk)
+
+        results_scale=pd.DataFrame({'Pozo':df0,'Temperatura [F]':df10,'Presion [psi]':df11,
+                              'Profundidad [ft]':df12,'Fugacidad CO2':df16,
+                              'pH':df17,'Indice de saturacion calcita':df18,'Solidos [PTB]':df19,
+                              'Riesgo de incrustaciones':df26}).set_index(['Pozo']).apply(pd.Series.explode).reset_index()
+
+        fig_corr=px.line(results_corr,x='Velocidad de corrosion (mpy)',y='Profundidad [ft]',title='Perfil de velocidad de corrosion',
+            hover_name='Pozo',hover_data=['Presion [psi]','Temperatura [F]','Riesgo de corrosion'])
+
+        fig_corr.update_traces(mode="markers+lines")
+        fig_corr.update_xaxes(showspikes=True, spikecolor='black')
+        fig_corr.update_yaxes(showspikes=True,spikecolor='black')
+        fig_corr.update_yaxes(autorange="reversed")
+        
+        fig_sca=px.line(results_scale,x='Indice de saturacion calcita', y='Profundidad [ft]',title='Perfil del indice de saturacion',
+                    hover_name='Pozo',hover_data=['Presion [psi]','Temperatura [F]','Solidos [PTB]','Riesgo de incrustaciones'])
+
+        fig_sca.update_traces(mode="markers+lines")
+        fig_sca.update_xaxes(showspikes=True, spikecolor='black')
+        fig_sca.update_yaxes(showspikes=True,spikecolor='black')
+        fig_sca.update_yaxes(autorange="reversed")
+        
+        #Optimizacion de la inyeccion de quimicos
+        precio_ic=20
+        precio_is=20
+        
+        critic_tot_corr=critic_corr_cab+critic_corr_bot
+
+        if critic_tot_corr>=3.5:
+            nivel_critic_corr='Muy alto'
+            dosis_recomendada_ic= 80*BWPD/23810
+        if critic_tot_corr >=2.5 and critic_tot_corr<3.5:
+            nivel_critic_corr='Alto'
+            dosis_recomendada_ic= 60*BWPD/23810
+        if critic_tot_corr >=1.5 and critic_tot_corr<2.5:
+            nivel_critic_corr='Moderado'
+            dosis_recomendada_ic= 40*BWPD/23810
+        if critic_tot_corr<1.5:
+            nivel_critic_corr='Bajo'
+            dosis_recomendada_ic= 20*BWPD/23810 
+
+        diferencia_dosis_ic=dosis_ic - dosis_recomendada_ic    
+        ahorro_anual_ic=diferencia_dosis_ic * precio_ic *30*12
+
+        #Guardar los resultados de cabeza y fondo en un data frame
+        df27.append(dosis_ic)
+        df28.append(dosis_recomendada_ic)
+        df29.append(ahorro_anual_ic)
+
+        results_ic=pd.DataFrame({'Dosis actual de anticorrosivo [gal/dia]':df27,
+                                 'Dosis recomendada de anticorrosivo [gal/dia]':df28,
+                                 'Ahorro por optimizacion de anticorrosivo [USD/año]':df29})
+
+        critic_tot_si=critic_si_cab+critic_si_bot
+
+        if critic_tot_si>=3.5:
+            nivel_critic_si='Muy alto'
+            dosis_recomendada_is= 80*BWPD/23810
+        if critic_tot_si >=2.5 and critic_tot_si<3.5:
+            nivel_critic_si='Alto'
+            dosis_recomendada_is= 60*BWPD/23810
+        if critic_tot_si >=1.5 and critic_tot_si<2.5:
+            nivel_critic_si='Moderado'
+            dosis_recomendada_is= 40*BWPD/23810
+        if critic_tot_si<1.5:
+            nivel_critic_si='Bajo'
+            dosis_recomendada_is= 20*BWPD/23810 
+
+        diferencia_dosis_is=dosis_is - dosis_recomendada_is
+        ahorro_anual_is=diferencia_dosis_is * precio_is *30*12
+
+        #Guardar los resultados de cabeza y fondo en un data frame
+        df30.append(dosis_is)
+        df31.append(dosis_recomendada_is)
+        df32.append(ahorro_anual_is)
+
+        results_is=pd.DataFrame({'Dosis actual de antiescala [gal/dia]':df30,
+                                 'Dosis recomendada de antiescala [gal/dia]':df31,
+                                 'Ahorro por optimizacion de antiescala [USD/año]':df32})
+  
+        ahorro_total=ahorro_anual_ic+ahorro_anual_is    
+    
         col1,col2=st.columns(2)
     
         with col1:
 
             if st.button('Calcular'):
 
-                #Velocidad de corrosion en cabeza
-                nk_temp, corr_ic_temp,corr_risk_temp = calcNorsok(temperature_head,
-                   pressure_head,BOPD,BWPD,MSCF,co2_gas,alkalinity,chlorides,sodium,
-                   potassium,magnesium,calcium,strontium,barium,sulphates,carb_acids,
-                   pipe_diameter,IC_eff,'CABEZA')
-
-                #Velocidad de corrosion en fondo
-                nk_temp1, corr_ic_temp1,corr_risk_temp1 = calcNorsok(temperature_bottom,
-                   pressure_bottom,BOPD,BWPD,MSCF,co2_gas,alkalinity,chlorides,sodium,
-                   potassium,magnesium,calcium,strontium,barium,sulphates,carb_acids,
-                   pipe_diameter,IC_eff,'FONDO')
-
-
-                #Indice de saturacion en cabeza
-                calcite_si_temp, solid_temp,scale_risk_temp=calCalcite(pressure_head,
-                   temperature_head,sodium,potassium,magnesium,
-                   calcium,strontium,barium,chlorides,sulphates,
-                   alkalinity,co2_gas,carb_acids,BOPD,
-                   BWPD,MSCF,"CABEZA")
-
-                #Indice de saturacion en fondo
-                calcite_si_temp1, solid_temp1,scale_risk_temp1=calCalcite(pressure_bottom,
-                   temperature_bottom,sodium,potassium,magnesium,
-                   calcium,strontium,barium,chlorides,sulphates,
-                   alkalinity,co2_gas,carb_acids,BOPD,
-                   BWPD,MSCF,"FONDO")   
-
-                #Calculo de la criticidad  
-                prod=BOPD
-                corr_c=corr_ic_temp
-                corr_b=corr_ic_temp1
-                scale_c=calcite_si_temp
-                scale_b=calcite_si_temp1
-
-                if prod > 500:
-                    critic_prod=4
-                if prod >350 and prod<=500:
-                    critic_prod=3
-                if prod >200 and prod<=350:
-                    critic_prod=2
-                if prod <= 200:
-                    critic_prod=1
-
-                if corr_c > 10:
-                    critic_corr_cab=2
-                if corr_c >5 and corr_c<=10:
-                    critic_corr_cab=1.5
-                if corr_c >1 and corr_c<=5:
-                    critic_corr_cab=1
-                if corr_c <= 1:
-                    critic_corr_cab=0.5 
-
-                if corr_b > 10:
-                    critic_corr_bot=2
-                if corr_b >5 and corr_b<=10:
-                    critic_corr_bot=1.5
-                if corr_b >1 and corr_b<=5:
-                    critic_corr_bot=1
-                if corr_b <= 1:
-                    critic_corr_bot=0.5     
-
-                if scale_c > 2.5:
-                    critic_si_cab=2
-                if scale_c >1.5 and scale_c<=2.5:
-                    critic_si_cab=1.5
-                if scale_c >0.5 and scale_c<=1.5:
-                    critic_si_cab=1
-                if scale_c <= 0.5:
-                    critic_si_cab=0.5
-
-                if scale_b > 2.5:
-                    critic_si_bot=2
-                if scale_b >1.5 and scale_b<=2.5:
-                    critic_si_bot=1.5
-                if scale_b >0.5 and scale_b<=1.5:
-                    critic_si_bot=1
-                if scale_b<= 0.5:
-                    critic_si_bot=0.5
-
-                critic_tot=critic_prod*(critic_corr_cab+critic_corr_bot)*(critic_si_cab+critic_si_bot)
-
-                if critic_tot>32:
-                    nivel_critic='Muy alta'
-                if critic_tot >16 and critic_tot<=32:
-                    nivel_critic='Alta'
-                if critic_tot >8 and critic_tot<=16:
-                    nivel_critic='Moderada'
-                if critic_tot<=8:
-                    nivel_critic='Baja'   
-
-                #Guardar los resultados de cabeza y fondo en un data frame
-                df0.append(i)
-                df1.append(corr_ic_temp)
-                df20.append(corr_risk_temp)
-                df2.append(corr_ic_temp1)
-                df21.append(corr_risk_temp1)
-                df3.append(calcite_si_temp)
-                df22.append(scale_risk_temp)
-                df4.append(calcite_si_temp1)
-                df23.append(scale_risk_temp1)
-                df5.append(BOPD)
-                df6.append(critic_prod)
-                df7.append(critic_corr_cab+critic_corr_bot)
-                df8.append(critic_si_cab+critic_si_bot)
-                df9.append(critic_tot)
-                df24.append(nivel_critic)
-
                 st.write('Prediccion de velocidad de corrosion y riesgo de corrosion')
-            
-                results_corr=pd.DataFrame({'Velocidad de corrosion cabeza [mpy]':df1,
-                                          'Riesgo de corrosion cabeza':df20,
-                                          'Velocidad de corrosion fondo [mpy]':df2,
-                                          'Riesgo de corrosion fondo':df21})
-
                 st.dataframe(results_corr)
 
                 st.write("")
-                st.write('Prediccion de indice de saturacion y riesgo de incrustaciones')
-
-                results_esc=pd.DataFrame({'Indice de saturacion cabeza':df3,
-                                          'Riesgo de incrustaciones cabeza':df22,
-                                          'Indice de saturacion fondo':df4,
-                                          'Riesgo de incrustaciones fondo':df23})
-
+                st.write('Prediccion de indice de saturacion y riesgo de incrustaciones')  
                 st.dataframe(results_esc)
 
                 output1=str("%.2f" % np.float_(df9))
                 st.success('Criticidad total: {}'.format(output1))
                 st.success('Prioridad para tratamiento quimico: {}'.format(nivel_critic))
 
-                #Perfil de la velocidad de corrosion
-                temp_array,press_array,depth_array,fy_df,ph_df,nk_df,corr_profile_risk = grahpNorskok(temperature_head,
-                   temperature_bottom,pressure_head,pressure_bottom,BOPD,BWPD,MSCF,co2_gas,alkalinity,
-                   chlorides,sodium,potassium,magnesium,calcium,strontium,barium,sulphates,carb_acids,
-                   pipe_diameter,IC_eff,well_depth,i)
-
-                #Perfil del indice de saturacion
-                temp_array, press_array, depth_array, fy, ph1, calcite, ptb1,scale_profile_risk=graphCalcite(temperature_head,
-                    temperature_bottom,pressure_head,pressure_bottom,
-                    well_depth,BOPD,BWPD,MSCF,co2_gas,alkalinity,
-                    chlorides,sodium,potassium,magnesium,calcium,
-                    strontium,barium,sulphates,carb_acids,i)
-
-                #Guardar los resultados del perfil de velocidad de corrosion en un data frame
-                df10.append(temp_array)
-                df11.append(press_array)
-                df12.append(depth_array)
-                df13.append(fy_df)
-                df14.append(ph_df)
-                df15.append(nk_df)
-                df25.append(corr_profile_risk)
-
-                results_corr=pd.DataFrame({'Pozo':df0,'Temperatura [F]':df10,'Presion [psi]':df11,
-                                      'Profundidad [ft]':df12,'Fugacidad CO2':df13,
-                                      'pH':df14,'Velocidad de corrosion (mpy)':df15,
-                                      'Riesgo de corrosion':df25}).set_index(['Pozo']).apply(pd.Series.explode).reset_index()  
-
-                #Guardar los resultados del perfil del indice de saturacion en un data frame
-                df16.append(fy)
-                df17.append(ph1)
-                df18.append(calcite)
-                df19.append(ptb1)
-                df26.append(scale_profile_risk)
-
-                results_scale=pd.DataFrame({'Pozo':df0,'Temperatura [F]':df10,'Presion [psi]':df11,
-                                      'Profundidad [ft]':df12,'Fugacidad CO2':df16,
-                                      'pH':df17,'Indice de saturacion calcita':df18,'Solidos [PTB]':df19,
-                                      'Riesgo de incrustaciones':df26}).set_index(['Pozo']).apply(pd.Series.explode).reset_index()
-
-                fig_corr=px.line(results_corr,x='Velocidad de corrosion (mpy)',y='Profundidad [ft]',title='Perfil de velocidad de corrosion',
-                    hover_name='Pozo',hover_data=['Presion [psi]','Temperatura [F]','Riesgo de corrosion'])
-
-                fig_corr.update_traces(mode="markers+lines")
-                fig_corr.update_xaxes(showspikes=True, spikecolor='black')
-                fig_corr.update_yaxes(showspikes=True,spikecolor='black')
-                fig_corr.update_yaxes(autorange="reversed")
-
+                st.write("")
+                st.write('Perfil de la velocidad de corrosion')
                 st.plotly_chart(fig_corr, use_container_width=True)
 
-
-                fig_sca=px.line(results_scale,x='Indice de saturacion calcita', y='Profundidad [ft]',title='Perfil del indice de saturacion',
-                    hover_name='Pozo',hover_data=['Presion [psi]','Temperatura [F]','Solidos [PTB]','Riesgo de incrustaciones'])
-
-                fig_sca.update_traces(mode="markers+lines")
-                fig_sca.update_xaxes(showspikes=True, spikecolor='black')
-                fig_sca.update_yaxes(showspikes=True,spikecolor='black')
-                fig_sca.update_yaxes(autorange="reversed")
-
+                st.write("")
+                st.write('Perfil del indice de saturacion')
                 st.plotly_chart(fig_sca, use_container_width=True)
                 
         with col2:
     
             if st.button('Optimizar dosis de quimicos'):
 
-                #Velocidad de corrosion en cabeza
-                nk_temp, corr_ic_temp,corr_risk_temp = calcNorsok(temperature_head,
-                       pressure_head,BOPD,BWPD,MSCF,co2_gas,alkalinity,chlorides,sodium,
-                       potassium,magnesium,calcium,strontium,barium,sulphates,carb_acids,
-                       pipe_diameter,IC_eff,'CABEZA')
-
-                #Velocidad de corrosion en fondo
-                nk_temp1, corr_ic_temp1,corr_risk_temp1 = calcNorsok(temperature_bottom,
-                       pressure_bottom,BOPD,BWPD,MSCF,co2_gas,alkalinity,chlorides,sodium,
-                       potassium,magnesium,calcium,strontium,barium,sulphates,carb_acids,
-                       pipe_diameter,IC_eff,'FONDO')
-
-
-                #Indice de saturacion en cabeza
-                calcite_si_temp, solid_temp,scale_risk_temp=calCalcite(pressure_head,
-                       temperature_head,sodium,potassium,magnesium,
-                       calcium,strontium,barium,chlorides,sulphates,
-                       alkalinity,co2_gas,carb_acids,BOPD,
-                       BWPD,MSCF,"CABEZA")
-
-                #Indice de saturacion en fondo
-                calcite_si_temp1, solid_temp1,scale_risk_temp1=calCalcite(pressure_bottom,
-                       temperature_bottom,sodium,potassium,magnesium,
-                       calcium,strontium,barium,chlorides,sulphates,
-                       alkalinity,co2_gas,carb_acids,BOPD,
-                       BWPD,MSCF,"FONDO")
-
-                precio_ic=20
-                precio_is=20
-
-                st.write('')
-                st.write('Optimizacion en la inyeccion de Anticorrosivo')
-
-                corr_c=corr_ic_temp
-                corr_b=corr_ic_temp1
-                scale_c=calcite_si_temp
-                scale_b=calcite_si_temp1
-
-                if corr_c > 10:
-                    critic_corr_cab=2
-                if corr_c >5 and corr_c<=10:
-                    critic_corr_cab=1.5
-                if corr_c >1 and corr_c<=5:
-                    critic_corr_cab=1
-                if corr_c <= 1:
-                    critic_corr_cab=0.5 
-
-                if corr_b > 10:
-                    critic_corr_bot=2
-                if corr_b >5 and corr_b<=10:
-                    critic_corr_bot=1.5
-                if corr_b >1 and corr_b<=5:
-                    critic_corr_bot=1
-                if corr_b <= 1:
-                    critic_corr_bot=0.5    
-
-                critic_tot_corr=critic_corr_cab+critic_corr_bot
-
-                if critic_tot_corr>=3.5:
-                    nivel_critic_corr='Muy alto'
-                    dosis_recomendada_ic= 80*BWPD/23810
-                if critic_tot_corr >=2.5 and critic_tot_corr<3.5:
-                    nivel_critic_corr='Alto'
-                    dosis_recomendada_ic= 60*BWPD/23810
-                if critic_tot_corr >=1.5 and critic_tot_corr<2.5:
-                    nivel_critic_corr='Moderado'
-                    dosis_recomendada_ic= 40*BWPD/23810
-                if critic_tot_corr<1.5:
-                    nivel_critic_corr='Bajo'
-                    dosis_recomendada_ic= 20*BWPD/23810 
-
-                diferencia_dosis_ic=dosis_ic - dosis_recomendada_ic    
-                ahorro_anual_ic=diferencia_dosis_ic * precio_ic *30*12
-
-                #Guardar los resultados de cabeza y fondo en un data frame
-                df27.append(dosis_ic)
-                df28.append(dosis_recomendada_ic)
-                df29.append(ahorro_anual_ic)
-
-                results_ic=pd.DataFrame({'Dosis actual de anticorrosivo [gal/dia]':df27,
-                                         'Dosis recomendada de anticorrosivo [gal/dia]':df28,
-                                         'Ahorro por optimizacion de anticorrosivo [USD/año]':df29})
-
+                st.write('Optimizacion en la inyeccion de Anticorrosivo')                  
                 st.dataframe(results_ic)
 
                 st.write('')
                 st.write('Optimizacion en la inyeccion de Antiescala')
-
-                if scale_c > 2.5:
-                    critic_si_cab=2
-                if scale_c >1.5 and scale_c<=2.5:
-                    critic_si_cab=1.5
-                if scale_c >0.5 and scale_c<=1.5:
-                    critic_si_cab=1
-                if scale_c <= 0.5:
-                    critic_si_cab=0.5
-
-                if scale_b > 2.5:
-                    critic_si_bot=2
-                if scale_b >1.5 and scale_b<=2.5:
-                    critic_si_bot=1.5
-                if scale_b >0.5 and scale_b<=1.5:
-                    critic_si_bot=1
-                if scale_b<= 0.5:
-                    critic_si_bot=0.5
-
-                critic_tot_si=critic_si_cab+critic_si_bot
-
-                if critic_tot_si>=3.5:
-                    nivel_critic_si='Muy alto'
-                    dosis_recomendada_is= 80*BWPD/23810
-                if critic_tot_si >=2.5 and critic_tot_si<3.5:
-                    nivel_critic_si='Alto'
-                    dosis_recomendada_is= 60*BWPD/23810
-                if critic_tot_si >=1.5 and critic_tot_si<2.5:
-                    nivel_critic_si='Moderado'
-                    dosis_recomendada_is= 40*BWPD/23810
-                if critic_tot_si<1.5:
-                    nivel_critic_si='Bajo'
-                    dosis_recomendada_is= 20*BWPD/23810 
-
-                diferencia_dosis_is=dosis_is - dosis_recomendada_is
-
-                ahorro_anual_is=diferencia_dosis_is * precio_is *30*12
-
-                #Guardar los resultados de cabeza y fondo en un data frame
-                df30.append(dosis_is)
-                df31.append(dosis_recomendada_is)
-                df32.append(ahorro_anual_is)
-
-                results_is=pd.DataFrame({'Dosis actual de antiescala [gal/dia]':df30,
-                                         'Dosis recomendada de antiescala [gal/dia]':df31,
-                                         'Ahorro por optimizacion de antiescala [USD/año]':df32})
-
                 st.dataframe(results_is)
-
-                ahorro_total=ahorro_anual_ic+ahorro_anual_is
+                
                 output4=str("%.2f" % ahorro_total) + ' USD/año'
                 st.success('El ahorro total por optimizacion de quimicos es {}'.format(output4))
 
