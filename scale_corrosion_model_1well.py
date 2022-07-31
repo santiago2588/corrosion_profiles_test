@@ -1262,121 +1262,7 @@ def run():
                             parameters["Sulphates"],
                             parameters["Carboxylic acids"],
                             i)    
-
-                #Calculo de la criticidad  
-                prod=parameters['BOPD']
-                corr_c=corr_ic_temp
-                corr_b=corr_ic_temp1
-                scale_c=calcite_si_temp
-                scale_b=calcite_si_temp1
-
-                if prod > 500:
-                    critic_prod=4
-                if prod >350 and prod<=500:
-                    critic_prod=3
-                if prod >200 and prod<=350:
-                    critic_prod=2
-                if prod <= 200:
-                    critic_prod=1
-
-                if corr_c > 10:
-                    critic_corr_cab=2
-                if corr_c >5 and corr_c<=10:
-                    critic_corr_cab=1.5
-                if corr_c >1 and corr_c<=5:
-                    critic_corr_cab=1
-                if corr_c <= 1:
-                    critic_corr_cab=0.5 
-
-                if corr_b > 10:
-                    critic_corr_bot=2
-                if corr_b >5 and corr_b<=10:
-                    critic_corr_bot=1.5
-                if corr_b >1 and corr_b<=5:
-                    critic_corr_bot=1
-                if corr_b <= 1:
-                    critic_corr_bot=0.5     
-
-                if scale_c > 2.5:
-                    critic_si_cab=2
-                if scale_c >1.5 and scale_c<=2.5:
-                    critic_si_cab=1.5
-                if scale_c >0.5 and scale_c<=1.5:
-                    critic_si_cab=1
-                if scale_c <= 0.5:
-                    critic_si_cab=0.5
-
-                if scale_b > 2.5:
-                    critic_si_bot=2
-                if scale_b >1.5 and scale_b<=2.5:
-                    critic_si_bot=1.5
-                if scale_b >0.5 and scale_b<=1.5:
-                    critic_si_bot=1
-                if scale_b<= 0.5:
-                    critic_si_bot=0.5
-
-                critic_tot=critic_prod*(critic_corr_cab+critic_corr_bot)*(critic_si_cab+critic_si_bot)
-
-                if critic_tot>32:
-                    nivel_critic='Muy alta'
-                if critic_tot >16 and critic_tot<=32:
-                    nivel_critic='Alta'
-                if critic_tot >8 and critic_tot<=16:
-                    nivel_critic='Moderada'
-                if critic_tot<=8:
-                    nivel_critic='Baja'
-                    
-                #Calculo de la dosis de quimico recomendada y el ahorro
                 
-                BWPD=parameters['BWPD']
-                dosis_ic=parameters["dosis_ic"]
-                dosis_is=parameters["dosis_is"]
-                precio_ic=parameters["precio_ic"]
-                precio_is=parameters["precio_is"]
-                
-                corr_c=corr_ic_temp
-                corr_b=corr_ic_temp1
-                scale_c=calcite_si_temp
-                scale_b=calcite_si_temp1
-
-                critic_tot_corr=critic_corr_cab+critic_corr_bot
-
-                if critic_tot_corr>=3.5:
-                    nivel_critic_corr='Muy alto'
-                    dosis_recomendada_ic= math.ceil(80*BWPD/23810)
-                if critic_tot_corr >=2.5 and critic_tot_corr<3.5:
-                    nivel_critic_corr='Alto'
-                    dosis_recomendada_ic= math.ceil(60*BWPD/23810)
-                if critic_tot_corr >=1.5 and critic_tot_corr<2.5:
-                    nivel_critic_corr='Moderado'
-                    dosis_recomendada_ic= math.ceil(40*BWPD/23810)
-                if critic_tot_corr<1.5:
-                    nivel_critic_corr='Bajo'
-                    dosis_recomendada_ic= math.ceil(20*BWPD/23810) 
-
-                diferencia_dosis_ic=dosis_ic - dosis_recomendada_ic    
-                ahorro_anual_ic=diferencia_dosis_ic * precio_ic *30*12
-
-                critic_tot_si=critic_si_cab+critic_si_bot
-
-                if critic_tot_si>=3.5:
-                    nivel_critic_si='Muy alto'
-                    dosis_recomendada_is= math.ceil(80*BWPD/23810)
-                if critic_tot_si >=2.5 and critic_tot_si<3.5:
-                    nivel_critic_si='Alto'
-                    dosis_recomendada_is= math.ceil(60*BWPD/23810)
-                if critic_tot_si >=1.5 and critic_tot_si<2.5:
-                    nivel_critic_si='Moderado'
-                    dosis_recomendada_is= math.ceil(40*BWPD/23810)
-                if critic_tot_si<1.5:
-                    nivel_critic_si='Bajo'
-                    dosis_recomendada_is= math.ceil(20*BWPD/23810) 
-
-                diferencia_dosis_is=dosis_is - dosis_recomendada_is
-                ahorro_anual_is=diferencia_dosis_is * precio_is *30*12
-                
-                ahorro_total=ahorro_anual_ic+ahorro_anual_is
-
                 #Guardar los resultados de cabeza y fondo en un data frame
                 df0.append(i)
                 df1.append(corr_ic_temp)
@@ -1388,22 +1274,7 @@ def run():
                 df4.append(calcite_si_temp1)
                 df23.append(scale_risk_temp1)
                 df5.append(parameters['BOPD'])
-                df6.append(critic_prod)
-                df7.append(critic_corr_cab+critic_corr_bot)
-                df8.append(critic_si_cab+critic_si_bot)
-                df9.append(critic_tot)
-                df24.append(nivel_critic)
-
-                results=pd.DataFrame({'Pozo':df0,'Producción [bopd]':df5,'Velocidad de corrosion cabeza [mpy]':df1,
-                                      'Riesgo de corrosion cabeza':df20,
-                                      'Velocidad de corrosion fondo [mpy]':df2,
-                                      'Riesgo de corrosion fondo':df21,
-                                      'Indice de saturacion cabeza':df3,
-                                      'Riesgo de incrustaciones cabeza':df22,
-                                      'Indice de saturacion fondo':df4,
-                                      'Riesgo de incrustaciones fondo':df23,
-                                      'Criticidad total':df9, 'Prioridad TQ':df24})
-                                
+                
                 #Guardar los resultados del perfil de velocidad de corrosion en un data frame
                 df10.append(temp_array)
                 df11.append(press_array)
@@ -1438,22 +1309,147 @@ def run():
                     locals()[f'well_scale{i}'] = subdf
                 
                 
+                #Calculo de la criticidad  
+                prod=parameters['BOPD']
+                corr_median=np.median(df15)
+                scale_median=np.median(df18)
+
+                if prod > 500:
+                    critic_prod=4
+                if prod >350 and prod<=500:
+                    critic_prod=3
+                if prod >200 and prod<=350:
+                    critic_prod=2
+                if prod <= 200:
+                    critic_prod=1
+
+                if corr_median > 10:
+                    critic_corr=4
+                    risk_corr_median = 'Muy alto'
+                if corr_median >5 and corr_median<=10:
+                    critic_corr=3
+                    risk_corr_median = "Alto"
+                if corr_median >1 and corr_median<=5:
+                    critic_corr=2
+                    risk_corr_median ='Moderado'
+                if corr_median <= 1:
+                    critic_corr=1
+                    risk_corr_median ='Bajo'
+
+                if scale_median > 2.5:
+                    critic_si=4
+                    risk_scale_median = 'Muy alto'
+                if scale_median >1.5 and scale_median<=2.5:
+                    critic_si=3
+                    risk_scale_median = 'Alto'
+                if scale_median >0.5 and scale_median<=1.5:
+                    critic_si=2
+                    risk_scale_median = 'Moderado'
+                if scale_median <= 0.5:
+                    critic_si=1
+                    risk_scale_median = 'Bajo'
+
+                critic_tot=critic_prod*critic_corr*critic_si
+
+                if critic_tot>32:
+                    nivel_critic='Muy alta'
+                if critic_tot >16 and critic_tot<=32:
+                    nivel_critic='Alta'
+                if critic_tot >8 and critic_tot<=16:
+                    nivel_critic='Moderada'
+                if critic_tot<=8:
+                    nivel_critic='Baja'
+                
+                #Guardar los resultados de la criticidad
+                df6.append(critic_prod)
+                df7.append(critic_corr)
+                df8.append(critic_si)
+                df9.append(critic_tot)
+                df24.append(nivel_critic)
+                
+                #Resultados corrosion, escala y criticidad
+                results=pd.DataFrame({'Pozo':df0,'Producción [bopd]':df5,'Velocidad de corrosion cabeza [mpy]':df1,
+                                      'Riesgo de corrosion cabeza':df20,
+                                      'Velocidad de corrosion fondo [mpy]':df2,
+                                      'Riesgo de corrosion fondo':df21,
+                                      'Indice de saturacion cabeza':df3,
+                                      'Riesgo de incrustaciones cabeza':df22,
+                                      'Indice de saturacion fondo':df4,
+                                      'Riesgo de incrustaciones fondo':df23,
+                                      'Criticidad total':df9, 'Prioridad TQ':df24})
+    
+                #Calculo de la dosis de quimico recomendada y el ahorro      
+                BWPD=parameters['BWPD']
+                dosis_ic=parameters["dosis_ic"]
+                dosis_is=parameters["dosis_is"]
+                precio_ic=parameters["precio_ic"]
+                precio_is=parameters["precio_is"]
+                
+                if corr_median>10:
+                    dosis_recomendada_ic= math.ceil(80*BWPD/23810)
+                if corr_median >5 and corr_median<=10:
+                    dosis_recomendada_ic= math.ceil(60*BWPD/23810)
+                if corr_median >1 and corr_median<=5:
+                    dosis_recomendada_ic= math.ceil(40*BWPD/23810)
+                if corr_median<=1:
+                    dosis_recomendada_ic= math.ceil(20*BWPD/23810) 
+
+                diferencia_dosis_ic=dosis_ic - dosis_recomendada_ic
+
+                if dosis_ic < dosis_recomendada_ic:
+                    estado_dosis_ic = "Sub-dosificado"
+                else:
+                    estado_dosis_ic = "Sobre-dosificado"
+
+                ahorro_anual_ic=diferencia_dosis_ic * precio_ic *30*12
+
+                if ahorro_anual_ic>0:
+                    resultado_ic=str('Ahorro potencial '+"%.2f" % ahorro_anual_ic) + ' USD/año' + ' al disminuir dosis de anticorrosivo'
+                else:
+                    resultado_ic='Pozo con riesgo de corrosion. Aumentar dosis de anticorrosivo'
+                
+                
+                if scale_median>2.5:
+                    dosis_recomendada_is= math.ceil(80*BWPD/23810)
+                if scale_median >1.5 and scale_median<=2.5:
+                    dosis_recomendada_is= math.ceil(60*BWPD/23810)
+                if scale_median >0.5 and scale_median<=1.5:
+                    dosis_recomendada_is= math.ceil(40*BWPD/23810)
+                if scale_median<=0.5:
+                    dosis_recomendada_is= math.ceil(20*BWPD/23810) 
+
+                diferencia_dosis_is=dosis_is - dosis_recomendada_is
+
+                if dosis_is < dosis_recomendada_is:
+                    estado_dosis_is = "Sub-dosificado"
+                else:
+                    estado_dosis_is = "Sobre-dosificado"
+
+                ahorro_anual_is=diferencia_dosis_is * precio_is *30*12
+
+                if ahorro_anual_is>0:
+                    resultado_is=str('Ahorro potencial '+"%.2f" % ahorro_anual_is) + ' USD/año' + ' al disminuir dosis de antiescala'
+                else:
+                    resultado_is='Riesgo de incrustaciones. Aumentar dosis de antiescala'  
+                
                 #Guardar los resultados de dosis recomendadas y ahorro en un data frame
                 df33.append(dosis_ic)
                 df34.append(dosis_recomendada_ic)
-                df35.append(ahorro_anual_ic)
+                df35.append(resultado_ic)
                 df36.append(dosis_is)
                 df37.append(dosis_recomendada_is)
-                df38.append(ahorro_anual_is)
-                df39.append(ahorro_total)
+                df38.append(resultado_is)
+                df42.append(estado_dosis_ic)
+                df43.append(estado_dosis_is)
 
                 results_opt=pd.DataFrame({'Pozo':df0,'Dosis actual de anticorrosivo [gal/dia]':df33,
                                          'Dosis recomendada de anticorrosivo [gal/dia]':df34,
-                                         'Ahorro por optimizacion de anticorrosivo [USD/año]':df35,
+                                         'Estado dosificacion de anticorrosivo':df42,
+                                         'Analisis inyeccion de anticorrosivo':df35,
                                          'Dosis actual de antiescala [gal/dia]':df36,
                                          'Dosis recomendada de antiescala [gal/dia]':df37,
-                                         'Ahorro por optimizacion de antiescala [USD/año]':df38,
-                                         'Ahorro total [USD/año]':df39})
+                                         'Estado dosificacion de antiescala':df43, 
+                                         'Analisis inyeccion de antiescala':df38})            
                                  
             st.dataframe(results)
             
