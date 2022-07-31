@@ -1056,7 +1056,6 @@ def run():
                        de quimicos y el monitoreo a los pozos mas criticos del campo. De esta manera, se optimiza el tiempo y los recursos del personal de\
                        tratamiento quimico.')
                 
-
     
         if st.button('Optimizar dosis de quimicos'):
 
@@ -1090,6 +1089,11 @@ def run():
 
             st.markdown('Nota: se asume un precio de 20 USD/gal para el anticorrosivo y el antiescala')
      
+    
+        if st.button('Beneficios'): 
+            st.success("Felicitaciones, has comenzado a desbloquear algunos de los beneficios de la digitalización y el procesamiento de datos con modelos cientificos e inteligencia artificial.") 
+            st.markdown("En esta ocasion, te hemos presentado los beneficios del modulo de Calculos. Sin embargo, quedan inmensas oportunidades para optimizar la productividad y el desempeño de los pozos petroleros al integrar todos los modulos de ASTRO") 
+            st.markdown("Si estás listo para emprender este camino y llevar la digitalización al siguiente nivel, contactate con nosotros para guiarte en el proceso y recibir asesoria de nuestros expertos para optimizar tus operaciones.")
     
     # Codigo para varios pozos
     
@@ -1493,14 +1497,6 @@ def run():
                 st.success('El ahorro total por optimizacion de quimicos es {}'.format(output4))
 
                 st.info('Nota: se asume un precio de 20 USD/gal para el anticorrosivo y el antiescala')
-        
-        
-    st.write('')
-    st.header("Felicitaciones, has comenzado a desbloquear algunos de los beneficios de la digitalización y los modelos cientificos,\
-            pero quedan inmensas oportunidades para aumentar la productividad y optimizar el desempeño de los pozos petroleros.\
-            Si estás listo para emprender este camino y llevar la digitalización al siguiente nivel, contactate con nosotros.")
-    
-    st.success('www.pungoapp.com')
             
 
 # In[20]:
