@@ -1462,16 +1462,16 @@ def run():
               
                 #Resultados optimizacion quimicos
                 
-                results_opt=pd.DataFrame({'Pozo':df0,'Dosis actual de anticorrosivo [gal/dia]':df33,
+                results_opt_corr=pd.DataFrame({'Pozo':df0,'Dosis actual de anticorrosivo [gal/dia]':df33,
                                          'Dosis recomendada de anticorrosivo [gal/dia]':df34,
                                          'Estado dosificacion de anticorrosivo':df42,
-                                         'Analisis inyeccion de anticorrosivo':df35,
-                                         'Dosis actual de antiescala [gal/dia]':df36,
+                                         'Analisis inyeccion de anticorrosivo':df35})            
+                                 
+                results_opt_scale=pd.DataFrame({'Pozo':df0,'Dosis actual de antiescala [gal/dia]':df36,
                                          'Dosis recomendada de antiescala [gal/dia]':df37,
                                          'Estado dosificacion de antiescala':df43, 
-                                         'Analisis inyeccion de antiescala':df38})            
-                                 
- 
+                                         'Analisis inyeccion de antiescala':df38})
+                
                     
             if st.button('Resultados de corrosion'):
                 
@@ -1546,12 +1546,19 @@ def run():
                 
             if st.button('Optimizar dosis de quimicos'):
                 
-                st.dataframe(results_opt)
+                st.dataframe(results_opt_corr)
                 def convert_df(df):
                     return df.to_csv().encode('utf-8')
                 
-                csv_opt = convert_df(results_opt)
-                st.download_button("📥Press to Download",csv_opt,"file.csv","text/csv",key='download-csv')
+                csv_opt_corr = convert_df(results_opt_corr)
+                st.download_button("📥Press to Download",csv_opt_corr,"file.csv","text/csv",key='download-csv')
+                
+                st.dataframe(results_opt_scale)
+                def convert_df(df):
+                    return df.to_csv().encode('utf-8')
+                
+                csv_opt_scale = convert_df(results_opt_scale)
+                st.download_button("📥Press to Download",csv_opt_scale,"file.csv","text/csv",key='download-csv')
                 
                 #ahorro_total_opt=results_opt['Ahorro total [USD/año]'].sum()
                 #output4=str("%.2f" % ahorro_total_opt) + ' USD/año'
