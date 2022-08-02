@@ -610,6 +610,8 @@ df42=[]
 df43=[]
 df44=[]
 df45=[]
+df46=[]
+df47=[]
 
 # Calculo de los resultados
 
@@ -1274,6 +1276,7 @@ def run():
                 df4.append(calcite_si_temp1)
                 df23.append(scale_risk_temp1)
                 df5.append(parameters['BOPD'])
+                                     
                 
                 #Guardar los resultados del perfil de velocidad de corrosion en un data frame
                 df10.append(temp_array)
@@ -1283,31 +1286,13 @@ def run():
                 df14.append(ph_df)
                 df15.append(nk_df)
                 df25.append(corr_profile_risk)
-
-                results_corr=pd.DataFrame({'Pozo':df0,'Temperatura [F]':df10,'Presion [psi]':df11,
-                                      'Profundidad [ft]':df12,'Fugacidad CO2':df13,
-                                      'pH':df14,'Velocidad de corrosion (mpy)':df15,
-                                      'Riesgo de corrosion':df25}).set_index(['Pozo']).apply(pd.Series.explode).reset_index()
-
-                for i, (Pozo, subdf) in enumerate(results_corr.groupby('Pozo'), 1):
-                    locals()[f'well_corr{i}'] = subdf
-
-
+                
                 #Guardar los resultados del perfil del indice de saturacion en un data frame
                 df16.append(fy)
                 df17.append(ph1)
                 df18.append(calcite)
                 df19.append(ptb1)
-                df26.append(scale_profile_risk)
-
-                results_scale=pd.DataFrame({'Pozo':df0,'Temperatura [F]':df10,'Presion [psi]':df11,
-                                      'Profundidad [ft]':df12,'Fugacidad CO2':df16,
-                                      'pH':df17,'Indice de saturacion calcita':df18,'Solidos [PTB]':df19,
-                                      'Riesgo de incrustaciones':df26}).set_index(['Pozo']).apply(pd.Series.explode).reset_index()
-
-                for i, (Pozo, subdf) in enumerate(results_scale.groupby('Pozo'), 1):
-                    locals()[f'well_scale{i}'] = subdf
-                
+                df26.append(scale_profile_risk)                
                 
                 #Calculo de la criticidad  
                 prod=parameters['BOPD']
@@ -1366,18 +1351,11 @@ def run():
                 df8.append(critic_si)
                 df9.append(critic_tot)
                 df24.append(nivel_critic)
+                df44.append(corr_median)
+                df45.append(scale_median)
+                df46.append(risk_corr_median)
+                df47.append(risk_scale_median)
                 
-                #Resultados corrosion, escala y criticidad
-                results=pd.DataFrame({'Pozo':df0,'Producción [bopd]':df5,'Velocidad de corrosion cabeza [mpy]':df1,
-                                      'Riesgo de corrosion cabeza':df20,
-                                      'Velocidad de corrosion fondo [mpy]':df2,
-                                      'Riesgo de corrosion fondo':df21,
-                                      'Indice de saturacion cabeza':df3,
-                                      'Riesgo de incrustaciones cabeza':df22,
-                                      'Indice de saturacion fondo':df4,
-                                      'Riesgo de incrustaciones fondo':df23,
-                                      'Criticidad total':df9, 'Prioridad TQ':df24})
-    
                 #Calculo de la dosis de quimico recomendada y el ahorro      
                 BWPD=parameters['BWPD']
                 dosis_ic=parameters["dosis_ic"]
@@ -1430,7 +1408,7 @@ def run():
                 if ahorro_anual_is>0:
                     resultado_is=str('Ahorro potencial '+"%.2f" % ahorro_anual_is) + ' USD/año' + ' al disminuir dosis de antiescala'
                 else:
-                    resultado_is='Riesgo de incrustaciones. Aumentar dosis de antiescala'  
+                    resultado_is='Riesgo de incrustaciones. Aumentar dosis de antiescala'
                 
                 #Guardar los resultados de dosis recomendadas y ahorro en un data frame
                 df33.append(dosis_ic)
@@ -1441,7 +1419,50 @@ def run():
                 df38.append(resultado_is)
                 df42.append(estado_dosis_ic)
                 df43.append(estado_dosis_is)
+                
+                
+                #Resultados de corrosion                
 
+                results_corr=pd.DataFrame({'Pozo':df0,'Velocidad de corrosion cabeza [mpy]':df1,'Riesgo de corrosion cabeza':df20,
+                                      'Velocidad de corrosion fondo [mpy]':df2,'Riesgo de corrosion fondo':df21,
+                                      'Velocidad de corrosion promedio [mpy]':df44,'Riesgo de corrosion promedio':df46}).set_index(['Pozo'])
+
+                results_corr_profile=pd.DataFrame({'Pozo':df0,'Temperatura [F]':df10,'Presion [psi]':df11,
+                                      'Profundidad [ft]':df12,'Fugacidad CO2':df13,
+                                      'pH':df14,'Velocidad de corrosion (mpy)':df15,
+                                      'Riesgo de corrosion':df25}).set_index(['Pozo']).apply(pd.Series.explode).reset_index()
+
+                for i, (Pozo, subdf) in enumerate(results_corr_profile.groupby('Pozo'), 1):
+                    locals()[f'well_corr{i}'] = subdf
+                
+                
+
+                #Resultados de escala
+                
+                results_scale=pd.DataFrame({'Pozo':df0,'Indice de saturacion cabeza':df3,'Riesgo de incrustaciones cabeza':df22,
+                                      'Indice de saturacion fondo':df4,'Riesgo de incrustaciones fondo':df23,
+                                      'Indice de saturacion promedio [mpy]':df45,'Riesgo de incrustaciones promedio':df47}).set_index(['Pozo'])
+
+                results_scale_profile=pd.DataFrame({'Pozo':df0,'Temperatura [F]':df10,'Presion [psi]':df11,
+                                      'Profundidad [ft]':df12,'Fugacidad CO2':df16,
+                                      'pH':df17,'Indice de saturacion calcita':df18,'Solidos [PTB]':df19,
+                                      'Riesgo de incrustaciones':df26}).set_index(['Pozo']).apply(pd.Series.explode).reset_index()
+
+                for i, (Pozo, subdf) in enumerate(results_scale_profile.groupby('Pozo'), 1):
+                    locals()[f'well_scale{i}'] = subdf
+                  
+                
+                
+                #Resultados criticidad
+                
+                results_critic=pd.DataFrame({'Pozo':df0,'Producción [bopd]':df5,'Velocidad de corrosion promedio [mpy]':df44,
+                                            'Indice de saturacion promedio [mpy]':df45, 
+                                            'Criticidad total':df9, 'Prioridad TQ':df24})
+                   
+                
+              
+                #Resultados optimizacion quimicos
+                
                 results_opt=pd.DataFrame({'Pozo':df0,'Dosis actual de anticorrosivo [gal/dia]':df33,
                                          'Dosis recomendada de anticorrosivo [gal/dia]':df34,
                                          'Estado dosificacion de anticorrosivo':df42,
@@ -1451,17 +1472,17 @@ def run():
                                          'Estado dosificacion de antiescala':df43, 
                                          'Analisis inyeccion de antiescala':df38})            
                                  
-            st.dataframe(results)
-            
-            def convert_df(df):
-                return df.to_csv().encode('utf-8')
-
-            csv = convert_df(results)
-
-            st.download_button("📥Press to Download",csv,"file.csv","text/csv",key='download-csv')
+ 
                     
-            if st.button('Perfil velocidad de corrosion'):
+            if st.button('Resultados de corrosion'):
+                
+                st.dataframe(results_corr)
             
+                def convert_df(df):
+                return df.to_csv().encode('utf-8')
+                csv_corr = convert_df(results_corr)
+                st.download_button("📥Press to Download",csv_corr,"file.csv","text/csv",key='download-csv')
+                
                 corr_sliced=[v for k, v in results_corr.groupby('Pozo')]
 
                 for df in corr_sliced:
@@ -1474,7 +1495,15 @@ def run():
                     fig_corr.update_yaxes(autorange="reversed")
                     st.plotly_chart(fig_corr, use_container_width=True)
                 
-            if st.button('Perfil indice de saturacion'):   
+            if st.button('Resultados indice de saturacion'):
+                
+                st.dataframe(results_scale)
+            
+                def convert_df(df):
+                return df.to_csv().encode('utf-8')
+                csv_scale = convert_df(results_scale)                
+                st.download_button("📥Press to Download",csv_scale,"file.csv","text/csv",key='download-csv')
+                
                 scale_sliced=[v for k, v in results_scale.groupby('Pozo')]
 
                 for df in scale_sliced:
@@ -1488,7 +1517,14 @@ def run():
                     st.plotly_chart(fig_sca, use_container_width=True)   
             
             if st.button('Criticidad de pozos'): 
+                
+                st.dataframe(results_critic)
             
+                def convert_df(df):
+                return df.to_csv().encode('utf-8')
+                csv_critic = convert_df(results_critic)
+                st.download_button("📥Press to Download",csv_critic,"file.csv","text/csv",key='download-csv')
+                
                 fig_crit=px.bar(results, x='Pozo', y='Criticidad total',hover_data=['Prioridad TQ'])
                 fig_crit.update_layout(xaxis={'categoryorder':'total descending'}, title='Criticidad total Pozos')
                 st.plotly_chart(fig_crit, use_container_width=True)
@@ -1509,11 +1545,16 @@ def run():
             if st.button('Optimizar dosis de quimicos'):
                 
                 st.dataframe(results_opt)
+                def convert_df(df):
+                return df.to_csv().encode('utf-8')
+                csv_opt = convert_df(results_opt)
+                st.download_button("📥Press to Download",csv_opt,"file.csv","text/csv",key='download-csv')
+                
                 #ahorro_total_opt=results_opt['Ahorro total [USD/año]'].sum()
                 #output4=str("%.2f" % ahorro_total_opt) + ' USD/año'
                 #st.success('El ahorro total por optimizacion de quimicos es {}'.format(output4))
 
-                st.info('Nota: se asume un precio de 20 USD/gal para el anticorrosivo y el antiescala')
+                #st.info('Nota: se asume un precio de 20 USD/gal para el anticorrosivo y el antiescala')
             
 
 # In[20]:
