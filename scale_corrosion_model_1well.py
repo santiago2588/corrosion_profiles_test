@@ -1479,7 +1479,8 @@ def run():
                 st.dataframe(results_corr)
             
                 def convert_df(df):
-                return df.to_csv().encode('utf-8')
+                    return df.to_csv().encode('utf-8')
+                
                 csv_corr = convert_df(results_corr)
                 st.download_button("📥Press to Download",csv_corr,"file.csv","text/csv",key='download-csv')
                 
@@ -1500,7 +1501,8 @@ def run():
                 st.dataframe(results_scale)
             
                 def convert_df(df):
-                return df.to_csv().encode('utf-8')
+                    return df.to_csv().encode('utf-8')
+                
                 csv_scale = convert_df(results_scale)                
                 st.download_button("📥Press to Download",csv_scale,"file.csv","text/csv",key='download-csv')
                 
@@ -1521,7 +1523,8 @@ def run():
                 st.dataframe(results_critic)
             
                 def convert_df(df):
-                return df.to_csv().encode('utf-8')
+                    return df.to_csv().encode('utf-8')
+                
                 csv_critic = convert_df(results_critic)
                 st.download_button("📥Press to Download",csv_critic,"file.csv","text/csv",key='download-csv')
                 
@@ -1546,7 +1549,8 @@ def run():
                 
                 st.dataframe(results_opt)
                 def convert_df(df):
-                return df.to_csv().encode('utf-8')
+                    return df.to_csv().encode('utf-8')
+                
                 csv_opt = convert_df(results_opt)
                 st.download_button("📥Press to Download",csv_opt,"file.csv","text/csv",key='download-csv')
                 
