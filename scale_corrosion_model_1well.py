@@ -1434,8 +1434,7 @@ def run():
 
                 for i, (Pozo, subdf) in enumerate(results_corr_profile.groupby('Pozo'), 1):
                     locals()[f'well_corr{i}'] = subdf
-                
-                
+      
 
                 #Resultados de escala
                 
@@ -1528,7 +1527,7 @@ def run():
                 csv_critic = convert_df(results_critic)
                 st.download_button("📥Press to Download",csv_critic,"file.csv","text/csv",key='download-csv')
                 
-                fig_crit=px.bar(results, x='Pozo', y='Criticidad total',hover_data=['Prioridad TQ'])
+                fig_crit=px.bar(results_critic, x='Pozo', y='Criticidad total',hover_data=['Prioridad TQ'])
                 fig_crit.update_layout(xaxis={'categoryorder':'total descending'}, title='Criticidad total Pozos')
                 st.plotly_chart(fig_crit, use_container_width=True)
                 
@@ -1538,9 +1537,9 @@ def run():
                 ytot=y1+y2+y3
 
                 fig_con=go.Figure()
-                fig_con.add_trace(go.Bar(x=results['Pozo'], y=(y1/ytot)*100,name='Produccion'))
-                fig_con.add_trace(go.Bar(x=results['Pozo'], y=(y2/ytot)*100,name='Corrosion'))
-                fig_con.add_trace(go.Bar(x=results['Pozo'], y=(y3/ytot)*100,name='Escala'))
+                fig_con.add_trace(go.Bar(x=results_critic['Pozo'], y=(y1/ytot)*100,name='Produccion'))
+                fig_con.add_trace(go.Bar(x=results_critic['Pozo'], y=(y2/ytot)*100,name='Corrosion'))
+                fig_con.add_trace(go.Bar(x=results_critic['Pozo'], y=(y3/ytot)*100,name='Escala'))
                 fig_con.update_layout(barmode='stack', title='Contribuciones (%) a la Criticidad total',yaxis_title='Contribucion, %')
                 st.plotly_chart(fig_con, use_container_width=True)
                 
