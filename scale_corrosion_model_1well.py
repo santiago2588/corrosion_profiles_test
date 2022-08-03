@@ -1294,10 +1294,18 @@ def run():
                 df19.append(ptb1)
                 df26.append(scale_profile_risk)                
                 
-                #Calculo de la criticidad  
+                #Calculo de la criticidad
+                
                 prod=parameters['BOPD']
-                corr_median=np.median(df15)
-                scale_median=np.median(df18)
+                
+                #Velocidad de corrosion promedio
+                for list in df15:
+                    corr_median=np.median(list)
+               
+               #Indice de saturacion promedio
+                for list in df18:
+                    scale_median=np.median(list)
+                
 
                 if prod > 500:
                     critic_prod=4
