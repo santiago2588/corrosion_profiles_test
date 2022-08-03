@@ -872,8 +872,8 @@ def run():
         
         #Calculo de la criticidad  
         prod=BOPD
-        corr_median=np.median(df15)
-        scale_median=np.median(df18)
+        corr_max=np.max(df15)
+        scale_max=np.max(df18)
 
         if prod > 500:
             critic_prod=4
@@ -884,31 +884,31 @@ def run():
         if prod <= 200:
             critic_prod=1
 
-        if corr_median > 10:
+        if corr_max > 10:
             critic_corr=4
-            risk_corr_median = 'Muy alto'
-        if corr_median >5 and corr_median<=10:
+            risk_corr_max = 'Muy alto'
+        if corr_max >5 and corr_max<=10:
             critic_corr=3
-            risk_corr_median = "Alto"
-        if corr_median >1 and corr_median<=5:
+            risk_corr_max = "Alto"
+        if corr_max >1 and corr_max<=5:
             critic_corr=2
-            risk_corr_median ='Moderado'
-        if corr_median <= 1:
+            risk_corr_max ='Moderado'
+        if corr_max <= 1:
             critic_corr=1
-            risk_corr_median ='Bajo'
+            risk_corr_max ='Bajo'
 
-        if scale_median > 2.5:
+        if scale_max > 2.5:
             critic_si=4
-            risk_scale_median = 'Muy alto'
-        if scale_median >1.5 and scale_median<=2.5:
+            risk_scale_max = 'Muy alto'
+        if scale_max >1.5 and scale_max<=2.5:
             critic_si=3
-            risk_scale_median = 'Alto'
-        if scale_median >0.5 and scale_median<=1.5:
+            risk_scale_max = 'Alto'
+        if scale_max >0.5 and scale_max<=1.5:
             critic_si=2
-            risk_scale_median = 'Moderado'
-        if scale_median <= 0.5:
+            risk_scale_max = 'Moderado'
+        if scale_max <= 0.5:
             critic_si=1
-            risk_scale_median = 'Bajo'
+            risk_scale_max = 'Bajo'
 
         critic_tot=critic_prod*critic_corr*critic_si
 
@@ -934,13 +934,13 @@ def run():
         precio_ic=20
         precio_is=20
 
-        if corr_median>10:
+        if corr_max>10:
             dosis_recomendada_ic= math.ceil(80*BWPD/23810)
-        if corr_median >5 and corr_median<=10:
+        if corr_max >5 and corr_max<=10:
             dosis_recomendada_ic= math.ceil(60*BWPD/23810)
-        if corr_median >1 and corr_median<=5:
+        if corr_max >1 and corr_max<=5:
             dosis_recomendada_ic= math.ceil(40*BWPD/23810)
-        if corr_median<=1:
+        if corr_max<=1:
             dosis_recomendada_ic= math.ceil(20*BWPD/23810) 
 
         diferencia_dosis_ic=dosis_ic - dosis_recomendada_ic
@@ -969,13 +969,13 @@ def run():
                                  'Ahorro por optimizacion de anticorrosivo [USD/año]':df29})
 
 
-        if scale_median>2.5:
+        if scale_max>2.5:
             dosis_recomendada_is= math.ceil(80*BWPD/23810)
-        if scale_median >1.5 and scale_median<=2.5:
+        if scale_max >1.5 and scale_max<=2.5:
             dosis_recomendada_is= math.ceil(60*BWPD/23810)
-        if scale_median >0.5 and scale_median<=1.5:
+        if scale_max >0.5 and scale_max<=1.5:
             dosis_recomendada_is= math.ceil(40*BWPD/23810)
-        if scale_median<=0.5:
+        if scale_max<=0.5:
             dosis_recomendada_is= math.ceil(20*BWPD/23810) 
 
         diferencia_dosis_is=dosis_is - dosis_recomendada_is
@@ -1018,8 +1018,8 @@ def run():
                 st.metric('Riesgo de corrosion en fondo',df21[0])
 
             with col3:
-                st.metric('Velocidad de corrosion promedio',str("%.2f" % np.float_(corr_median))+' MPY')
-                st.metric('Riesgo de corrosion promedio',risk_corr_median)
+                st.metric('Velocidad de corrosion maxima',str("%.2f" % np.float_(corr_max))+' MPY')
+                st.metric('Riesgo de corrosion maximo',risk_corr_max)
 
             st.plotly_chart(fig_corr, use_container_width=True)
 
@@ -1036,8 +1036,8 @@ def run():
                 st.metric('Riesgo de incrustaciones en fondo',df23[0])
 
             with col3:
-                st.metric('Indice de saturacion promedio',str("%.2f" % np.float_(scale_median)))
-                st.metric('Riesgo de incrustaciones promedio',risk_scale_median)
+                st.metric('Indice de saturacion maximo',str("%.2f" % np.float_(scale_max)))
+                st.metric('Riesgo de incrustaciones maximo',risk_scale_max)
 
             st.plotly_chart(fig_sca, use_container_width=True)
 
@@ -1300,11 +1300,11 @@ def run():
                 
                 #Velocidad de corrosion promedio
                 for list in df15:
-                    corr_median=np.median(list)
+                    corr_max=np.max(list)
                
                #Indice de saturacion promedio
                 for list in df18:
-                    scale_median=np.median(list)
+                    scale_max=np.max(list)
                 
 
                 if prod > 500:
@@ -1316,31 +1316,31 @@ def run():
                 if prod <= 200:
                     critic_prod=1
 
-                if corr_median > 10:
+                if corr_max > 10:
                     critic_corr=4
-                    risk_corr_median = 'Muy alto'
-                if corr_median >5 and corr_median<=10:
+                    risk_corr_max = 'Muy alto'
+                if corr_max >5 and corr_max<=10:
                     critic_corr=3
-                    risk_corr_median = "Alto"
-                if corr_median >1 and corr_median<=5:
+                    risk_corr_max = "Alto"
+                if corr_max >1 and corr_max<=5:
                     critic_corr=2
-                    risk_corr_median ='Moderado'
-                if corr_median <= 1:
+                    risk_corr_max ='Moderado'
+                if corr_max <= 1:
                     critic_corr=1
-                    risk_corr_median ='Bajo'
+                    risk_corr_max ='Bajo'
 
-                if scale_median > 2.5:
+                if scale_max > 2.5:
                     critic_si=4
-                    risk_scale_median = 'Muy alto'
-                if scale_median >1.5 and scale_median<=2.5:
+                    risk_scale_max = 'Muy alto'
+                if scale_max >1.5 and scale_max<=2.5:
                     critic_si=3
-                    risk_scale_median = 'Alto'
-                if scale_median >0.5 and scale_median<=1.5:
+                    risk_scale_max = 'Alto'
+                if scale_max >0.5 and scale_max<=1.5:
                     critic_si=2
-                    risk_scale_median = 'Moderado'
-                if scale_median <= 0.5:
+                    risk_scale_max = 'Moderado'
+                if scale_max <= 0.5:
                     critic_si=1
-                    risk_scale_median = 'Bajo'
+                    risk_scale_max = 'Bajo'
 
                 critic_tot=critic_prod*critic_corr*critic_si
 
@@ -1359,10 +1359,10 @@ def run():
                 df8.append(critic_si)
                 df9.append(critic_tot)
                 df24.append(nivel_critic)
-                df44.append(corr_median)
-                df45.append(scale_median)
-                df46.append(risk_corr_median)
-                df47.append(risk_scale_median)
+                df44.append(corr_max)
+                df45.append(scale_max)
+                df46.append(risk_corr_max)
+                df47.append(risk_scale_max)
                 
                 #Calculo de la dosis de quimico recomendada y el ahorro      
                 BWPD=parameters['BWPD']
@@ -1371,13 +1371,13 @@ def run():
                 precio_ic=parameters["precio_ic"]
                 precio_is=parameters["precio_is"]
                 
-                if corr_median>10:
+                if corr_max>10:
                     dosis_recomendada_ic= math.ceil(80*BWPD/23810)
-                if corr_median >5 and corr_median<=10:
+                if corr_max >5 and corr_max<=10:
                     dosis_recomendada_ic= math.ceil(60*BWPD/23810)
-                if corr_median >1 and corr_median<=5:
+                if corr_max >1 and corr_max<=5:
                     dosis_recomendada_ic= math.ceil(40*BWPD/23810)
-                if corr_median<=1:
+                if corr_max<=1:
                     dosis_recomendada_ic= math.ceil(20*BWPD/23810) 
 
                 diferencia_dosis_ic=dosis_ic - dosis_recomendada_ic
@@ -1395,13 +1395,13 @@ def run():
                     resultado_ic='Pozo con riesgo de corrosion. Aumentar dosis de anticorrosivo'
                 
                 
-                if scale_median>2.5:
+                if scale_max>2.5:
                     dosis_recomendada_is= math.ceil(80*BWPD/23810)
-                if scale_median >1.5 and scale_median<=2.5:
+                if scale_max >1.5 and scale_max<=2.5:
                     dosis_recomendada_is= math.ceil(60*BWPD/23810)
-                if scale_median >0.5 and scale_median<=1.5:
+                if scale_max >0.5 and scale_max<=1.5:
                     dosis_recomendada_is= math.ceil(40*BWPD/23810)
-                if scale_median<=0.5:
+                if scale_max<=0.5:
                     dosis_recomendada_is= math.ceil(20*BWPD/23810) 
 
                 diferencia_dosis_is=dosis_is - dosis_recomendada_is
@@ -1462,8 +1462,8 @@ def run():
                 
                 #Resultados criticidad
                 
-                results_critic=pd.DataFrame({'Pozo':df0,'Producción [bopd]':df5,'Velocidad de corrosion promedio [mpy]':df44,
-                                            'Indice de saturacion promedio [mpy]':df45, 
+                results_critic=pd.DataFrame({'Pozo':df0,'Producción [bopd]':df5,'Velocidad de corrosion maxima [mpy]':df44,
+                                            'Indice de saturacion maximo [mpy]':df45, 
                                             'Criticidad total':df9, 'Prioridad TQ':df24})
                    
                 
@@ -1568,11 +1568,6 @@ def run():
                 csv_opt_scale = convert_df(results_opt_scale)
                 st.download_button("📥Press to Download",csv_opt_scale,"file.csv","text/csv",key='download-csv')
                 
-                #ahorro_total_opt=results_opt['Ahorro total [USD/año]'].sum()
-                #output4=str("%.2f" % ahorro_total_opt) + ' USD/año'
-                #st.success('El ahorro total por optimizacion de quimicos es {}'.format(output4))
-
-                #st.info('Nota: se asume un precio de 20 USD/gal para el anticorrosivo y el antiescala')
             
 
 # In[20]:
