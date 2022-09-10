@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
 # Codigo para calcular la velocidad de corrosion en pozos petroleros de acuerdo con el modelo NORSOK M-506 2017, y el indice de saturacion basado en el modelo de Oddo Tomson
 #
 # VARIABLES QUE INGRESAN AL MODELO
