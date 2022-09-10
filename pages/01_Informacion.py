@@ -12,7 +12,7 @@ st.write("""
 with st.expander('Para que sirve ASTRO❓'):
     
     st.markdown("""
-    ### ASTRO es una herramienta digital para la gestion integral del tratamiento quimico en la industria petrolera:
+    ### ASTRO genera los siguientes beneficios:
     - Reduce los costos asociados al tratamiento químico y las pérdidas de producción por eventos de corrosión e incrustaciones
     - Identifica los pozos críticos en tus operaciones con nuestra metodología para priorizar y optimizar el tratamiento químico
     - Disminuye el tiempo para el procesamiento de datos, genera reportes automáticos y libera tiempo valioso para optimizar la rentabilidad y seguridad de las operaciones""")
