@@ -4,6 +4,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
+import calcNorsok
 
 # PRUEBA DE LAS FUNCIONES
 # Modelo validado con la hoja de calculo Excel de Norsok 2017
