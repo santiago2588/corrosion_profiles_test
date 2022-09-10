@@ -71,6 +71,8 @@ df47 = []
 def run():
     st.set_page_config(layout="wide")
 
+    st.title("Cálculo de velocidad de corrosión, índice de saturacion, y criticidad de pozos petroleros")
+
     st.subheader("Predicciones para múltiples pozos")
 
     file_upload = st.file_uploader("Subir archivo CSV para las predicciones", type=["csv"])
