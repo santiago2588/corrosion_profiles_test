@@ -17,10 +17,11 @@ with st.expander('Para que sirve ASTRO❓'):
                  
 with st.expander("Para que sirve el modulo de calculos de ASTRO❓"):
 
-    st.markdown("""### Este modulo permite predecir la velocidad de corrosión, índice de saturacion, y criticidad de los pozos de petróleo en función de
-         varios parametros de produccion y laboratorio. Para obtener las predicciones, selecciona la hoja Calculos. Luego, ajusta el
-         valor de cada parametro. Después de eso, da clic en el botón Calcular en la parte inferior para
-         ver las predicciones del modelo.""")
+    st.markdown("""
+    ###Este modulo permite predecir la velocidad de corrosión, índice de saturacion, y criticidad de los pozos de petróleo en función de varios parametros de produccion y laboratorio. 
+    Para obtener las predicciones, selecciona la hoja Calculos. Luego, ajusta el valor de cada parametro. 
+    Después de eso, da clic en el botón Calcular en la parte inferior para ver las predicciones del modelo.
+    """)
 
     st.markdown(
         """
