@@ -8,8 +8,13 @@ st.markdown("# Informacion")
 with st.expander('Para que sirve ASTRO❓'):
     
     st.markdown("""
-    ### ASTRO es una herramienta digital para la gestion integral del tratamiento quimico en la industria petrolera""")
-    
+    ### ASTRO es una herramienta digital para la gestion integral del tratamiento quimico en la industria petrolera:
+    - Reduce los costos asociados al tratamiento químico y las pérdidas de producción por eventos de corrosión e incrustaciones
+    - Identifica los pozos críticos en tus operaciones con nuestra metodología para priorizar y optimizar el tratamiento químico
+    - Disminuye el tiempo para el procesamiento de datos, genera reportes automáticos y libera tiempo valioso para optimizar la rentabilidad y seguridad de las operaciones""")
+
+    st.write("")
+
     st.markdown("ASTRO es una solucion modular que se adapta a tus necesidades y genera valor en tus operaciones. ASTRO incluye los siguientes modulos:")
     
     image1 = Image.open('Resources/modulos astro.png')
