@@ -25,7 +25,7 @@ with st.expander("Para que sirve el modulo de calculos de ASTRO❓"):
     - Luego, ajusta el valor de cada parametro. 
     - Después de eso, da clic en el botón Calcular en la parte inferior para ver las predicciones del modelo.""")
 
-    st write("")
+    st.write("")
 
     st.markdown("""
     El modulo de calculos tambien permite optimizar las dosis de los quimicos anticorrosivo y antiescala en funcion de los resultados
