@@ -622,17 +622,6 @@ def run():
     
     st.set_page_config(layout="wide")
     
-    from PIL import Image
-    image = Image.open('../Resources/logo_Pungo_1.png')
-    
-    col1,col2=st.columns(2)
-    
-    with col1:
-        st.image(image)
-    
-    with col2: 
-        st.header('DIGITALIZACIÓN QUE GENERA IMPACTO: Desarrollamos soluciones digitales que te permiten optimizar tus recursos (tiempo, dinero) y mejorar el desempeno de los pozos petroleros')
-    
     add_selectbox = st.sidebar.selectbox(
     "Que deseas predecir?",
     ("Un solo pozo", "Varios pozos"))
