@@ -1,6 +1,8 @@
 import streamlit as st
 from PIL import Image
 
+st.set_page_config(layout="wide")
+
 st.markdown("# Informacion")
 
 with st.expander('Para que sirve ASTRO❓'):
@@ -18,15 +20,14 @@ with st.expander('Para que sirve ASTRO❓'):
 with st.expander("Para que sirve el modulo de calculos de ASTRO❓"):
 
     st.markdown("""
-    ###Este modulo permite predecir la velocidad de corrosión, índice de saturacion, y criticidad de los pozos de petróleo en función de varios parametros de produccion y laboratorio. 
-    Para obtener las predicciones, selecciona la hoja Calculos. Luego, ajusta el valor de cada parametro. 
-    Después de eso, da clic en el botón Calcular en la parte inferior para ver las predicciones del modelo.
+    Este modulo permite predecir la velocidad de corrosión, índice de saturacion, y criticidad de los pozos de petróleo en función de varios parametros de produccion y laboratorio. 
+    - Para obtener las predicciones, selecciona la hoja Calculos. 
+    - Luego, ajusta el valor de cada parametro. 
+    - Después de eso, da clic en el botón Calcular en la parte inferior para ver las predicciones del modelo.
+    
+    El modulo de calculos tambien permite optimizar las dosis de los quimicos anticorrosivo y antiescala en funcion de los resultados
+            obtenidos en el modelo (riesgo de corrosion, incrustaciones y criticidad). 
+            - Para ello, selecciona la hoja Optimizacion.
+            - Da clic en el boton Optimizar en la parte inferior y obtendras las dosis recomendadas de los quimicos, junto con el ahorro generado.
     """)
 
-    st.markdown(
-        """
-        El modulo de calculos tambien permite optimizar las dosis de los quimicos anticorrosivo y antiescala en funcion de los resultados
-            obtenidos en el modelo (riesgo de corrosion, incrustaciones y criticidad). Para ello, selecciona la hoja Optimizacion y da clic en el boton Optimizar en la parte inferior
-            y obtendras las dosis recomendadas de los quimicos, junto con el ahorro generado.
-                 """
-    )
