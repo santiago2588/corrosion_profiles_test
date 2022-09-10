@@ -29,17 +29,8 @@ with st.expander('Para que sirve ASTRO❓'):
 with st.expander("Para que sirve el modulo de calculos de ASTRO❓"):
 
     st.markdown("""
-    ### Este modulo permite predecir la velocidad de corrosión, índice de saturacion, y criticidad de los pozos de petróleo en función de varios parametros de produccion y laboratorio. 
-    - Para obtener las predicciones, selecciona la hoja Calculos. 
-    - Luego, ajusta el valor de cada parametro. 
-    - Después de eso, da clic en el botón Calcular en la parte inferior para ver las predicciones del modelo.""")
-
-    st.write("")
-
-    st.markdown("""
-    El modulo de calculos tambien permite optimizar las dosis de los quimicos anticorrosivo y antiescala en funcion de los resultados
+    ### Este modulo permite predecir la velocidad de corrosión, índice de saturacion, y criticidad de los pozos de petróleo en función de varios parametros de produccion y laboratorio. El modulo de calculos tambien permite optimizar las dosis de los quimicos anticorrosivo y antiescala en funcion de los resultados
     obtenidos en el modelo (riesgo de corrosion, incrustaciones y criticidad). 
-    - Para ello, selecciona la hoja Optimizacion.
-    - Luego da clic en el boton Optimizar en la parte inferior y obtendras las dosis recomendadas de los quimicos, junto con el ahorro generado.
+    - Si deseas obtener las predicciones para 1 pozo, selecciona la hoja "Calculos 1 pozo". Luego, ajusta el valor de cada parametro y presiona el boton Calcular para ver los resultados. Despues, presiona el boton Optimizar y obtendras las dosis recomendadas de los quimicos, junto con el ahorro generado.
+    - Si deseas obtener las predicciones para multiples pozos, selecciona la hoja "Calculos varios pozos". Carga el archivo CSV con los parametros de produccion y laboratorio de los pozos. Despues, da click en los botones que se indican para obtener los resultados. 
     """)
-
