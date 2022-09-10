@@ -623,7 +623,7 @@ def run():
     st.set_page_config(layout="wide")
     
     from PIL import Image
-    image = Image.open('logo_Pungo_1.png')
+    image = Image.open('../logo_Pungo_1.png')
     
     col1,col2=st.columns(2)
     
@@ -1115,7 +1115,7 @@ def run():
                     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 
-            local_css("style.css")
+            local_css("../style.css")
 
     
     # Codigo para varios pozos
