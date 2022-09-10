@@ -511,6 +511,7 @@ def run():
             st.plotly_chart(fig_con, use_container_width=True)
 
         if st.button('Optimizar dosis de quimicos'):
+
             st.dataframe(results_opt_corr)
 
             def convert_df(df):
@@ -525,7 +526,7 @@ def run():
                 return df.to_csv().encode('utf-8')
 
             csv_opt_scale = convert_df(results_opt_scale)
-            st.download_button("📥Press to Download", csv_opt_scale, "file.csv", "text/csv", key='download-csv')
+            st.download_button("📥Press to Download", csv_opt_scale, "file.csv", "text/csv", key='download-csv_1')
 
 
 # In[20]:
