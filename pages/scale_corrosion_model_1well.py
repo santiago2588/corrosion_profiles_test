@@ -1,3 +1,10 @@
+import math
+import numpy as np
+import pandas as pd
+import plotly.express as px
+import plotly.graph_objects as go
+import streamlit as st
+
 # PRUEBA DE LAS FUNCIONES
 # Modelo validado con la hoja de calculo Excel de Norsok 2017
 # Condiciones del pozo
