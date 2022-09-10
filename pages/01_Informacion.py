@@ -29,7 +29,7 @@ with st.expander('Para que sirve ASTRO❓'):
 with st.expander("Para que sirve el modulo de calculos de ASTRO❓"):
 
     st.markdown("""
-    ### El modulo de Calculos te sirve para:
+    ### El modulo de Calculos de ASTRO te sirve para:
     - Predecir la velocidad de corrosión, índice de saturacion, y criticidad de los pozos de petróleo en función de varios parametros de produccion y laboratorio. 
     - Optimizar las dosis de los quimicos anticorrosivo y antiescala en funcion de los resultados obtenidos en el modelo (riesgo de corrosion, incrustaciones y criticidad).
     - Generar ahorros por optimizacion de los quimicos e incremento de la produccion de los pozos debido a un tratamiento quimico adecuado. 
