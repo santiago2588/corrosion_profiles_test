@@ -625,16 +625,7 @@ def run():
     add_selectbox = st.sidebar.selectbox(
     "Que deseas predecir?",
     ("Un solo pozo", "Varios pozos"))
-    
-    st.sidebar.info('Esta es una aplicación web para predecir la velocidad de corrosión, índice de saturacion, y criticidad de los pozos de petróleo en función de\
-         varios parametros que puedes ver en la pantalla. Por favor, ajusta el\
-         valor de cada parametro. Después de eso, da clic en el botón Calcular en la parte inferior para\
-         ver las predicciones del modelo.')
-    
-    st.sidebar.info('Esta herramienta tambien permite optimizar las dosis de los quimicos anticorrosivo y antiescala en funcion de los resultados\
-            obtenidos en el modelo (riesgo de corrosion, incrustaciones y criticidad). Para ello, da clic en el boton Optimizar en la parte inferior\
-            y obtendras las dosis recomendadas de los quimicos, junto con el ahorro generado')
-    
+
     st.title("Cálculo de velocidad de corrosión, índice de saturacion, y criticidad de pozos petroleros")
 
     if add_selectbox == 'Un solo pozo':
