@@ -16,7 +16,5 @@ st.image(image)
 st.write("# DIGITALIZACIÓN QUE GENERA IMPACTO")
 st.write("### Soluciones digitales para incrementar tus ingresos, disminuir tus costos operativos, reducir riesgos en tus operaciones y mejorar tu desempeño ambiental, desarrolladas a la medida de tus necesidades.")
 
-st.write("""
-        ### Bienvenido al demo de ASTRO: la herramienta digital para la gestión del tratamiento químico en la industria petrolera
-        """)
+
 
