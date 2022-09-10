@@ -495,8 +495,8 @@ def run():
         with col3:
             st.metric('Prioridad para tratamiento quimico', nivel_critic)
 
-        st.success('El indice de criticidad se calcula a partir de la produccion de petroleo del pozo, la velocidad de corrosion promedio, y el indice de\
-                   saturacion promedio. Por tanto, es un valor que toma en cuenta el riesgo global de la perdida de produccion en caso de sufrir eventos de\
+        st.success('El indice de criticidad se calcula a partir de la produccion de petroleo del pozo, la velocidad de corrosion maxima, y el indice de\
+                   saturacion maximo en todo el perfil. Por tanto, es un valor que toma en cuenta el riesgo global de la perdida de produccion en caso de sufrir eventos de\
                    corrosion o incrustaciones a lo largo de toda la tuberia de produccion. El valor del indice de criticidad permite priorizar la dosificacion\
                    de quimicos y el monitoreo a los pozos mas criticos del campo. De esta manera, se optimiza el tiempo y los recursos del personal de\
                    tratamiento quimico.')
