@@ -449,7 +449,7 @@ def run():
 
     ahorro_total = ahorro_anual_ic + ahorro_anual_is
 
-    if st.button('Calcular'):
+    if st.button('Calcular velocidad de corrosion'):
         col1, col2, col3 = st.columns(3)
 
         with col1:
@@ -468,6 +468,8 @@ def run():
 
         st.write("")
 
+    if st.button('Calcular indice de saturacion'):
+
         col1, col2, col3 = st.columns(3)
 
         with col1:
@@ -483,6 +485,8 @@ def run():
             st.metric('Riesgo de incrustaciones maximo', risk_scale_max)
 
         st.plotly_chart(fig_sca, use_container_width=True)
+
+    if st.button('Calcular criticidad del pozo'):
 
         col1, col2, col3 = st.columns(3)
 
