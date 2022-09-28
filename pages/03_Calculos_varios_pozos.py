@@ -253,11 +253,11 @@ def run():
 
             prod = parameters['BOPD']
 
-            # Velocidad de corrosion promedio
+            # Velocidad de corrosion maximo
             for list in df15:
                 corr_max = np.max(list)
 
-            # Indice de saturacion promedio
+            # Indice de saturacion maximo
             for list in df18:
                 scale_max = np.max(list)
 
@@ -388,7 +388,7 @@ def run():
             results_corr = pd.DataFrame(
                 {'Pozo': df0, 'Velocidad de corrosion cabeza [mpy]': df1, 'Riesgo de corrosion cabeza': df20,
                  'Velocidad de corrosion fondo [mpy]': df2, 'Riesgo de corrosion fondo': df21,
-                 'Velocidad de corrosion promedio [mpy]': df44, 'Riesgo de corrosion promedio': df46}).set_index(
+                 'Velocidad de corrosion maximo [mpy]': df44, 'Riesgo de corrosion maximo': df46}).set_index(
                 ['Pozo'])
 
             results_corr_profile = pd.DataFrame({'Pozo': df0, 'Temperatura [F]': df10, 'Presion [psi]': df11,
@@ -405,7 +405,7 @@ def run():
             results_scale = pd.DataFrame(
                 {'Pozo': df0, 'Indice de saturacion cabeza': df3, 'Riesgo de incrustaciones cabeza': df22,
                  'Indice de saturacion fondo': df4, 'Riesgo de incrustaciones fondo': df23,
-                 'Indice de saturacion promedio [mpy]': df45, 'Riesgo de incrustaciones promedio': df47}).set_index(
+                 'Indice de saturacion maximo [mpy]': df45, 'Riesgo de incrustaciones maximo': df47}).set_index(
                 ['Pozo'])
 
             results_scale_profile = pd.DataFrame({'Pozo': df0, 'Temperatura [F]': df10, 'Presion [psi]': df11,
