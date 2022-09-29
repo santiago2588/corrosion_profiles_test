@@ -9,7 +9,7 @@
 # temp: temperature in well head [F]
 # temp1: temperature in well bottom [F]
 # Na: sodium concentration in water [mg/l]
-# K: potasium concentration in water [mg/l]
+# K: potassium concentration in water [mg/l]
 # Mg: magnesium concentration in water [mg/l]
 # Ca: calcium concentration in water [mg/l]
 # Sr: strontium concentration in water [mg/l]
