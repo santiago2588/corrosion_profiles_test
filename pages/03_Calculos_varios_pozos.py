@@ -449,6 +449,7 @@ def run():
 
             corr_sliced = [v for k, v in results_corr_profile.groupby('Pozo')]
 
+        if st.button('Perfiles velocidad de corrosion'):
             for df in corr_sliced:
                 fig_corr = px.line(df, x='Velocidad de corrosion (mpy)', y='Profundidad [ft]',
                                    title='Perfil de velocidad de corrosion',
@@ -472,6 +473,8 @@ def run():
             st.download_button("📥Press to Download", csv_scale, "file.csv", "text/csv", key='download-csv')
 
             scale_sliced = [v for k, v in results_scale_profile.groupby('Pozo')]
+
+        if st.button("Perfiles indice de saturacion"):
 
             for df in scale_sliced:
                 fig_sca = px.line(df, x='Indice de saturacion calcita', y='Profundidad [ft]',
