@@ -370,8 +370,9 @@ def Kt(temp):
     # Converting temp to C
     temp = (temp - 32) * (5 / 9)
 
-    temp_table = (5, 15, 20, 40, 60, 80, 90, 120, 150)
-    value_table = (0.42, 1.59, 4.762, 8.927, 10.695, 9.949, 6.250, 7.770, 5.203)
+    #The values corresponding to temp (180, 190) are interpolated
+    temp_table = (5, 15, 20, 40, 60, 80, 90, 120, 150,180,190)
+    value_table = (0.42, 1.59, 4.762, 8.927, 10.695, 9.949, 6.250, 7.770, 5.203,5.384,5.602)
 
     for i, temp_i in enumerate(temp_table):
 
