@@ -449,13 +449,13 @@ def run():
 
     ahorro_total = ahorro_anual_ic + ahorro_anual_is
 
-    if "load_state" not in st.session_state:
-        st.session_state.load_state = False
-
     corr_button=st.button('Calcular velocidad de corrosion')
 
-    if corr_button or st.session_state.load_state:
-        st.session_state.load_state=True
+    if "corr_state" not in st.session_state:
+        st.session_state.corr_state = False
+
+    if corr_button or st.session_state.corr_state:
+        st.session_state.corr_state=True
         col1, col2, col3 = st.columns(3)
 
         with col1:
@@ -476,8 +476,11 @@ def run():
 
     scale_button=st.button('Calcular indice de saturacion')
 
-    if scale_button or st.session_state.load_state:
-        st.session_state.load_state=True
+    if "scale_state" not in st.session_state:
+        st.session_state.scale_state = False
+
+    if scale_button or st.session_state.scale_state:
+        st.session_state.scale_state=True
 
         col1, col2, col3 = st.columns(3)
 
@@ -497,8 +500,11 @@ def run():
 
     critic_button=st.button('Calcular criticidad del pozo')
 
-    if critic_button or st.session_state.load_state:
-        st.session_state.load_state=True
+    if "critic_state" not in st.session_state:
+        st.session_state.critic_state = False
+
+    if critic_button or st.session_state.critic_state:
+        st.session_state.critic_state=True
 
         col1, col2, col3 = st.columns(3)
 
@@ -519,8 +525,11 @@ def run():
 
     opt_button=st.button('Optimizar dosis de quimicos')
 
-    if opt_button or st.session_state.load_state:
-        st.session_state.load_state=True
+    if "opt_state" not in st.session_state:
+        st.session_state.opt_state = False
+
+    if opt_button or st.session_state.opt_state:
+        st.session_state.opt_state=True
 
         # Dosis anticorrosivo
         col1, col2, col3 = st.columns(3)
