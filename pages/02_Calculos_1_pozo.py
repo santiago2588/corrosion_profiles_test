@@ -449,7 +449,13 @@ def run():
 
     ahorro_total = ahorro_anual_ic + ahorro_anual_is
 
-    if st.button('Calcular velocidad de corrosion'):
+    corr_button=st.button('Calcular velocidad de corrosion')
+
+    if "load_state" not in st.session_state:
+        st.session_state.load_state = False
+
+    if corr_button or st.session_state.load_state:
+        st.session_state.load_state=True
         col1, col2, col3 = st.columns(3)
 
         with col1:
