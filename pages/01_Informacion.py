@@ -5,10 +5,6 @@ st.set_page_config(layout="wide")
 
 st.markdown("# Informacion")
 
-st.write("""
-        ### Bienvenido al demo de ASTRO: la herramienta digital para la gestión del tratamiento químico en la industria petrolera
-        """)
-
 with st.expander('Para que sirve ASTRO❓'):
     
     st.markdown("""
