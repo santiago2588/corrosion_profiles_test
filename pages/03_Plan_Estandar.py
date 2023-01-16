@@ -80,6 +80,10 @@ def run():
     st.write("3. Presiona el boton Calcular para ver los resultados: velocidad de corrosion, indice de saturacion y criticidad de los pozos")
     st.write("4. Presiona el boton Optimizar para obtener las dosis recomendadas de los quimicos, junto con el ahorro generado")
 
+    filepath='Databases/plantilla_pozos.csv'
+    with open(filepath, 'rb') as excel_template:
+        st.download_button(label = 'Descargar plantilla Excel', data = excel_template, file_name = 'plantilla_pozos.xlsx', mime = 'text/csv')
+
     file_upload = st.file_uploader("Subir archivo CSV para las predicciones", type=["csv"])
 
     if file_upload is not None:
