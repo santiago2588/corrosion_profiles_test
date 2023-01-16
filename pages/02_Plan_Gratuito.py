@@ -76,7 +76,7 @@ def run():
 
     st.write('Por favor, sigue los pasos que se presentan a continuacion.')
     st.write("1. Ajusta el valor de cada parametro en las unidades y rangos correspondientes")
-    st.write("2. Presiona el boton Calcular para ver los resultados")
+    st.write("2. Presiona el boton Calcular para ver los resultados: velocidad de corrosion, indice de saturacion y criticidad del pozo")
     st.write("3. Presiona el boton Optimizar para obtener las dosis recomendadas de los quimicos, junto con el ahorro generado")
 
     BOPD = st.slider(label='Barriles de petroleo por dia, BPPD', min_value=0,
