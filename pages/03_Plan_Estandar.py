@@ -72,9 +72,15 @@ def run():
     st.set_page_config(layout="wide")
 
     st.title('Plan Estandar')
-    st.markdown("Cálculo de velocidad de corrosión, índice de saturacion, y criticidad de pozos petroleros para multiples pozos petroleros")
+    st.subheader("Cálculo de velocidad de corrosión, índice de saturacion, y criticidad de pozos petroleros para multiples pozos petroleros")
 
-    file_upload = st.file_uploader("Subir archivo CSV para las predicciones", type=["csv"])
+    st.write('Por favor, sigue los pasos que se presentan a continuacion')
+    st.write("1. Descarga la plantilla Excel y llena los datos requeridos de los pozos petroleros, en las unidades correspondientes")
+    st.write("2. Carga el archivo Excel lleno")
+    st.write("3. Presiona el boton Calcular para ver los resultados")
+    st.write("4. Presiona el boton Optimizar para obtener las dosis recomendadas de los quimicos, junto con el ahorro generado")
+
+file_upload = st.file_uploader("Subir archivo CSV para las predicciones", type=["csv"])
 
     if file_upload is not None:
         data = pd.read_csv(file_upload)

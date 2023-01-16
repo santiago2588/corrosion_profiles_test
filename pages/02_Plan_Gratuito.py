@@ -72,7 +72,12 @@ def run():
     st.set_page_config(layout="wide")
 
     st.title('Plan Gratuito')
-    st.markdown("Cálculo de velocidad de corrosión, índice de saturacion, y criticidad para un pozo petrolero")
+    st.subheader("Cálculo de velocidad de corrosión, índice de saturacion, y criticidad para un pozo petrolero")
+
+    st.write('Por favor, sigue los pasos que se presentan a continuacion.')
+    st.write("1. Ajusta el valor de cada parametro en las unidades y rangos correspondientes")
+    st.write("2. Presiona el boton Calcular para ver los resultados")
+    st.write("3. Presiona el boton Optimizar para obtener las dosis recomendadas de los quimicos, junto con el ahorro generado")
 
     BOPD = st.slider(label='Barriles de petroleo por dia, BPPD', min_value=0,
                      max_value=5000,
