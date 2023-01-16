@@ -80,7 +80,7 @@ def run():
     st.write("3. Presiona el boton Calcular para ver los resultados")
     st.write("4. Presiona el boton Optimizar para obtener las dosis recomendadas de los quimicos, junto con el ahorro generado")
 
-file_upload = st.file_uploader("Subir archivo CSV para las predicciones", type=["csv"])
+    file_upload = st.file_uploader("Subir archivo CSV para las predicciones", type=["csv"])
 
     if file_upload is not None:
         data = pd.read_csv(file_upload)
