@@ -71,9 +71,8 @@ df47 = []
 def run():
     st.set_page_config(layout="wide")
 
-    st.title("Cálculo de velocidad de corrosión, índice de saturacion, y criticidad de pozos petroleros")
-
-    st.subheader("Predicciones para un solo pozo")
+    st.title('Plan Gratuito')
+    st.markdown("Cálculo de velocidad de corrosión, índice de saturacion, y criticidad para un pozo petrolero")
 
     BOPD = st.slider(label='Barriles de petroleo por dia, BPPD', min_value=0,
                      max_value=5000,
