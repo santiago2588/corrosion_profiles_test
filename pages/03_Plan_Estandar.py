@@ -82,7 +82,7 @@ def run():
 
     filepath='Databases/plantilla_pozos.csv'
     with open(filepath, 'rb') as excel_template:
-        st.download_button(label = 'Descargar plantilla Excel', data = excel_template, file_name = 'plantilla_pozos.xlsx', mime = 'text/csv')
+        st.download_button(label = 'Descargar plantilla Excel', data = excel_template, file_name = 'plantilla_pozos.csv', mime = 'text/csv')
 
     file_upload = st.file_uploader("Subir archivo CSV para las predicciones", type=["csv"])
 
