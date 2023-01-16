@@ -34,11 +34,3 @@ with st.expander("Para que sirve el modulo de calculos de ASTRO❓"):
     - Optimizar las dosis de los quimicos anticorrosivo y antiescala en funcion de los resultados obtenidos en el modelo (riesgo de corrosion, incrustaciones y criticidad).
     - Generar ahorros por optimizacion de los quimicos e incremento de la produccion de los pozos debido a un tratamiento quimico adecuado. 
     """)
-
-with st.expander("Instrucciones"):
-
-    st.markdown("""
-    ### Por favor, sigue estas instrucciones para utilizar el modulo de calculos:
-    - Si deseas obtener las predicciones para 1 pozo, selecciona la hoja "Calculos 1 pozo". Luego, ajusta el valor de cada parametro y presiona el boton Calcular para ver los resultados. Despues, presiona el boton Optimizar y obtendras las dosis recomendadas de los quimicos, junto con el ahorro generado.
-    - Si deseas obtener las predicciones para multiples pozos, selecciona la hoja "Calculos varios pozos". Carga el archivo CSV con los parametros de produccion y laboratorio de los pozos. Despues, da click en los botones que se indican para obtener los resultados. 
-    """)
