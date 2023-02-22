@@ -458,12 +458,11 @@ def run():
             csv_corr = convert_df(results_corr)
             st.download_button("📥Press to Download", csv_corr, "file.csv", "text/csv", key='download-csv')
 
-            st.write("Perfiles velocidad de corrosion")
+            st.write("### Perfiles velocidad de corrosion")
 
             corr_sliced = [v for k, v in results_corr_profile.groupby('Pozo')]
             for df in corr_sliced:
                 fig_corr = px.line(df, x='Velocidad de corrosion (mpy)', y='Profundidad [ft]',
-                                   title='Perfil de velocidad de corrosion',
                                    hover_name='Pozo',
                                    hover_data=['Presion [psi]', 'Temperatura [F]', 'Riesgo de corrosion'])
 
