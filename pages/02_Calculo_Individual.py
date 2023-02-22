@@ -453,14 +453,15 @@ def run():
 
     ahorro_total = ahorro_anual_ic + ahorro_anual_is
 
-    corr_button=st.expander('Resultados de corrosion')
+    #corr_button=st.button('Resultados de corrosion')
 
     # if "corr_state" not in st.session_state:
     #     st.session_state.corr_state = False
     #
     # if corr_button or st.session_state.corr_state:
     #     st.session_state.corr_state=True
-    col1, col2, col3 = st.columns(3)
+    with st.expander('Resultados de corrosion'):
+        col1, col2, col3 = st.columns(3)
 
         with col1:
             st.metric('Velocidad de corrosion en cabeza', str("%.2f" % np.float_(df1[0])) + ' MPY')
