@@ -530,13 +530,13 @@ def run():
                    de quimicos y el monitoreo a los pozos mas criticos del campo. De esta manera, se optimiza el tiempo y los recursos del personal de\
                    tratamiento quimico.')
 
-    opt_button=st.button('Optimizar dosis de quimicos')
-
-    if "opt_state" not in st.session_state:
-        st.session_state.opt_state = False
-
-    if opt_button or st.session_state.opt_state:
-        st.session_state.opt_state=True
+    # opt_button=st.button('Optimizar dosis de quimicos')
+    #
+    # if "opt_state" not in st.session_state:
+    #     st.session_state.opt_state = False
+    #
+    # if opt_button or st.session_state.opt_state:
+    #     st.session_state.opt_state=True
 
     with st.expander('Resultados optimizacion'):
         # Dosis anticorrosivo
