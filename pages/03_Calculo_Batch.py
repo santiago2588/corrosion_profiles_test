@@ -505,7 +505,7 @@ def run():
                 return df.to_csv().encode('utf-8')
 
             csv_critic = convert_df(results_critic)
-            st.download_button("📥Press to Download", csv_critic, "file.csv", "text/csv", key='download-csv')
+            st.download_button("📥Press to Download", csv_critic, "file.csv", "text/csv", key='download-csv2')
 
             fig_crit = px.bar(results_critic, x='Pozo', y='Criticidad total', hover_data=['Prioridad TQ'])
             fig_crit.update_layout(xaxis={'categoryorder': 'total descending'}, title='Criticidad total Pozos')
@@ -531,11 +531,11 @@ def run():
 
             st.dataframe(results_opt_corr)
             csv_opt_corr = convert_df(results_opt_corr)
-            st.download_button("📥Press to Download", csv_opt_corr, "file.csv", "text/csv", key='download-csv')
+            st.download_button("📥Press to Download", csv_opt_corr, "file.csv", "text/csv", key='download-csv3')
 
             st.dataframe(results_opt_scale)
             csv_opt_scale = convert_df(results_opt_scale)
-            st.download_button("📥Press to Download", csv_opt_scale, "file.csv", "text/csv", key='download-csv_1')
+            st.download_button("📥Press to Download", csv_opt_scale, "file.csv", "text/csv", key='download-csv4')
 
 # In[20]:
 
