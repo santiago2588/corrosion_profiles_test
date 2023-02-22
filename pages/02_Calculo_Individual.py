@@ -455,11 +455,11 @@ def run():
 
     corr_button=st.expander('Resultados de corrosion')
 
-    if "corr_state" not in st.session_state:
-        st.session_state.corr_state = False
-
-    if corr_button or st.session_state.corr_state:
-        st.session_state.corr_state=True
+    # if "corr_state" not in st.session_state:
+    #     st.session_state.corr_state = False
+    #
+    # if corr_button or st.session_state.corr_state:
+    #     st.session_state.corr_state=True
         col1, col2, col3 = st.columns(3)
 
         with col1:
