@@ -472,7 +472,7 @@ def run():
                 fig_corr.update_yaxes(autorange="reversed")
                 st.plotly_chart(fig_corr, use_container_width=True)
 
-        if st.button('Resultados indice de saturacion'):
+        with st.expander('Resultados indice de saturacion'):
 
             st.dataframe(results_scale)
 
@@ -482,14 +482,11 @@ def run():
             csv_scale = convert_df(results_scale)
             st.download_button("📥Press to Download", csv_scale, "file.csv", "text/csv", key='download-csv')
 
-
-
-        if st.button("Perfiles indice de saturacion"):
+            st.write("Perfiles indice de saturacion")
 
             scale_sliced = [v for k, v in results_scale_profile.groupby('Pozo')]
             for df in scale_sliced:
                 fig_sca = px.line(df, x='Indice de saturacion calcita', y='Profundidad [ft]',
-                                  title='Perfil del indice de saturacion',
                                   hover_name='Pozo',
                                   hover_data=['Presion [psi]', 'Temperatura [F]', 'Solidos [PTB]',
                                               'Riesgo de incrustaciones'])
@@ -500,7 +497,7 @@ def run():
                 fig_sca.update_yaxes(autorange="reversed")
                 st.plotly_chart(fig_sca, use_container_width=True)
 
-        if st.button('Criticidad de pozos'):
+        with st.expander('Criticidad de pozos'):
 
             st.dataframe(results_critic)
 
@@ -527,7 +524,7 @@ def run():
                                   yaxis_title='Contribucion, %')
             st.plotly_chart(fig_con, use_container_width=True)
 
-        if st.button('Optimizar dosis de quimicos'):
+        with st.expander('Optimizar dosis de quimicos'):
 
             def convert_df(df):
                 return df.to_csv().encode('utf-8')
