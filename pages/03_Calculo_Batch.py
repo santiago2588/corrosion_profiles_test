@@ -480,7 +480,7 @@ def run():
                 return df.to_csv().encode('utf-8')
 
             csv_scale = convert_df(results_scale)
-            st.download_button("📥Press to Download", csv_scale, "file.csv", "text/csv", key='download-csv')
+            st.download_button("📥Press to Download", csv_scale, "file.csv", "text/csv", key='download-csv1')
 
             st.write("Perfiles indice de saturacion")
 
