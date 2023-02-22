@@ -446,7 +446,9 @@ def run():
                                               'Estado dosificacion de antiescala': df43,
                                               'Analisis inyeccion de antiescala': df38})
 
-        if st.button('Resultados de corrosion'):
+        st.write("## Resultados")
+
+        with st.expander('Resultados de corrosion'):
 
             st.dataframe(results_corr)
 
@@ -456,8 +458,7 @@ def run():
             csv_corr = convert_df(results_corr)
             st.download_button("📥Press to Download", csv_corr, "file.csv", "text/csv", key='download-csv')
 
-
-        if st.button('Perfiles velocidad de corrosion'):
+            st.write("Perfiles velocidad de corrosion")
 
             corr_sliced = [v for k, v in results_corr_profile.groupby('Pozo')]
             for df in corr_sliced:
