@@ -479,15 +479,15 @@ def run():
 
         st.write("")
 
-    # scale_button=st.button('Resultados indice de saturacion')
-    #
-    # if "scale_state" not in st.session_state:
-    #     st.session_state.scale_state = False
-    #
-    # if scale_button or st.session_state.scale_state:
-    #     st.session_state.scale_state=True
+    scale_button=st.button('Resultados indice de saturacion')
 
-    with st.expander('Resultados de indice de saturacion'):
+    if "scale_state" not in st.session_state:
+        st.session_state.scale_state = False
+
+    if scale_button or st.session_state.scale_state:
+        st.session_state.scale_state=True
+
+    #with st.expander('Resultados de indice de saturacion'):
         col1, col2, col3 = st.columns(3)
 
         with col1:
