@@ -479,14 +479,15 @@ def run():
 
         st.write("")
 
-    scale_button=st.expander('Resultados indice de saturacion')
+    # scale_button=st.button('Resultados indice de saturacion')
+    #
+    # if "scale_state" not in st.session_state:
+    #     st.session_state.scale_state = False
+    #
+    # if scale_button or st.session_state.scale_state:
+    #     st.session_state.scale_state=True
 
-    if "scale_state" not in st.session_state:
-        st.session_state.scale_state = False
-
-    if scale_button or st.session_state.scale_state:
-        st.session_state.scale_state=True
-
+    with st.expander('Resultados de indice de saturacion'):
         col1, col2, col3 = st.columns(3)
 
         with col1:
@@ -503,14 +504,15 @@ def run():
 
         st.plotly_chart(fig_sca, use_container_width=True)
 
-    critic_button=st.expander('Calcular criticidad del pozo')
+    # critic_button=st.button('Calcular criticidad del pozo')
+    #
+    # if "critic_state" not in st.session_state:
+    #     st.session_state.critic_state = False
+    #
+    # if critic_button or st.session_state.critic_state:
+    #     st.session_state.critic_state=True
 
-    if "critic_state" not in st.session_state:
-        st.session_state.critic_state = False
-
-    if critic_button or st.session_state.critic_state:
-        st.session_state.critic_state=True
-
+    with st.expander('Resultados criticidad de pozo'):
         col1, col2, col3 = st.columns(3)
 
         with col1:
@@ -528,7 +530,7 @@ def run():
                    de quimicos y el monitoreo a los pozos mas criticos del campo. De esta manera, se optimiza el tiempo y los recursos del personal de\
                    tratamiento quimico.')
 
-    opt_button=st.expander('Optimizar dosis de quimicos')
+    opt_button=st.button('Optimizar dosis de quimicos')
 
     if "opt_state" not in st.session_state:
         st.session_state.opt_state = False
@@ -536,6 +538,7 @@ def run():
     if opt_button or st.session_state.opt_state:
         st.session_state.opt_state=True
 
+    with st.expander('Resultados optimizacion'):
         # Dosis anticorrosivo
         col1, col2, col3 = st.columns(3)
 
