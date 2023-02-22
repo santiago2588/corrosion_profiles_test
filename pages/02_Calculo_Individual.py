@@ -460,7 +460,7 @@ def run():
     #
     # if corr_button or st.session_state.corr_state:
     #     st.session_state.corr_state=True
-        col1, col2, col3 = st.columns(3)
+    col1, col2, col3 = st.columns(3)
 
         with col1:
             st.metric('Velocidad de corrosion en cabeza', str("%.2f" % np.float_(df1[0])) + ' MPY')
