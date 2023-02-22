@@ -79,6 +79,8 @@ def run():
     st.write("2. Presiona el boton Calcular para ver los resultados: velocidad de corrosion, indice de saturacion y criticidad del pozo")
     st.write("3. Presiona el boton Optimizar para obtener las dosis recomendadas de los quimicos, junto con el ahorro generado")
 
+    st.write("## Ingreso de datos")
+
     BOPD = st.slider(label='Barriles de petroleo por dia, BPPD', min_value=0,
                      max_value=5000,
                      value=2500, step=1)
@@ -460,6 +462,8 @@ def run():
     #
     # if corr_button or st.session_state.corr_state:
     #     st.session_state.corr_state=True
+
+    st.write("## Resultados")
 
     with st.expander('Resultados de corrosion'):
         col1, col2, col3 = st.columns(3)
