@@ -453,7 +453,7 @@ def run():
 
     ahorro_total = ahorro_anual_ic + ahorro_anual_is
 
-    corr_button=st.button('Calcular velocidad de corrosion')
+    corr_button=st.expander('Resultados de corrosion')
 
     if "corr_state" not in st.session_state:
         st.session_state.corr_state = False
@@ -478,7 +478,7 @@ def run():
 
         st.write("")
 
-    scale_button=st.button('Calcular indice de saturacion')
+    scale_button=st.expander('Resultados indice de saturacion')
 
     if "scale_state" not in st.session_state:
         st.session_state.scale_state = False
@@ -502,7 +502,7 @@ def run():
 
         st.plotly_chart(fig_sca, use_container_width=True)
 
-    critic_button=st.button('Calcular criticidad del pozo')
+    critic_button=st.expander('Calcular criticidad del pozo')
 
     if "critic_state" not in st.session_state:
         st.session_state.critic_state = False
@@ -527,7 +527,7 @@ def run():
                    de quimicos y el monitoreo a los pozos mas criticos del campo. De esta manera, se optimiza el tiempo y los recursos del personal de\
                    tratamiento quimico.')
 
-    opt_button=st.button('Optimizar dosis de quimicos')
+    opt_button=st.expander('Optimizar dosis de quimicos')
 
     if "opt_state" not in st.session_state:
         st.session_state.opt_state = False
