@@ -4,6 +4,7 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
+from typing import List
 
 from Functions.funciones import *
 
@@ -494,6 +495,12 @@ def run():
 
             st.write("Perfiles indice de saturacion")
 
+            def plot_figures(figures: List[df.graph_objs.Figure]):
+                for i,fig in enumerate(figures):
+                    with st.expander(f'Figure {i+1}'):
+                        st.plotly_chart(fig)
+
+
             scale_sliced = [v for k, v in results_scale_profile.groupby('Pozo')]
             for df in scale_sliced:
                 fig_sca = px.line(df, x='Indice de saturacion calcita', y='Profundidad [ft]',
@@ -505,7 +512,8 @@ def run():
                 fig_sca.update_xaxes(showspikes=True, spikecolor='black')
                 fig_sca.update_yaxes(showspikes=True, spikecolor='black')
                 fig_sca.update_yaxes(autorange="reversed")
-                st.plotly_chart(fig_sca, use_container_width=True)
+                #st.plotly_chart(fig_sca, use_container_width=True)
+                plot_figures(fig_sca)
 
         with st.expander('Criticidad de pozos'):
 
