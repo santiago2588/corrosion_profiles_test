@@ -501,6 +501,7 @@ def run():
 
             scale_sliced = [v for k, v in results_scale_profile.groupby('Pozo')]
             for df in scale_sliced:
+
                 def plot_figures(figures: List[go.Figure], tab_names: List[str]):
                     tabs=st.tabs(tab_names)
                 for i, (fig,tab_name) in enumerate(zip(figures, tab_names)):
