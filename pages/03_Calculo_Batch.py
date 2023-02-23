@@ -495,11 +495,21 @@ def run():
 
             st.write("Perfiles indice de saturacion")
 
-            def plot_figures(figures: List[go.Figure], tab_names: List[str]):
-                tabs=st.tabs(tab_names)
-                for i, (fig,tab_name) in enumerate(zip(figures, tab_names)):
-                    with tabs[i]:
-                        st.plotly_chart(fig)
+            def plot_figures(figures: List[go.Figure], tab_names: List[str],cols: int):
+                rows= -(-len(figures)//cols)
+                layout=st.columns(cols)
+                for row in range(rows):
+                    column=layout[row % cols]
+                    for col in range(cols):
+                        idx=row*cols+col
+                        if idx >= len(figures):
+                            break
+                        fig=figures[idx]
+                        tab_name=tab_names[idx]
+                        with column:
+                            tabs=st.tabs([tab_name])
+                            with tabs[0]:
+                                st.plotly_chart(fig)
 
 
             scale_sliced = [v for k, v in results_scale_profile.groupby('Pozo')]
@@ -514,7 +524,7 @@ def run():
                 fig_sca.update_yaxes(showspikes=True, spikecolor='black')
                 fig_sca.update_yaxes(autorange="reversed")
                 #st.plotly_chart(fig_sca, use_container_width=True)
-                plot_figures([fig_sca],['Pozo'])
+                plot_figures([fig_sca],['Pozo'],11)
 
 
         with st.expander('Criticidad de pozos'):
