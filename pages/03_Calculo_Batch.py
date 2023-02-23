@@ -497,7 +497,7 @@ def run():
 
             def plot_figures(figures: List[go.Figure]):
                 for i,fig in enumerate(figures):
-                    with st.expander(f'Figure {i+1}'):
+                    with st.tabs(f'Figure {i+1}'):
                         st.plotly_chart(fig)
 
 
