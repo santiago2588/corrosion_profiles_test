@@ -493,7 +493,7 @@ def run():
             csv_scale = convert_df(results_scale)
             st.download_button("📥Press to Download", csv_scale, "file.csv", "text/csv", key='download-csv1')
 
-            st.write("Perfiles indice de saturacion")
+            st.write("Perfiles del indice de saturacion")
 
             def plot_figures(figures: List[go.Figure], tab_names: List[str],cols: int):
                 rows= -(-len(figures)//cols)
