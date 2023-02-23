@@ -516,6 +516,7 @@ def run():
                 #st.plotly_chart(fig_sca, use_container_width=True)
                 plot_figures([fig_sca])
 
+
         with st.expander('Criticidad de pozos'):
 
             st.dataframe(results_critic)
