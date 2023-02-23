@@ -503,7 +503,6 @@ def run():
 
             scale_sliced = [v for k, v in results_scale_profile.groupby('Pozo')]
             st.write(scale_sliced)
-            st.write(scale_sliced.type())
 
             for df in scale_sliced:
                 fig_sca = px.line(df, x='Indice de saturacion calcita', y='Profundidad [ft]',
@@ -516,7 +515,7 @@ def run():
                 fig_sca.update_yaxes(showspikes=True, spikecolor='black')
                 fig_sca.update_yaxes(autorange="reversed")
                 #st.plotly_chart(fig_sca, use_container_width=True)
-                plot_figures([fig_sca],df0)
+                plot_figures([scale_sliced],df0)
 
 
         with st.expander('Criticidad de pozos'):
