@@ -514,7 +514,7 @@ def run():
                 fig_sca.update_yaxes(showspikes=True, spikecolor='black')
                 fig_sca.update_yaxes(autorange="reversed")
                 #st.plotly_chart(fig_sca, use_container_width=True)
-                plot_figures([fig_sca],[i])
+                plot_figures([fig_sca],['Pozo'])
 
 
         with st.expander('Criticidad de pozos'):
