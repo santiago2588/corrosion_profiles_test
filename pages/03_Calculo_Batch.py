@@ -341,13 +341,13 @@ def run():
                 return round(n*2)/2
 
             if corr_max > 10:
-                dosis_recomendada_ic = math.ceil(80 * BWPD / 23810)
+                dosis_recomendada_ic = round_to_half(80 * BWPD / 23810)
             if corr_max > 5 and corr_max <= 10:
-                dosis_recomendada_ic = math.ceil(60 * BWPD / 23810)
+                dosis_recomendada_ic = round_to_half(60 * BWPD / 23810)
             if corr_max > 1 and corr_max <= 5:
-                dosis_recomendada_ic = math.ceil(40 * BWPD / 23810)
+                dosis_recomendada_ic = round_to_half(40 * BWPD / 23810)
             if corr_max <= 1:
-                dosis_recomendada_ic = math.ceil(20 * BWPD / 23810)
+                dosis_recomendada_ic = round_to_half(20 * BWPD / 23810)
 
             diferencia_dosis_ic = dosis_ic - dosis_recomendada_ic
 
