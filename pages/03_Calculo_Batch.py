@@ -459,6 +459,7 @@ def run():
 
         st.write("## Resultados")
         st.write(df0)
+        st.write(type(df0))
 
         with st.expander('Resultados de corrosion'):
 
