@@ -495,7 +495,7 @@ def run():
 
             st.write("Perfiles indice de saturacion")
 
-            def plot_figures(figures: List[df]):
+            def plot_figures(figures: df):
                 for i,fig in enumerate(figures):
                     with st.expander(f'Figure {i+1}'):
                         st.plotly_chart(fig)
