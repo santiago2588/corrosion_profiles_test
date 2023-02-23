@@ -483,7 +483,7 @@ def run():
                 fig_corr.update_yaxes(autorange="reversed")
                 st.plotly_chart(fig_corr, use_container_width=True)
 
-        with st.expander('Resultados indice de saturacion'):
+        if st.button('Resultados indice de saturacion'):
 
             st.dataframe(results_scale)
 
