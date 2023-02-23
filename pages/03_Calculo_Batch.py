@@ -355,8 +355,7 @@ def run():
             ahorro_anual_ic = diferencia_dosis_ic * precio_ic * 30 * 12
 
             if ahorro_anual_ic > 0:
-                resultado_ic = str(
-                    'Ahorro potencial ' + "%.2f" % ahorro_anual_ic) + ' USD/año' + ' al disminuir dosis de anticorrosivo'
+                resultado_ic = 'Ahorro potencial al disminuir dosis de anticorrosivo'
             else:
                 resultado_ic = 'Pozo con riesgo de corrosion. Aumentar dosis de anticorrosivo'
 
@@ -380,8 +379,7 @@ def run():
             ahorro_anual_is = diferencia_dosis_is * precio_is * 30 * 12
 
             if ahorro_anual_is > 0:
-                resultado_is = str(
-                    'Ahorro potencial ' + "%.2f" % ahorro_anual_is) + ' USD/año' + ' al disminuir dosis de antiescala'
+                resultado_is = 'Ahorro potencial al disminuir dosis de antiescala'
             else:
                 resultado_is = 'Riesgo de incrustaciones. Aumentar dosis de antiescala'
 
@@ -445,13 +443,13 @@ def run():
                                              'Dosis recomendada de anticorrosivo [gal/dia]': df34,
                                              'Estado dosificacion de anticorrosivo': df42,
                                              'Analisis inyeccion de anticorrosivo': df35,
-                                             'Ahorro potencial [USD]':df48})
+                                             'Ahorro potencial [USD/año]':df48})
 
             results_opt_scale = pd.DataFrame({'Pozo': df0, 'Dosis actual de antiescala [gal/dia]': df36,
                                               'Dosis recomendada de antiescala [gal/dia]': df37,
                                               'Estado dosificacion de antiescala': df43,
                                               'Analisis inyeccion de antiescala': df38,
-                                              'Ahorro potencial [USD]':df49})
+                                              'Ahorro potencial [USD/año]':df49})
 
         st.write("## Resultados")
 
@@ -540,11 +538,13 @@ def run():
             st.dataframe(results_opt_corr)
             csv_opt_corr = convert_df(results_opt_corr)
             st.download_button("📥Press to Download", csv_opt_corr, "file.csv", "text/csv", key='download-csv3')
+            st.metric(sum(results_opt_corr['Ahorro potencial [USD/año']))
 
             st.write("Optimizacion Antiescala")
             st.dataframe(results_opt_scale)
             csv_opt_scale = convert_df(results_opt_scale)
             st.download_button("📥Press to Download", csv_opt_scale, "file.csv", "text/csv", key='download-csv4')
+            st.metric(sum(results_opt_scale['Ahorro potencial [USD/año']))
 
 # In[20]:
 
