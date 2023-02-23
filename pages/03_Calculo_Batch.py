@@ -483,7 +483,7 @@ def run():
                 fig_corr.update_yaxes(autorange="reversed")
                 st.plotly_chart(fig_corr, use_container_width=True)
 
-        if st.button('Resultados indice de saturacion'):
+        with st.expander('Resultados indice de saturacion'):
 
             st.dataframe(results_scale)
 
@@ -495,9 +495,10 @@ def run():
 
             st.write("Perfiles indice de saturacion")
 
-            def plot_figures(figures: List[go.Figure]):
-                for i,fig in enumerate(figures):
-                    with st.tabs(f'Figure {i+1}'):
+            def plot_figures(figures: List[go.Figure], tab_names: List[str]):
+                tabs=st.tabs(tab_names)
+                for i, (fig,tab_name) in enumerate(zip(figures, tab_names)):
+                    with tabs[i]:
                         st.plotly_chart(fig)
 
 
