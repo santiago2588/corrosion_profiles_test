@@ -336,6 +336,10 @@ def run():
             precio_ic = parameters["precio_ic"]
             precio_is = parameters["precio_is"]
 
+            #Funcion para redondear a 0.5 la dosis recomendada
+            def round_to_half(n):
+                return round(n*2)/2
+
             if corr_max > 10:
                 dosis_recomendada_ic = math.ceil(80 * BWPD / 23810)
             if corr_max > 5 and corr_max <= 10:
@@ -359,15 +363,14 @@ def run():
             else:
                 resultado_ic = 'Pozo con riesgo de corrosion. Aumentar dosis de anticorrosivo'
 
-
             if scale_max > 2.5:
-                dosis_recomendada_is = math.ceil(80 * BWPD / 23810)
+                dosis_recomendada_is = round_to_half(80 * BWPD / 23810)
             if scale_max > 1.5 and scale_max <= 2.5:
-                dosis_recomendada_is = math.ceil(60 * BWPD / 23810)
+                dosis_recomendada_is = round_to_half(60 * BWPD / 23810)
             if scale_max > 0.5 and scale_max <= 1.5:
-                dosis_recomendada_is = math.ceil(40 * BWPD / 23810)
+                dosis_recomendada_is = round_to_half(40 * BWPD / 23810)
             if scale_max <= 0.5:
-                dosis_recomendada_is = math.ceil(20 * BWPD / 23810)
+                dosis_recomendada_is = round_to_half(20 * BWPD / 23810)
 
             diferencia_dosis_is = dosis_is - dosis_recomendada_is
 
