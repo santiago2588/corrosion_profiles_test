@@ -497,17 +497,14 @@ def run():
 
             st.write("Perfiles indice de saturacion")
 
-
-
-            scale_sliced = [v for k, v in results_scale_profile.groupby('Pozo')]
-            for df in scale_sliced:
-
-                def plot_figures(figures: List[go.Figure], tab_names: List[str]):
-                    tabs=st.tabs(tab_names)
+            def plot_figures(figures: List[go.Figure], tab_names: List[str]):
+                tabs=st.tabs(tab_names)
                 for i, (fig,tab_name) in enumerate(zip(figures, tab_names)):
                     with tabs[i]:
                         st.plotly_chart(fig)
 
+            scale_sliced = [v for k, v in results_scale_profile.groupby('Pozo')]
+            for df in scale_sliced:
                 fig_sca = px.line(df, x='Indice de saturacion calcita', y='Profundidad [ft]',
                                   hover_name='Pozo',
                                   hover_data=['Presion [psi]', 'Temperatura [F]', 'Solidos [PTB]',
@@ -518,7 +515,7 @@ def run():
                 fig_sca.update_yaxes(showspikes=True, spikecolor='black')
                 fig_sca.update_yaxes(autorange="reversed")
                 #st.plotly_chart(fig_sca, use_container_width=True)
-                plot_figures([fig_sca],df0)
+                plot_figures(fig_sca,df0)
 
 
         with st.expander('Criticidad de pozos'):
