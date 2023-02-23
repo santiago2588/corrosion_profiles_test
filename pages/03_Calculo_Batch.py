@@ -433,8 +433,6 @@ def run():
                                                   'Riesgo de incrustaciones': df26}).set_index(['Pozo']).apply(
                 pd.Series.explode).reset_index()
 
-            names=results_scale['Pozo'].astype(str).tolist()
-
             for i, (Pozo, subdf) in enumerate(results_scale_profile.groupby('Pozo'), 1):
                 locals()[f'well_scale{i}'] = subdf
 
@@ -460,6 +458,7 @@ def run():
                                               'Ahorro potencial [USD/año]':df49})
 
         st.write("## Resultados")
+        st.write(df0)
 
         with st.expander('Resultados de corrosion'):
 
