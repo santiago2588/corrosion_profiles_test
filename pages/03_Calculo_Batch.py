@@ -1,3 +1,5 @@
+import math
+
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
@@ -336,18 +338,18 @@ def run():
             precio_ic = parameters["precio_ic"]
             precio_is = parameters["precio_is"]
 
-            #Funcion para redondear a 0.5 la dosis recomendada
+            #Funcion para redondear a 0.5 la dosis recomendada. No la utilizo para tener un rango de seguridad en la inyeccion, porque utilizo math.ceil que redondea el numero al entero superior
             def round_to_half(n):
                 return round(n*2)/2
 
             if corr_max > 10:
-                dosis_recomendada_ic = round_to_half(80 * BWPD / 23810)
+                dosis_recomendada_ic = math.ceil(80 * BWPD / 23810)
             if corr_max > 5 and corr_max <= 10:
-                dosis_recomendada_ic = round_to_half(60 * BWPD / 23810)
+                dosis_recomendada_ic = math.ceil(60 * BWPD / 23810)
             if corr_max > 1 and corr_max <= 5:
-                dosis_recomendada_ic = round_to_half(40 * BWPD / 23810)
+                dosis_recomendada_ic = math.ceil(40 * BWPD / 23810)
             if corr_max <= 1:
-                dosis_recomendada_ic = round_to_half(20 * BWPD / 23810)
+                dosis_recomendada_ic = math.ceil(20 * BWPD / 23810)
 
             diferencia_dosis_ic = dosis_ic - dosis_recomendada_ic
 
@@ -364,13 +366,13 @@ def run():
                 resultado_ic = 'Pozo con riesgo de corrosion. Aumentar dosis de anticorrosivo'
 
             if scale_max > 2.5:
-                dosis_recomendada_is = round_to_half(80 * BWPD / 23810)
+                dosis_recomendada_is = math.ceil(80 * BWPD / 23810)
             if scale_max > 1.5 and scale_max <= 2.5:
-                dosis_recomendada_is = round_to_half(60 * BWPD / 23810)
+                dosis_recomendada_is = math.ceil(60 * BWPD / 23810)
             if scale_max > 0.5 and scale_max <= 1.5:
-                dosis_recomendada_is = round_to_half(40 * BWPD / 23810)
+                dosis_recomendada_is = math.ceil(40 * BWPD / 23810)
             if scale_max <= 0.5:
-                dosis_recomendada_is = round_to_half(20 * BWPD / 23810)
+                dosis_recomendada_is = math.ceil(20 * BWPD / 23810)
 
             diferencia_dosis_is = dosis_is - dosis_recomendada_is
 
