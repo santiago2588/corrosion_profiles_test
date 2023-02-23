@@ -433,6 +433,8 @@ def run():
                                                   'Riesgo de incrustaciones': df26}).set_index(['Pozo']).apply(
                 pd.Series.explode).reset_index()
 
+            names=results_scale['Pozo'].astype(str).tolist()
+
             for i, (Pozo, subdf) in enumerate(results_scale_profile.groupby('Pozo'), 1):
                 locals()[f'well_scale{i}'] = subdf
 
@@ -500,8 +502,6 @@ def run():
                 for i, (fig,tab_name) in enumerate(zip(figures, tab_names)):
                     with tabs[i]:
                         st.plotly_chart(fig)
-
-            names=results_scale['Pozo'].astype(str).tolist()
 
             scale_sliced = [v for k, v in results_scale_profile.groupby('Pozo')]
             for df in scale_sliced:
