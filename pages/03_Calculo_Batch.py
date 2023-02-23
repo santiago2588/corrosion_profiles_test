@@ -538,13 +538,13 @@ def run():
             st.dataframe(results_opt_corr)
             csv_opt_corr = convert_df(results_opt_corr)
             st.download_button("📥Press to Download", csv_opt_corr, "file.csv", "text/csv", key='download-csv3')
-            st.metric(label='Ahorro total [USD/año]',value=sum(results_opt_corr['Ahorro potencial [USD/año]']))
+            st.metric(label='Ahorro total Anticorrosivo [USD/año]',value=sum(results_opt_corr['Ahorro potencial [USD/año]']))
 
             st.write("Optimizacion Antiescala")
             st.dataframe(results_opt_scale)
             csv_opt_scale = convert_df(results_opt_scale)
             st.download_button("📥Press to Download", csv_opt_scale, "file.csv", "text/csv", key='download-csv4')
-            st.metric(label='Ahorro total [USD/año]',value=sum(results_opt_scale['Ahorro potencial [USD/año]']))
+            st.metric(label='Ahorro total Antiescala [USD/año]',value=sum(results_opt_scale['Ahorro potencial [USD/año]']))
 
 # In[20]:
 
