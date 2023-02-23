@@ -495,15 +495,14 @@ def run():
 
             st.write("Perfiles indice de saturacion")
 
+            def plot_figures(figures: List[px.graph_objs.Figure]):
+                for i,fig in enumerate(figures):
+                    with st.expander(f'Figure {i+1}'):
+                        st.plotly_chart(fig)
+
 
             scale_sliced = [v for k, v in results_scale_profile.groupby('Pozo')]
             for df in scale_sliced:
-
-                def plot_figures(figures: List[df]):
-                    for i,fig in enumerate(figures):
-                        with st.expander(f'Figure {i+1}'):
-                            st.plotly_chart(fig)
-
                 fig_sca = px.line(df, x='Indice de saturacion calcita', y='Profundidad [ft]',
                                   hover_name='Pozo',
                                   hover_data=['Presion [psi]', 'Temperatura [F]', 'Solidos [PTB]',
