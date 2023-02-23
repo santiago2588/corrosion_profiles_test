@@ -458,7 +458,7 @@ def run():
             csv_corr = convert_df(results_corr)
             st.download_button("📥Press to Download", csv_corr, "file.csv", "text/csv", key='download-csv')
 
-            st.write("### Perfiles velocidad de corrosion")
+            st.write("Perfiles velocidad de corrosion")
 
             corr_sliced = [v for k, v in results_corr_profile.groupby('Pozo')]
             for df in corr_sliced:
@@ -529,10 +529,12 @@ def run():
             def convert_df(df):
                 return df.to_csv().encode('utf-8')
 
+            st.write("Optimizacion Anticorrosivo")
             st.dataframe(results_opt_corr)
             csv_opt_corr = convert_df(results_opt_corr)
             st.download_button("📥Press to Download", csv_opt_corr, "file.csv", "text/csv", key='download-csv3')
 
+            st.write("Optimizacion Antiescala")
             st.dataframe(results_opt_scale)
             csv_opt_scale = convert_df(results_opt_scale)
             st.download_button("📥Press to Download", csv_opt_scale, "file.csv", "text/csv", key='download-csv4')
