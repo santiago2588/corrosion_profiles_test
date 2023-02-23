@@ -458,8 +458,6 @@ def run():
                                               'Ahorro potencial [USD/año]':df49})
 
         st.write("## Resultados")
-        st.write(df0)
-        st.write(type(df0))
 
         with st.expander('Resultados de corrosion'):
 
@@ -504,6 +502,8 @@ def run():
                         st.plotly_chart(fig)
 
             scale_sliced = [v for k, v in results_scale_profile.groupby('Pozo')]
+            st.write(scale_sliced)
+
             for df in scale_sliced:
                 fig_sca = px.line(df, x='Indice de saturacion calcita', y='Profundidad [ft]',
                                   hover_name='Pozo',
