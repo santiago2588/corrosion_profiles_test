@@ -63,6 +63,8 @@ df44 = []
 df45 = []
 df46 = []
 df47 = []
+df48=[]
+df49=[]
 
 
 # Calculo de los resultados
@@ -358,6 +360,7 @@ def run():
             else:
                 resultado_ic = 'Pozo con riesgo de corrosion. Aumentar dosis de anticorrosivo'
 
+
             if scale_max > 2.5:
                 dosis_recomendada_is = math.ceil(80 * BWPD / 23810)
             if scale_max > 1.5 and scale_max <= 2.5:
@@ -386,11 +389,13 @@ def run():
             df33.append(dosis_ic)
             df34.append(dosis_recomendada_ic)
             df35.append(resultado_ic)
+            df48.append(ahorro_anual_ic)
             df36.append(dosis_is)
             df37.append(dosis_recomendada_is)
             df38.append(resultado_is)
             df42.append(estado_dosis_ic)
             df43.append(estado_dosis_is)
+            df49.append(ahorro_anual_is)
 
             # Resultados de corrosion
 
@@ -439,12 +444,14 @@ def run():
             results_opt_corr = pd.DataFrame({'Pozo': df0, 'Dosis actual de anticorrosivo [gal/dia]': df33,
                                              'Dosis recomendada de anticorrosivo [gal/dia]': df34,
                                              'Estado dosificacion de anticorrosivo': df42,
-                                             'Analisis inyeccion de anticorrosivo': df35})
+                                             'Analisis inyeccion de anticorrosivo': df35,
+                                             'Ahorro potencial [USD]':df48})
 
             results_opt_scale = pd.DataFrame({'Pozo': df0, 'Dosis actual de antiescala [gal/dia]': df36,
                                               'Dosis recomendada de antiescala [gal/dia]': df37,
                                               'Estado dosificacion de antiescala': df43,
-                                              'Analisis inyeccion de antiescala': df38})
+                                              'Analisis inyeccion de antiescala': df38,
+                                              'Ahorro potencial [USD]':df49})
 
         st.write("## Resultados")
 
