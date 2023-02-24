@@ -515,7 +515,7 @@ def run():
             fig_sca.update_yaxes(showspikes=True, spikecolor='black')
             fig_sca.update_yaxes(autorange="reversed")
 
-            plot_figures([fig_sca],df0)
+            plot_figures(fig_sca,df0)
 
 
         with st.expander('Criticidad de pozos'):
