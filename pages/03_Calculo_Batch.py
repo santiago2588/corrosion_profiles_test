@@ -518,8 +518,8 @@ def run():
                 fig_sca.update_xaxes(showspikes=True, spikecolor='black')
                 fig_sca.update_yaxes(showspikes=True, spikecolor='black')
                 fig_sca.update_yaxes(autorange="reversed")
-                tabs=st.tabs(df0)
-                with tabs:
+                tab=st.tabs(df0)
+                with tab:
                     st.plotly_chart(fig_sca, use_container_width=True)
                 #plot_figures([fig_sca],df0)
 
