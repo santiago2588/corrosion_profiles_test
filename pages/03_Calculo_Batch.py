@@ -508,8 +508,8 @@ def run():
             dfx=scale_sliced[1]
             st.write(dfx)
 
-            tab_names=st.tabs(df0)
-            st.write(tab_names)
+            tab_names=st.tabs(sorted(df0))
+            #st.write(tab_names)
 
             # for df in scale_sliced:
             #     fig_sca = px.line(df, x='Indice de saturacion calcita', y='Profundidad [ft]',
