@@ -459,6 +459,8 @@ def run():
 
         st.write("## Resultados")
 
+        tab_names=st.tabs(sorted(df0))
+
         with st.expander('Resultados de corrosion'):
 
             st.dataframe(results_corr)
@@ -495,19 +497,7 @@ def run():
 
             st.write("Perfiles indice de saturacion")
 
-            def plot_figures(figures: List[go.Figure], tab_names: List[str]):
-                tabs=st.tabs(tab_names)
-                for i, (fig,tab_name) in enumerate(zip(figures, tab_names)):
-                    with tabs[i]:
-                        st.plotly_chart(fig)
-
             scale_sliced = [v for k, v in results_scale_profile.groupby('Pozo')]
-            #st.write(scale_sliced)
-
-            #dfx=scale_sliced[1]
-            #st.write(dfx)
-
-            tab_names=st.tabs(sorted(df0))
 
             for i, df in enumerate(scale_sliced):
                 with tab_names[i]:
@@ -521,7 +511,6 @@ def run():
                     fig_sca.update_yaxes(showspikes=True, spikecolor='black')
                     fig_sca.update_yaxes(autorange="reversed")
                     st.plotly_chart(fig_sca)
-
 
         with st.expander('Criticidad de pozos'):
 
