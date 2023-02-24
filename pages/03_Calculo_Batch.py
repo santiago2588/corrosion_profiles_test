@@ -509,21 +509,21 @@ def run():
             st.write(dfx)
 
             tabs=st.tabs()
-            with tabs:
-                for i,df in enumerate(scale_sliced):
-                    tab=st.tabs()
+            for i,df in enumerate(scale_sliced):
+                with tabs:
+                    tab=st.tab_label(f'Dataframe {i}')
                     with tab:
                         fig_sca = px.line(df, x='Indice de saturacion calcita', y='Profundidad [ft]',
-                                  hover_name='Pozo',
-                                  hover_data=['Presion [psi]', 'Temperatura [F]', 'Solidos [PTB]',
-                                              'Riesgo de incrustaciones'])
+                              hover_name='Pozo',
+                              hover_data=['Presion [psi]', 'Temperatura [F]', 'Solidos [PTB]',
+                                          'Riesgo de incrustaciones'])
 
                         fig_sca.update_traces(mode="markers+lines")
                         fig_sca.update_xaxes(showspikes=True, spikecolor='black')
                         fig_sca.update_yaxes(showspikes=True, spikecolor='black')
                         fig_sca.update_yaxes(autorange="reversed")
                         st.plotly_chart(fig_sca, use_container_width=True)
-                        #plot_figures([fig_sca],df0)
+                    #plot_figures([fig_sca],df0)
 
 
         with st.expander('Criticidad de pozos'):
