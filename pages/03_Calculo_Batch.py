@@ -505,7 +505,7 @@ def run():
             st.write(scale_sliced)
 
             #for df in scale_sliced:
-            fig_sca = px.line(df, x='Indice de saturacion calcita', y='Profundidad [ft]',
+            fig_sca = px.line(scale_sliced, x='Indice de saturacion calcita', y='Profundidad [ft]',
                               hover_name='Pozo',
                               hover_data=['Presion [psi]', 'Temperatura [F]', 'Solidos [PTB]',
                                           'Riesgo de incrustaciones'])
