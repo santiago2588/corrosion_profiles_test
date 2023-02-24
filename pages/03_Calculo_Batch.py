@@ -506,7 +506,7 @@ def run():
             #st.write(scale_sliced.type())
 
             dfx=scale_sliced[1]
-            st.write[dfx]
+            st.write(dfx)
 
             for df in scale_sliced:
                 fig_sca = px.line(df, x='Indice de saturacion calcita', y='Profundidad [ft]',
