@@ -472,16 +472,20 @@ def run():
             st.write("Perfiles velocidad de corrosion")
 
             corr_sliced = [v for k, v in results_corr_profile.groupby('Pozo')]
-            for df in corr_sliced:
-                fig_corr = px.line(df, x='Velocidad de corrosion (mpy)', y='Profundidad [ft]',
-                                   hover_name='Pozo',
-                                   hover_data=['Presion [psi]', 'Temperatura [F]', 'Riesgo de corrosion'])
 
-                fig_corr.update_traces(mode="markers+lines")
-                fig_corr.update_xaxes(showspikes=True, spikecolor='black')
-                fig_corr.update_yaxes(showspikes=True, spikecolor='black')
-                fig_corr.update_yaxes(autorange="reversed")
-                st.plotly_chart(fig_corr, use_container_width=True)
+            tab_names=st.tabs(sorted(df0))
+
+            for i, df in enumerate(corr_sliced):
+                with tab_names[i]:
+                    fig_corr = px.line(df, x='Velocidad de corrosion (mpy)', y='Profundidad [ft]',
+                                       hover_name='Pozo',
+                                       hover_data=['Presion [psi]', 'Temperatura [F]', 'Riesgo de corrosion'])
+
+                    fig_corr.update_traces(mode="markers+lines")
+                    fig_corr.update_xaxes(showspikes=True, spikecolor='black')
+                    fig_corr.update_yaxes(showspikes=True, spikecolor='black')
+                    fig_corr.update_yaxes(autorange="reversed")
+                    st.plotly_chart(fig_corr, use_container_width=True)
 
         with st.expander('Resultados indice de saturacion'):
 
