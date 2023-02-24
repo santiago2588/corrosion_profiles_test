@@ -459,8 +459,6 @@ def run():
 
         st.write("## Resultados")
 
-        tab_names=st.tabs(sorted(df0))
-
         with st.expander('Resultados de corrosion'):
 
             st.dataframe(results_corr)
@@ -498,6 +496,8 @@ def run():
             st.write("Perfiles indice de saturacion")
 
             scale_sliced = [v for k, v in results_scale_profile.groupby('Pozo')]
+
+            tab_names=st.tabs(sorted(df0))
 
             for i, df in enumerate(scale_sliced):
                 with tab_names[i]:
