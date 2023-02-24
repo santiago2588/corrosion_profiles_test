@@ -508,20 +508,24 @@ def run():
             dfx=scale_sliced[1]
             st.write(dfx)
 
-
             for df in scale_sliced:
-                tabs=st.tabs(df0)
-                with tabs:
-                    fig_sca = px.line(df, x='Indice de saturacion calcita', y='Profundidad [ft]',
+                fig_sca = px.line(df, x='Indice de saturacion calcita', y='Profundidad [ft]',
                                   hover_name='Pozo',
                                   hover_data=['Presion [psi]', 'Temperatura [F]', 'Solidos [PTB]',
                                               'Riesgo de incrustaciones'])
 
-                    fig_sca.update_traces(mode="markers+lines")
-                    fig_sca.update_xaxes(showspikes=True, spikecolor='black')
-                    fig_sca.update_yaxes(showspikes=True, spikecolor='black')
-                    fig_sca.update_yaxes(autorange="reversed")
-                    st.plotly_chart(fig_sca, use_container_width=True)
+                fig_sca.update_traces(mode="markers+lines")
+                fig_sca.update_xaxes(showspikes=True, spikecolor='black')
+                fig_sca.update_yaxes(showspikes=True, spikecolor='black')
+                fig_sca.update_yaxes(autorange="reversed")
+
+                tabs=st.tabs()
+                with tabs:
+                    for i,fig in enumerate(fig_sca):
+                        tab=st.tabs()
+                        with tab:
+                            st.plotly_chart(fig, use_container_width=True)
+                            #st.plotly_chart(fig_sca, use_container_width=True)
                 #plot_figures([fig_sca],df0)
 
 
