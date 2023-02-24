@@ -508,8 +508,9 @@ def run():
             dfx=scale_sliced[1]
             st.write(dfx)
 
-            tabs=st.tabs(df0)
+
             for df in scale_sliced:
+                tabs=st.tabs(df0)
                 with tabs:
                     fig_sca = px.line(df, x='Indice de saturacion calcita', y='Profundidad [ft]',
                                   hover_name='Pozo',
