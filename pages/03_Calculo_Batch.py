@@ -519,10 +519,10 @@ def run():
                 fig_sca.update_yaxes(showspikes=True, spikecolor='black')
                 fig_sca.update_yaxes(autorange="reversed")
 
-                tabs=st.tabs()
+                tabs=st.tabs(tabs)
                 with tabs:
                     for i,fig in enumerate(fig_sca):
-                        tab=st.tabs()
+                        tab=st.tabs(tabs)
                         with tab:
                             st.plotly_chart(fig, use_container_width=True)
                             #st.plotly_chart(fig_sca, use_container_width=True)
