@@ -527,7 +527,7 @@ def run():
             #     #plot_figures([fig_sca],df0)
 
             for i, df in enumerate(scale_sliced):
-                with st.tab(tab_names[i]):
+                with st.tabs(tab_names[i]):
                     fig_sca = px.line(df, x='Indice de saturacion calcita', y='Profundidad [ft]',
                                            hover_name='Pozo',
                                            hover_data=['Presion [psi]', 'Temperatura [F]', 'Solidos [PTB]',
