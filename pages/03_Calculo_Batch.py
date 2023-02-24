@@ -502,30 +502,12 @@ def run():
                         st.plotly_chart(fig)
 
             scale_sliced = [v for k, v in results_scale_profile.groupby('Pozo')]
-            st.write(scale_sliced)
-            #st.write(scale_sliced.type())
+            #st.write(scale_sliced)
 
-            dfx=scale_sliced[1]
-            st.write(dfx)
+            #dfx=scale_sliced[1]
+            #st.write(dfx)
 
             tab_names=st.tabs(sorted(df0))
-            #st.write(tab_names)
-
-            # for df in scale_sliced:
-            #     fig_sca = px.line(df, x='Indice de saturacion calcita', y='Profundidad [ft]',
-            #                       hover_name='Pozo',
-            #                       hover_data=['Presion [psi]', 'Temperatura [F]', 'Solidos [PTB]',
-            #                                   'Riesgo de incrustaciones'])
-            #
-            #     fig_sca.update_traces(mode="markers+lines")
-            #     fig_sca.update_xaxes(showspikes=True, spikecolor='black')
-            #     fig_sca.update_yaxes(showspikes=True, spikecolor='black')
-            #     fig_sca.update_yaxes(autorange="reversed")
-            #
-            #     #tab=st.tabs(df0)
-            #     #with tab:
-            #     st.plotly_chart(fig_sca, use_container_width=True)
-            #     #plot_figures([fig_sca],df0)
 
             for i, df in enumerate(scale_sliced):
                 with tab_names[i]:
