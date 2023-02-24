@@ -509,6 +509,7 @@ def run():
             st.write(dfx)
 
             tab_names=df0
+            st.write(tab_names)
 
             # for df in scale_sliced:
             #     fig_sca = px.line(df, x='Indice de saturacion calcita', y='Profundidad [ft]',
@@ -526,18 +527,18 @@ def run():
             #     st.plotly_chart(fig_sca, use_container_width=True)
             #     #plot_figures([fig_sca],df0)
 
-            for i, df in enumerate(scale_sliced):
-                with st.tabs(tab_names[i]):
-                    fig_sca = px.line(df, x='Indice de saturacion calcita', y='Profundidad [ft]',
-                                           hover_name='Pozo',
-                                           hover_data=['Presion [psi]', 'Temperatura [F]', 'Solidos [PTB]',
-                                                       'Riesgo de incrustaciones'])
-
-                    fig_sca.update_traces(mode="markers+lines")
-                    fig_sca.update_xaxes(showspikes=True, spikecolor='black')
-                    fig_sca.update_yaxes(showspikes=True, spikecolor='black')
-                    fig_sca.update_yaxes(autorange="reversed")
-                    st.plotly_chart(fig_sca)
+            # for i, df in enumerate(scale_sliced):
+            #     with st.tabs(tab_names[i]):
+            #         fig_sca = px.line(df, x='Indice de saturacion calcita', y='Profundidad [ft]',
+            #                                hover_name='Pozo',
+            #                                hover_data=['Presion [psi]', 'Temperatura [F]', 'Solidos [PTB]',
+            #                                            'Riesgo de incrustaciones'])
+            #
+            #         fig_sca.update_traces(mode="markers+lines")
+            #         fig_sca.update_xaxes(showspikes=True, spikecolor='black')
+            #         fig_sca.update_yaxes(showspikes=True, spikecolor='black')
+            #         fig_sca.update_yaxes(autorange="reversed")
+            #         st.plotly_chart(fig_sca)
 
 
         with st.expander('Criticidad de pozos'):
