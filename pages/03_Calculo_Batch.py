@@ -508,21 +508,39 @@ def run():
             dfx=scale_sliced[1]
             st.write(dfx)
 
-            for df in scale_sliced:
-                fig_sca = px.line(df, x='Indice de saturacion calcita', y='Profundidad [ft]',
-                                  hover_name='Pozo',
-                                  hover_data=['Presion [psi]', 'Temperatura [F]', 'Solidos [PTB]',
-                                              'Riesgo de incrustaciones'])
+            tab_names=df0
 
-                fig_sca.update_traces(mode="markers+lines")
-                fig_sca.update_xaxes(showspikes=True, spikecolor='black')
-                fig_sca.update_yaxes(showspikes=True, spikecolor='black')
-                fig_sca.update_yaxes(autorange="reversed")
+            # for df in scale_sliced:
+            #     fig_sca = px.line(df, x='Indice de saturacion calcita', y='Profundidad [ft]',
+            #                       hover_name='Pozo',
+            #                       hover_data=['Presion [psi]', 'Temperatura [F]', 'Solidos [PTB]',
+            #                                   'Riesgo de incrustaciones'])
+            #
+            #     fig_sca.update_traces(mode="markers+lines")
+            #     fig_sca.update_xaxes(showspikes=True, spikecolor='black')
+            #     fig_sca.update_yaxes(showspikes=True, spikecolor='black')
+            #     fig_sca.update_yaxes(autorange="reversed")
+            #
+            #     #tab=st.tabs(df0)
+            #     #with tab:
+            #     st.plotly_chart(fig_sca, use_container_width=True)
+            #     #plot_figures([fig_sca],df0)
 
-                #tab=st.tabs(df0)
-                #with tab:
-                st.plotly_chart(fig_sca, use_container_width=True)
-                #plot_figures([fig_sca],df0)
+            for i, df in enumerate(scale_sliced):
+                container=st.beta_container()
+                with container:
+                    st.write(f"## {tab_names[i]}")
+                with container:
+                    fig_sca = px.line(df, x='Indice de saturacion calcita', y='Profundidad [ft]',
+                                           hover_name='Pozo',
+                                           hover_data=['Presion [psi]', 'Temperatura [F]', 'Solidos [PTB]',
+                                                       'Riesgo de incrustaciones'])
+
+                    fig_sca.update_traces(mode="markers+lines")
+                    fig_sca.update_xaxes(showspikes=True, spikecolor='black')
+                    fig_sca.update_yaxes(showspikes=True, spikecolor='black')
+                    fig_sca.update_yaxes(autorange="reversed")
+                    st.plotly_chart(fig_sca)
 
 
         with st.expander('Criticidad de pozos'):
