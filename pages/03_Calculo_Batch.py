@@ -504,22 +504,18 @@ def run():
             scale_sliced = [v for k, v in results_scale_profile.groupby('Pozo')]
             st.write(scale_sliced)
 
-            for df in scale_sliced:
-                fig_sca = px.line(df, x='Indice de saturacion calcita', y='Profundidad [ft]',
-                                  hover_name='Pozo',
-                                  hover_data=['Presion [psi]', 'Temperatura [F]', 'Solidos [PTB]',
-                                              'Riesgo de incrustaciones'])
+            #for df in scale_sliced:
+            fig_sca = px.line(df, x='Indice de saturacion calcita', y='Profundidad [ft]',
+                              hover_name='Pozo',
+                              hover_data=['Presion [psi]', 'Temperatura [F]', 'Solidos [PTB]',
+                                          'Riesgo de incrustaciones'])
 
-                fig_sca.update_traces(mode="markers+lines")
-                fig_sca.update_xaxes(showspikes=True, spikecolor='black')
-                fig_sca.update_yaxes(showspikes=True, spikecolor='black')
-                fig_sca.update_yaxes(autorange="reversed")
+            fig_sca.update_traces(mode="markers+lines")
+            fig_sca.update_xaxes(showspikes=True, spikecolor='black')
+            fig_sca.update_yaxes(showspikes=True, spikecolor='black')
+            fig_sca.update_yaxes(autorange="reversed")
 
-            tabs=st.tabs(df0)
-            with tabs:
-                st.plotly_chart([fig_sca])
-                #st.plotly_chart(fig_sca, use_container_width=True)
-                #plot_figures([fig_sca],df0)
+            plot_figures([fig_sca],df0)
 
 
         with st.expander('Criticidad de pozos'):
