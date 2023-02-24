@@ -503,7 +503,7 @@ def run():
 
             scale_sliced = [v for k, v in results_scale_profile.groupby('Pozo')]
             st.write(scale_sliced)
-            st.write(scale_sliced.type())
+            #st.write(scale_sliced.type())
 
             dfx=scale_sliced[1]
             st.write[dfx]
