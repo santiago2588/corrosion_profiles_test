@@ -13,7 +13,7 @@ from PIL import Image
 image = Image.open('Resources/logo_Pungo.png')
 st.image(image)
 
-st.write("# DIGITALIZACIÓN QUE GENERA IMPACTOS")
+st.write("# DIGITALIZACIÓN QUE GENERA IMPACTO")
 st.write("### Bienvenido al demo de ASTRO: la herramienta digital para la gestion del tratamiento quimico en la industria petrolera, desarrollada a la medida de tus necesidades.")
 
 
