@@ -407,10 +407,10 @@ def calcNorsok(temp, pres, bopd, bwpd, mscf, co2fraction, HCO3, Cl, Na, K, Mg, C
     nk = kt * fy ** 0.62 * (shs / 19) ** (0.146 + 0.0324 * math.log10(fy)) * fphcal
 
     #Sin considerar el factor de correccion del modelo de AI
-    corr_ic = nk * 39.4
+    #corr_ic = nk * 39.4
 
     # Transformar a mpy y tomar en cuenta el factor de correccion del modelo de AI (similar a la eficiencia del inhibidor de corrosion)
-    #corr_ic = nk * 39.4 * (100 - IC_efficiency) / 100
+    corr_ic = nk * 39.4 * (100 - IC_efficiency) / 100
 
     # Asignar niveles de riesgo segun norma NACE
     if corr_ic < 1:
