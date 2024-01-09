@@ -179,7 +179,7 @@ def run():
                          max_value=100,
                          value=10, step=1)
 
-    # Asumo una eficiencia del inhibidor de corrosion del 97%
+    # Factor de correccion por influencia de variables que no se toman en cuenta (AI model): eficiencia del inhibidor de corrosion, H2S,... 
     IC_eff = 97
 
     i = 'Pozo_1'
