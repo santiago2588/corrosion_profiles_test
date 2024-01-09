@@ -166,9 +166,17 @@ def run():
     dosis_ic = st.slider(label='Dosis Anticorrosivo, gal/dia', min_value=0,
                          max_value=20,
                          value=10, step=1)
+    
+    precio_ic = st.slider(label='Precio Anticorrosivo, USD/gal', min_value=1,
+                         max_value=100,
+                         value=10, step=1)
 
     dosis_is = st.slider(label='Dosis Antiescala, gal/dia', min_value=0,
                          max_value=20,
+                         value=10, step=1)
+
+    precio_is = st.slider(label='Precio Antiescala, USD/gal', min_value=1,
+                         max_value=100,
                          value=10, step=1)
 
     # Asumo una eficiencia del inhibidor de corrosion del 97%
@@ -382,8 +390,8 @@ def run():
     df24.append(nivel_critic)
 
     # Calculo de dosis de quimicos y ahorro
-    precio_ic = 20
-    precio_is = 20
+    #precio_ic = 20
+    #precio_is = 20
 
     if corr_max > 10:
         dosis_recomendada_ic = math.ceil(80 * BWPD / 23810)
@@ -574,7 +582,7 @@ def run():
 
         st.success(resultado_is)
 
-        st.markdown('Nota: se asume un precio de 20 USD/gal para el anticorrosivo y el antiescala')
+        #st.markdown('Nota: se asume un precio de 20 USD/gal para el anticorrosivo y el antiescala')
 
 if __name__ == '__main__':
     run()
