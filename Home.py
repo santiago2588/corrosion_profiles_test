@@ -10,7 +10,7 @@ import streamlit as st
 st.set_page_config(layout="wide",page_title="ASTRO",page_icon="🌿")
 
 from PIL import Image
-image = Image.open('../Resources/logo_Pungo.png')
+image = Image.open('Resources/logo_Pungo.png')
 st.image(image)
 
 st.write("# DIGITALIZACIÓN QUE GENERA IMPACTO")
