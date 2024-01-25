@@ -410,7 +410,7 @@ def calcNorsok(temp, pres, bopd, bwpd, mscf, co2fraction, HCO3, Cl, Na, K, Mg, C
     #corr_ic = nk * 39.4
 
     # Transformar a mpy y tomar en cuenta el factor de correccion del modelo de AI (similar a la eficiencia del inhibidor de corrosion)
-    corr_ic = nk * 39.4 * correction_factor / 100
+    corr_ic = nk * 39.4 * correction_factor
 
     # Asignar niveles de riesgo segun norma NACE
     if corr_ic < 1:
@@ -481,7 +481,7 @@ def grahpNorskok(temp, temp1, pres, pres1, bopd, bwpd, mscf, co2fraction, HCO3, 
         ph_df.append(auxph)
         auxfph = fpH_Cal((i - 32) * (5 / 9), auxph)
         fph_df.append(auxfph)
-        auxnk = auxkt * auxfy ** 0.62 * (auxss / 19) ** (0.146 + 0.0324 * math.log10(auxfy)) * auxfph * 39.4 * correction_factor / 100
+        auxnk = auxkt * auxfy ** 0.62 * (auxss / 19) ** (0.146 + 0.0324 * math.log10(auxfy)) * auxfph * 39.4 * correction_factor
         nk_df.append(auxnk)
 
         # Asignar niveles de riesgo segun norma NACE
