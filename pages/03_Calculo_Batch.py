@@ -81,7 +81,7 @@ def run():
 
     st.write('Por favor, sigue los pasos que se presentan a continuacion')
     st.write("1. Descarga la plantilla Excel y llena los datos requeridos de los pozos petroleros, en las unidades correspondientes")
-    st.write("2. Carga el archivo Excel lleno")
+    st.write("2. Carga el archivo Excel completo")
     st.write("3. Presiona el boton Calcular para ver los resultados: velocidad de corrosion, indice de saturacion y criticidad de los pozos")
     st.write("4. Presiona el boton Optimizar para obtener las dosis recomendadas de los quimicos, junto con el ahorro generado")
 
