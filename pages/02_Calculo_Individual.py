@@ -171,8 +171,8 @@ def run():
                          max_value=20,
                          value=10, step=1)
 
-    # Asumo una eficiencia del inhibidor de corrosion del 97%
-    IC_eff = 97
+    # Factor de correccion del modelo AI
+    correction_factor = 0.03
 
     i = 'Pozo_1'
 
@@ -187,7 +187,7 @@ def run():
                 'Magnesio_ppm': magnesium, 'Calcio_ppm': calcium,
                 'Estroncio_ppm': strontium, 'Bario_ppm': barium,
                 'Sulfatos_ppm': sulphates, 'Acidos_carboxilicos_ppm': carb_acids,
-                'Diametro tuberia_ppm': pipe_diameter, 'Eficiencia IC_%': IC_eff,
+                'Diametro tuberia_ppm': pipe_diameter, 'factor_correcion': correction_factor,
                 'Profundidad pozo_ft': well_depth}
 
     features_df = pd.DataFrame([features])
@@ -200,7 +200,7 @@ def run():
                                                        chlorides, sodium,
                                                        potassium, magnesium, calcium, strontium, barium, sulphates,
                                                        carb_acids,
-                                                       pipe_diameter, IC_eff, 'CABEZA')
+                                                       pipe_diameter, correction_factor)
 
     # Velocidad de corrosion en fondo
     nk_temp1, corr_ic_temp1, corr_risk_temp1 = calcNorsok(temperature_bottom,
@@ -208,21 +208,21 @@ def run():
                                                           chlorides, sodium,
                                                           potassium, magnesium, calcium, strontium, barium,
                                                           sulphates, carb_acids,
-                                                          pipe_diameter, IC_eff, 'FONDO')
+                                                          pipe_diameter, correction_factor)
 
     # Indice de saturacion en cabeza
     calcite_si_temp, solid_temp, scale_risk_temp = calCalcite(pressure_head,
                                                               temperature_head, sodium, potassium, magnesium,
                                                               calcium, strontium, barium, chlorides, sulphates,
                                                               alkalinity, co2_gas, carb_acids, BOPD,
-                                                              BWPD, MSCF, "CABEZA")
+                                                              BWPD, MSCF)
 
     # Indice de saturacion en fondo
     calcite_si_temp1, solid_temp1, scale_risk_temp1 = calCalcite(pressure_bottom,
                                                                  temperature_bottom, sodium, potassium, magnesium,
                                                                  calcium, strontium, barium, chlorides, sulphates,
                                                                  alkalinity, co2_gas, carb_acids, BOPD,
-                                                                 BWPD, MSCF, "FONDO")
+                                                                 BWPD, MSCF)
 
     # Perfil de la velocidad de corrosion
     temp_array, press_array, depth_array, fy_df, ph_df, nk_df, corr_profile_risk = grahpNorskok(temperature_head,
@@ -238,8 +238,7 @@ def run():
                                                                                                 sulphates,
                                                                                                 carb_acids,
                                                                                                 pipe_diameter,
-                                                                                                IC_eff, well_depth,
-                                                                                                i)
+                                                                                                correction_factor, well_depth)
 
     # Perfil del indice de saturacion
     temp_array, press_array, depth_array, fy, ph1, calcite, ptb1, scale_profile_risk = graphCalcite(
@@ -247,7 +246,7 @@ def run():
         temperature_bottom, pressure_head, pressure_bottom,
         well_depth, BOPD, BWPD, MSCF, co2_gas, alkalinity,
         chlorides, sodium, potassium, magnesium, calcium,
-        strontium, barium, sulphates, carb_acids, i)
+        strontium, barium, sulphates, carb_acids)
 
     # Guardar los resultados de cabeza y fondo en un data frame
     df0.append(i)
