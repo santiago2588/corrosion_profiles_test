@@ -376,7 +376,7 @@ def Kt(temp):
 
     #I assume that at higher T than 150C, kt remains the same
     temp_table = (5, 15, 20, 40, 60, 80, 90, 120, 150,180)
-    value_table = (0.42, 1.59, 4.762, 8.927, 10.695, 9.949, 6.250, 7.770, 5.203,5.203)
+    value_table = (0.42, 1.59, 4.762, 8.927, 10.695, 9.949, 6.250, 7.770, 5.203,5.384)
 
     for i, temp_i in enumerate(temp_table):
 
