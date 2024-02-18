@@ -101,7 +101,7 @@ def run():
              "Strontium",
              "Barium", "Sulphates", "Carboxylic acids", "Well Depth", "Well Pipe Diameter",
              "Correction factor",
-             "aux", "dosis_ic", "dosis_is", "precio_ic", "precio_is"])
+             "dosis_ic", "dosis_is", "precio_ic", "precio_is"])
 
         for i in data.drop(["Well", "Unit"], axis=1).columns:
             for id_j, j in enumerate(parameters_names):
