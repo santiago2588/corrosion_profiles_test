@@ -172,7 +172,7 @@ def run():
                          value=10, step=1)
 
     # Factor de correccion del modelo AI
-    correction_factor = 0.03
+    correction_factor = 0.026
 
     i = 'Pozo_1'
 
