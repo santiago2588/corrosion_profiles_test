@@ -1,0 +1,10 @@
+2024-04-29 15:02:22,137:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-04-29 15:02:22,137:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-04-29 15:02:22,137:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-04-29 15:02:22,137:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-04-29 15:02:22,245:INFO:Initializing load_model()
+2024-04-29 15:02:22,245:INFO:load_model(model_name=AI_models/corrosion_regression_repsol_hybrid, platform=None, authentication=None, verbose=True)
