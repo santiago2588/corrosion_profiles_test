@@ -24,7 +24,7 @@
 # mscf: volumetric flowrate of gas in thousand of standard cubic feet per day [MSCFD].
 # diameter: pipe internal diameter [in]
 # h1: well depth [ft]
-# IC_efficiency: %, corrosion inhibitor efficiency
+# correction_factor AI model correction factor (related to IC efficiency)
 
 # Paquetes necesarios
 
@@ -376,7 +376,7 @@ def Kt(temp):
 
     #I assume that at higher T than 150C, kt remains the same
     temp_table = (5, 15, 20, 40, 60, 80, 90, 120, 150,180)
-    value_table = (0.42, 1.59, 4.762, 8.927, 10.695, 9.949, 6.250, 7.770, 5.203,5.203)
+    value_table = (0.42, 1.59, 4.762, 8.927, 10.695, 9.949, 6.250, 7.770, 5.203,5.384)
 
     for i, temp_i in enumerate(temp_table):
 
@@ -396,7 +396,7 @@ def Kt(temp):
 
 
 def calcNorsok(temp, pres, bopd, bwpd, mscf, co2fraction, HCO3, Cl, Na, K, Mg, Ca, Sr, Ba, SO4, cac, diameter,
-               IC_efficiency, situacion):
+               correction_factor):
     phcal = ph(pres, temp, Na, K, Mg, Ca, Sr, Ba, Cl, SO4, HCO3, co2fraction, cac, bopd, bwpd, mscf)
     fphcal = fpH_Cal((temp - 32) * (5 / 9), phcal)
     fy = FugacityofCO2(co2fraction, pres, temp, bopd, bwpd, mscf)
@@ -410,7 +410,7 @@ def calcNorsok(temp, pres, bopd, bwpd, mscf, co2fraction, HCO3, Cl, Na, K, Mg, C
     #corr_ic = nk * 39.4
 
     # Transformar a mpy y tomar en cuenta el factor de correccion del modelo de AI (similar a la eficiencia del inhibidor de corrosion)
-    corr_ic = nk * 39.4 * (100 - IC_efficiency) / 100
+    corr_ic = nk * 39.4 * correction_factor
 
     # Asignar niveles de riesgo segun norma NACE
     if corr_ic < 1:
@@ -430,7 +430,7 @@ def calcNorsok(temp, pres, bopd, bwpd, mscf, co2fraction, HCO3, Cl, Na, K, Mg, C
 # In[15]:
 
 
-def calCalcite(pres, temp, Na, K, Mg, Ca, Sr, Ba, Cl, SO4, HCO3, co2fraction, cac, bopd, bwpd, mscf, situacion):
+def calCalcite(pres, temp, Na, K, Mg, Ca, Sr, Ba, Cl, SO4, HCO3, co2fraction, cac, bopd, bwpd, mscf):
     calcite_si = indiceSaturacion(pres, temp, Na, K, Mg, Ca, Sr, Ba, Cl, SO4, HCO3, co2fraction, cac, bopd, bwpd, mscf)
 
     solid = ptb(pres, temp, Na, K, Mg, Ca, Sr, Ba, Cl, SO4, HCO3, co2fraction, cac, bopd, bwpd, mscf)
@@ -454,7 +454,7 @@ def calCalcite(pres, temp, Na, K, Mg, Ca, Sr, Ba, Cl, SO4, HCO3, co2fraction, ca
 
 
 def grahpNorskok(temp, temp1, pres, pres1, bopd, bwpd, mscf, co2fraction, HCO3, Cl, Na, K, Mg, Ca, Sr, Ba, SO4, cac,
-                 diameter, IC_efficiency, h1, well_name):
+                 diameter, correction_factor, h1):
     temp_array = np.linspace(temp, temp1, 100)
     press_array = np.linspace(pres, pres1, 100)
     depth_array = np.linspace(0, h1, 100)
@@ -481,8 +481,7 @@ def grahpNorskok(temp, temp1, pres, pres1, bopd, bwpd, mscf, co2fraction, HCO3, 
         ph_df.append(auxph)
         auxfph = fpH_Cal((i - 32) * (5 / 9), auxph)
         fph_df.append(auxfph)
-        auxnk = auxkt * auxfy ** 0.62 * (auxss / 19) ** (0.146 + 0.0324 * math.log10(auxfy)) * auxfph * 39.4 * (
-                100 - IC_efficiency) / 100
+        auxnk = auxkt * auxfy ** 0.62 * (auxss / 19) ** (0.146 + 0.0324 * math.log10(auxfy)) * auxfph * 39.4 * correction_factor
         nk_df.append(auxnk)
 
         # Asignar niveles de riesgo segun norma NACE
@@ -507,8 +506,7 @@ def grahpNorskok(temp, temp1, pres, pres1, bopd, bwpd, mscf, co2fraction, HCO3, 
 # In[17]:
 
 
-def graphCalcite(temp, temp1, pres, pres1, h1, bopd, bwpd, mscf, co2fraction, HCO3, Cl, Na, K, Mg, Ca, Sr, Ba, SO4, cac,
-                 well_name):
+def graphCalcite(temp, temp1, pres, pres1, h1, bopd, bwpd, mscf, co2fraction, HCO3, Cl, Na, K, Mg, Ca, Sr, Ba, SO4, cac):
     temp_array = np.linspace(temp, temp1, 100)
     press_array = np.linspace(pres, pres1, 100)
     depth_array = np.linspace(0, h1, 100)

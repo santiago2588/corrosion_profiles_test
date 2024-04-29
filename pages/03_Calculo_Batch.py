@@ -81,7 +81,7 @@ def run():
 
     st.write('Por favor, sigue los pasos que se presentan a continuacion')
     st.write("1. Descarga la plantilla Excel y llena los datos requeridos de los pozos petroleros, en las unidades correspondientes")
-    st.write("2. Carga el archivo Excel lleno")
+    st.write("2. Carga el archivo Excel completo")
     st.write("3. Presiona el boton Calcular para ver los resultados: velocidad de corrosion, indice de saturacion y criticidad de los pozos")
     st.write("4. Presiona el boton Optimizar para obtener las dosis recomendadas de los quimicos, junto con el ahorro generado")
 
@@ -100,8 +100,8 @@ def run():
              "CO2 Fraction in Gas", "Alkalinity", "Chlorides", "Sodium", "Magnesium", "Potassium", "Calcium",
              "Strontium",
              "Barium", "Sulphates", "Carboxylic acids", "Well Depth", "Well Pipe Diameter",
-             "Corrosion Inhibitor Efficiency",
-             "aux", "dosis_ic", "dosis_is", "precio_ic", "precio_is"])
+             "Correction factor",
+             "dosis_ic", "dosis_is", "precio_ic", "precio_is"])
 
         for i in data.drop(["Well", "Unit"], axis=1).columns:
             for id_j, j in enumerate(parameters_names):
@@ -125,8 +125,7 @@ def run():
                                                                parameters["Sulphates"],
                                                                parameters["Carboxylic acids"],
                                                                parameters["Well Pipe Diameter"],
-                                                               parameters["Corrosion Inhibitor Efficiency"],
-                                                               'CABEZA')
+                                                               parameters["Correction factor"])
 
             # Velocidad de corrosion en fondo
             nk_temp1, corr_ic_temp1, corr_risk_temp1 = calcNorsok(parameters["Temperature Bottom"],
@@ -146,8 +145,7 @@ def run():
                                                                   parameters["Sulphates"],
                                                                   parameters["Carboxylic acids"],
                                                                   parameters["Well Pipe Diameter"],
-                                                                  parameters["Corrosion Inhibitor Efficiency"],
-                                                                  'FONDO')
+                                                                  parameters["Correction factor"])
 
             # Perfil de la velocidad de corrosion
             temp_array, press_array, depth_array, fy_df, ph_df, nk_df, corr_profile_risk = grahpNorskok(
@@ -170,9 +168,8 @@ def run():
                 parameters["Sulphates"],
                 parameters["Carboxylic acids"],
                 parameters["Well Pipe Diameter"],
-                parameters["Corrosion Inhibitor Efficiency"],
-                parameters["Well Depth"],
-                i)
+                parameters["Correction factor"],
+                parameters["Well Depth"])
 
             # Indice de saturacion en cabeza
             calcite_si_temp, solid_temp, scale_risk_temp = calCalcite(parameters["Pressure Head"],
@@ -190,8 +187,7 @@ def run():
                                                                       parameters["Carboxylic acids"],
                                                                       parameters["BOPD"],
                                                                       parameters["BWPD"],
-                                                                      parameters["MSCF"],
-                                                                      "CABEZA")
+                                                                      parameters["MSCF"])
 
             # Indice de saturacion en fondo
             calcite_si_temp1, solid_temp1, scale_risk_temp1 = calCalcite(parameters["Pressure Bottom"],
@@ -209,8 +205,7 @@ def run():
                                                                          parameters["Carboxylic acids"],
                                                                          parameters["BOPD"],
                                                                          parameters["BWPD"],
-                                                                         parameters["MSCF"],
-                                                                         "FONDO")
+                                                                         parameters["MSCF"])
 
             # Perfil del indice de saturacion
             temp_array, press_array, depth_array, fy, ph1, calcite, ptb1, scale_profile_risk = graphCalcite(
@@ -232,8 +227,7 @@ def run():
                 parameters["Strontium"],
                 parameters["Barium"],
                 parameters["Sulphates"],
-                parameters["Carboxylic acids"],
-                i)
+                parameters["Carboxylic acids"])
 
             # Guardar los resultados de cabeza y fondo en un data frame
             df0.append(i)
