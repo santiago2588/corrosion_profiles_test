@@ -2,6 +2,8 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
+from pycaret.regression import load_model, predict_model
+import numpy as np
 
 from Functions.funciones import *
 
@@ -63,7 +65,9 @@ df44 = []
 df45 = []
 df46 = []
 df47 = []
-
+df48=[]
+df49=[]
+df50=[]
 
 # Calculo de los resultados
 
@@ -178,11 +182,59 @@ def run():
     precio_is=st.slider(label='Precio Antiescala, USD/gal', min_value=1,
                          max_value=100,
                          value=10, step=1)
+    
+    h2s_gas=st.slider(label='H2S gas, %', min_value=0.000,
+                         max_value=0.100,
+                         value=0.005, step=0.001)
+
+    co2_agua=st.slider(label='CO2 agua, %', min_value=0.000,
+                         max_value=0.100,
+                         value=0.005, step=0.001)
+    
+    h2s_agua=st.slider(label='H2S agua, ppm', min_value=0.0,
+                         max_value=30.0,
+                         value=0.5, step=0.1)
+
+    solidos_PTB=st.slider(label='Solidos, PTB', min_value=1,
+                         max_value=100,
+                         value=10, step=1)
+    
+    dureza_total=st.slider(label='Dureza total, ppm', min_value=100,
+                         max_value=50000,
+                         value=5000, step=100)
+    
+    hierro=st.slider(label='Dureza total, ppm', min_value=0,
+                         max_value=200,
+                         value=20, step=1)
+    
 
 
-    # Factor de correccion del modelo AI
-    correction_factor = 0.026
+    # Factor de correccion del modelo AI (0.026 global)
+    correction_factor = 1
 
+    #Modelo AI
+    model = load_model('AI_models/corrosion_regression_repsol_hybrid')
+
+    def predict_corrosion(model, df):
+        predictions_data = predict_model(estimator = model, data = df)
+        predictions=predictions_data['prediction_label'][0]
+        return predictions
+
+    features_AI = {'crudo_BPPD': BOPD, 'agua_BAPD': BWPD,
+        'gas_MMCFD': MSCF, 'presion_cabeza_psi': pressure_head,
+        'temperatura_cabeza_F': temperature_head, 'solidos_PTB': solidos_PTB,
+        'cloruros_ppm': chlorides, 'CO2_gas': co2_gas, 'CO2_agua%': co2_agua, 'H2S_gas_%':h2s_gas,'H2S_agua_ppm':h2s_agua,
+        'alcalinidad_ppm': alkalinity, 'magnesio_ppm': magnesium,'calcio_ppm': calcium,'sulfatos_ppm': sulphates, 
+        'dureza_total_ppm': dureza_total, 'hierro_ppm': hierro,'diametro_tuberia_in':pipe_diameter,
+        'longitud_tuberia_pies':well_depth, 'dosis_IC_ppm': dosis_ic, 'dosis_IS_ppm':dosis_is
+       }
+    
+    features_df_AI  = pd.DataFrame([features_AI])
+
+    mpy_AI = predict_corrosion(model, features_df_AI)
+
+
+    #Modelo Norsok
     i = 'Pozo_1'
 
     output = ""
@@ -248,6 +300,11 @@ def run():
                                                                                                 carb_acids,
                                                                                                 pipe_diameter,
                                                                                                 correction_factor, well_depth)
+    
+    factor_AI=mpy_AI/corr_ic_temp
+    corr_ic_temp_ai=corr_ic_temp*factor_AI
+    corr_ic_temp1_ai=corr_ic_temp1*factor_AI
+
 
     # Perfil del indice de saturacion
     temp_array, press_array, depth_array, fy, ph1, calcite, ptb1, scale_profile_risk = graphCalcite(
@@ -256,6 +313,7 @@ def run():
         well_depth, BOPD, BWPD, MSCF, co2_gas, alkalinity,
         chlorides, sodium, potassium, magnesium, calcium,
         strontium, barium, sulphates, carb_acids)
+    
 
     # Guardar los resultados de cabeza y fondo en un data frame
     df0.append(i)
@@ -267,11 +325,16 @@ def run():
     df22.append(scale_risk_temp)
     df4.append(calcite_si_temp1)
     df23.append(scale_risk_temp1)
-
+    df48.append(corr_ic_temp_ai)
+    df49.append(corr_ic_temp1_ai)
+    df50.append(mpy_AI)
+    
     # Resultados de velocidad de corrosion e indice de saturacion en cabeza y fondo
-    results_corr = pd.DataFrame({'Velocidad de corrosion cabeza [mpy]': df1,
+    results_corr = pd.DataFrame({'Velocidad de corrosion cabeza Norsok [mpy]': df1,
                                  'Riesgo de corrosion cabeza': df20,
-                                 'Velocidad de corrosion fondo [mpy]': df2,
+                                 'Velocidad de corrosion cabeza AI [mpy]':df48,
+                                 'Velocidad de corrosion fondo Norsok [mpy]': df2,
+                                 'Velocidad de corrosion fondo AI [mpy]': df49,
                                  'Riesgo de corrosion fondo': df21})
 
     results_esc = pd.DataFrame({'Indice de saturacion cabeza': df3,
@@ -479,11 +542,13 @@ def run():
         col1, col2, col3 = st.columns(3)
 
         with col1:
-            st.metric('Velocidad de corrosion en cabeza', str("%.2f" % np.float_(df1[0])) + ' MPY')
+            st.metric('Velocidad de corrosion en cabeza Norsok', str("%.2f" % np.float_(df1[0])) + ' MPY')
+            st.metric('Velocidad de corrosion en cabeza AI', str("%.2f" % np.float_(df48[0])) + ' MPY')
             st.metric('Riesgo de corrosion en cabeza', df20[0])
 
         with col2:
             st.metric('Velocidad de corrosion en fondo', str("%.2f" % np.float_(df2[0])) + ' MPY')
+            st.metric('Velocidad de corrosion en fondo AI', str("%.2f" % np.float_(df49[0])) + ' MPY')
             st.metric('Riesgo de corrosion en fondo', df21[0])
 
         with col3:
