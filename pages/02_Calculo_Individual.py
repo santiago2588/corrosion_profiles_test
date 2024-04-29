@@ -242,7 +242,7 @@ def run():
     features = {'BOPD': BOPD, 'BWPD': BWPD,
                 'Caudal_gas_MSCFD': MSCF, 'Presion_cabeza_psi': pressure_head,
                 'Temperatura_cabeza_F': temperature_head, 'Presion_fondo_psi': pressure_bottom,
-                'Temperatura_fondo_F': temperature_bottom, 'Cloruros_ppm': chlorides,
+                'Temperatura_fondo_F': temperature_bottom, 'Cloruros_ppmCl': chlorides,
                 'CO2_gas': co2_gas, 'Alcalinidad_ppm': alkalinity,
                 'Sodio_ppm': sodium, 'Potasio_ppm': potassium,
                 'Magnesio_ppm': magnesium, 'Calcio_ppm': calcium,
