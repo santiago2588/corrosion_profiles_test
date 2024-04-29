@@ -223,7 +223,7 @@ def run():
     features_AI = {'crudo_BPPD': BOPD, 'agua_BAPD': BWPD,
         'gas_MMCFD': MSCF, 'presion_cabeza_psi': pressure_head,
         'temperatura_cabeza_F': temperature_head, 'solidos_PTB': solidos_PTB,
-        'cloruros_ppm': chlorides, 'CO2_gas': co2_gas, 'CO2_agua%': co2_agua, 'H2S_gas_%':h2s_gas,'H2S_agua_ppm':h2s_agua,
+        'cloruros_ppmCl': chlorides, 'CO2_gas': co2_gas, 'CO2_agua%': co2_agua, 'H2S_gas_%':h2s_gas,'H2S_agua_ppm':h2s_agua,
         'alcalinidad_ppm': alkalinity, 'magnesio_ppm': magnesium,'calcio_ppm': calcium,'sulfatos_ppm': sulphates, 
         'dureza_total_ppm': dureza_total, 'hierro_ppm': hierro,'diametro_tuberia_in':pipe_diameter,
         'longitud_tuberia_pies':well_depth, 'dosis_IC_ppm': dosis_ic, 'dosis_IS_ppm':dosis_is
@@ -242,7 +242,7 @@ def run():
     features = {'BOPD': BOPD, 'BWPD': BWPD,
                 'Caudal_gas_MSCFD': MSCF, 'Presion_cabeza_psi': pressure_head,
                 'Temperatura_cabeza_F': temperature_head, 'Presion_fondo_psi': pressure_bottom,
-                'Temperatura_fondo_F': temperature_bottom, 'Cloruros_ppmCl': chlorides,
+                'Temperatura_fondo_F': temperature_bottom, 'Cloruros_ppm': chlorides,
                 'CO2_gas': co2_gas, 'Alcalinidad_ppm': alkalinity,
                 'Sodio_ppm': sodium, 'Potasio_ppm': potassium,
                 'Magnesio_ppm': magnesium, 'Calcio_ppm': calcium,
