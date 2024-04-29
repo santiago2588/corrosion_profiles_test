@@ -174,9 +174,14 @@ def run():
     dosis_is = st.slider(label='Dosis Antiescala, gal/dia', min_value=0,
                          max_value=20,
                          value=10, step=1)
+    
+    precio_is=st.slider(label='Precio Antiescala, USD/gal', min_value=1,
+                         max_value=100,
+                         value=10, step=1)
 
-    # Asumo una eficiencia del inhibidor de corrosion del 97%
-    IC_eff = 97
+
+    # Factor de correccion del modelo AI
+    correction_factor = 0.026
 
     i = 'Pozo_1'
 
