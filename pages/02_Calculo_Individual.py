@@ -213,7 +213,7 @@ def run():
     correction_factor = 1
 
     #Modelo AI
-    model = load_model('C:/Users/mjkipsz2/OneDrive - The University of Manchester/Documents/VS codes/corrosion_profiles_test/AI_model/corrosion_regression_repsol_hybrid.pkl')
+    model = load_model('.../AI_model/corrosion_regression_repsol_hybrid.pkl')
 
     def predict_corrosion(model, df):
         predictions_data = predict_model(estimator = model, data = df)
