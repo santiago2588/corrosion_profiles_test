@@ -24,7 +24,7 @@
 # mscf: volumetric flowrate of gas in thousand of standard cubic feet per day [MSCFD].
 # diameter: pipe internal diameter [in]
 # h1: well depth [ft]
-# correction_factor AI model correction factor (related to IC efficiency)
+# correction_factor: AI model correction factor
 
 # Paquetes necesarios
 
@@ -395,8 +395,7 @@ def Kt(temp):
 # In[14]:
 
 
-def calcNorsok(temp, pres, bopd, bwpd, mscf, co2fraction, HCO3, Cl, Na, K, Mg, Ca, Sr, Ba, SO4, cac, diameter,
-               correction_factor):
+def calcNorsok(temp, pres, bopd, bwpd, mscf, co2fraction, HCO3, Cl, Na, K, Mg, Ca, Sr, Ba, SO4, cac, diameter):
     phcal = ph(pres, temp, Na, K, Mg, Ca, Sr, Ba, Cl, SO4, HCO3, co2fraction, cac, bopd, bwpd, mscf)
     fphcal = fpH_Cal((temp - 32) * (5 / 9), phcal)
     fy = FugacityofCO2(co2fraction, pres, temp, bopd, bwpd, mscf)
@@ -406,23 +405,10 @@ def calcNorsok(temp, pres, bopd, bwpd, mscf, co2fraction, HCO3, Cl, Na, K, Mg, C
     # Calculo de la velocidad de corrosion segun Norsok, en mm/year
     nk = kt * fy ** 0.62 * (shs / 19) ** (0.146 + 0.0324 * math.log10(fy)) * fphcal
 
-    #Sin considerar el factor de correccion del modelo de AI
-    #corr_ic = nk * 39.4
+    #Velocidad de corrosion en mpy
+    corr_ic = nk * 39.4
 
-    # Transformar a mpy y tomar en cuenta el factor de correccion del modelo de AI (similar a la eficiencia del inhibidor de corrosion)
-    corr_ic = nk * 39.4 * correction_factor
-
-    # Asignar niveles de riesgo segun norma NACE
-    if corr_ic < 1:
-        corr_risk = 'Bajo'
-    if corr_ic >= 1 and corr_ic < 5:
-        corr_risk = 'Moderado'
-    if corr_ic >= 5 and corr_ic < 10:
-        corr_risk = "Alto"
-    if corr_ic >= 10:
-        corr_risk = 'Muy alto'
-
-    return nk, corr_ic, corr_risk
+    return nk, corr_ic
 
 
 # Funcion para calcular el indice de saturacion
@@ -454,7 +440,7 @@ def calCalcite(pres, temp, Na, K, Mg, Ca, Sr, Ba, Cl, SO4, HCO3, co2fraction, ca
 
 
 def grahpNorskok(temp, temp1, pres, pres1, bopd, bwpd, mscf, co2fraction, HCO3, Cl, Na, K, Mg, Ca, Sr, Ba, SO4, cac,
-                 diameter, correction_factor, h1):
+                 diameter, h1):
     temp_array = np.linspace(temp, temp1, 100)
     press_array = np.linspace(pres, pres1, 100)
     depth_array = np.linspace(0, h1, 100)
@@ -466,7 +452,6 @@ def grahpNorskok(temp, temp1, pres, pres1, bopd, bwpd, mscf, co2fraction, HCO3, 
     ph_df = []
     fph_df = []
     nk_df = []
-    corr_profile_risk = []
 
     for i in temp_array:
         auxkt = Kt(i)
@@ -481,24 +466,12 @@ def grahpNorskok(temp, temp1, pres, pres1, bopd, bwpd, mscf, co2fraction, HCO3, 
         ph_df.append(auxph)
         auxfph = fpH_Cal((i - 32) * (5 / 9), auxph)
         fph_df.append(auxfph)
-        auxnk = auxkt * auxfy ** 0.62 * (auxss / 19) ** (0.146 + 0.0324 * math.log10(auxfy)) * auxfph * 39.4 * correction_factor
+        auxnk = auxkt * auxfy ** 0.62 * (auxss / 19) ** (0.146 + 0.0324 * math.log10(auxfy)) * auxfph * 39.4
         nk_df.append(auxnk)
-
-        # Asignar niveles de riesgo segun norma NACE
-        if auxnk < 1:
-            auxcorr = 'Bajo'
-        if auxnk >= 1 and auxnk < 5:
-            auxcorr = 'Moderado'
-        if auxnk >= 5 and auxnk < 10:
-            auxcorr = "Alto"
-        if auxnk >= 10:
-            auxcorr = 'Muy alto'
-
-        corr_profile_risk.append(auxcorr)
 
         aux = aux + 1
 
-    return temp_array, press_array, depth_array, fy_df, ph_df, nk_df, corr_profile_risk
+    return temp_array, press_array, depth_array, fy_df, ph_df, nk_df
 
 
 # Funcion para graficar el perfil del indice de saturacion

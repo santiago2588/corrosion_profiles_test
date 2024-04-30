@@ -8,3 +8,403 @@
 'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
 2024-04-29 15:02:22,245:INFO:Initializing load_model()
 2024-04-29 15:02:22,245:INFO:load_model(model_name=AI_models/corrosion_regression_repsol_hybrid, platform=None, authentication=None, verbose=True)
+2024-04-29 15:04:03,964:INFO:Initializing load_model()
+2024-04-29 15:04:03,964:INFO:load_model(model_name=C:/Users/mjkipsz2/OneDrive - The University of Manchester/Documents/VS codes/corrosion_profiles_test/AI_model/corrosion_regression_repsol_hybrid.pkl, platform=None, authentication=None, verbose=True)
+2024-04-29 15:05:23,490:INFO:Initializing load_model()
+2024-04-29 15:05:23,490:INFO:load_model(model_name=.../AI_model/corrosion_regression_repsol_hybrid.pkl, platform=None, authentication=None, verbose=True)
+2024-04-29 15:06:27,836:INFO:Initializing load_model()
+2024-04-29 15:06:27,836:INFO:load_model(model_name=AI_model/corrosion_regression_repsol_hybrid.pkl, platform=None, authentication=None, verbose=True)
+2024-04-29 15:06:54,289:INFO:Initializing load_model()
+2024-04-29 15:06:54,289:INFO:load_model(model_name=AI_model/corrosion_regression_repsol_hybrid, platform=None, authentication=None, verbose=True)
+2024-04-29 15:06:54,960:INFO:Initializing predict_model()
+2024-04-29 15:06:54,960:INFO:predict_model(self=<pycaret.regression.oop.RegressionExperiment object at 0x00000262E0AF24D0>, estimator=Pipeline(memory=Memory(location=None),
+         steps=[('numerical_imputer',
+                 TransformerWrapper(include=['crudo_BPPD', 'agua_BAPD',
+                                             'gas_MMCFD', 'presion_cabeza_psi',
+                                             'temperatura_cabeza_F',
+                                             'solidos_PTB', 'cloruros_ppmCl',
+                                             'CO2_gas', 'CO2_agua%',
+                                             'H2S_gas_%', 'H2S_agua_ppm',
+                                             'alcalinidad_ppm', 'magnesio_ppm',
+                                             'calcio_ppm', 'sulfatos_ppm',
+                                             'dureza_total_ppm', 'hierro_ppm',
+                                             'd...
+                                    transformer=SimpleImputer(strategy='most_frequent'))),
+                ('remove_multicollinearity',
+                 TransformerWrapper(exclude=[],
+                                    transformer=RemoveMulticollinearity(threshold=0.9))),
+                ('normalize', TransformerWrapper(transformer=StandardScaler())),
+                ('clean_column_names',
+                 TransformerWrapper(transformer=CleanColumnNames())),
+                ('trained_model', LGBMRegressor(n_jobs=-1, random_state=123))]), probability_threshold=None, encoded_labels=False, raw_score=False, round=4, verbose=True, ml_usecase=None, preprocess=True, encode_labels=<function _SupervisedExperiment.predict_model.<locals>.encode_labels at 0x00000262E0A893A0>)
+2024-04-29 15:06:54,960:INFO:Checking exceptions
+2024-04-29 15:06:54,960:INFO:Preloading libraries
+2024-04-29 15:06:54,960:INFO:Set up data.
+2024-04-29 15:06:54,979:INFO:Set up index.
+2024-04-29 15:08:11,185:INFO:Initializing load_model()
+2024-04-29 15:08:11,185:INFO:load_model(model_name=AI_model/corrosion_regression_repsol_hybrid, platform=None, authentication=None, verbose=True)
+2024-04-29 15:08:11,215:INFO:Initializing predict_model()
+2024-04-29 15:08:11,215:INFO:predict_model(self=<pycaret.regression.oop.RegressionExperiment object at 0x00000262E0AB0110>, estimator=Pipeline(memory=Memory(location=None),
+         steps=[('numerical_imputer',
+                 TransformerWrapper(include=['crudo_BPPD', 'agua_BAPD',
+                                             'gas_MMCFD', 'presion_cabeza_psi',
+                                             'temperatura_cabeza_F',
+                                             'solidos_PTB', 'cloruros_ppmCl',
+                                             'CO2_gas', 'CO2_agua%',
+                                             'H2S_gas_%', 'H2S_agua_ppm',
+                                             'alcalinidad_ppm', 'magnesio_ppm',
+                                             'calcio_ppm', 'sulfatos_ppm',
+                                             'dureza_total_ppm', 'hierro_ppm',
+                                             'd...
+                                    transformer=SimpleImputer(strategy='most_frequent'))),
+                ('remove_multicollinearity',
+                 TransformerWrapper(exclude=[],
+                                    transformer=RemoveMulticollinearity(threshold=0.9))),
+                ('normalize', TransformerWrapper(transformer=StandardScaler())),
+                ('clean_column_names',
+                 TransformerWrapper(transformer=CleanColumnNames())),
+                ('trained_model', LGBMRegressor(n_jobs=-1, random_state=123))]), probability_threshold=None, encoded_labels=False, raw_score=False, round=4, verbose=True, ml_usecase=None, preprocess=True, encode_labels=<function _SupervisedExperiment.predict_model.<locals>.encode_labels at 0x00000262E26616C0>)
+2024-04-29 15:08:11,215:INFO:Checking exceptions
+2024-04-29 15:08:11,215:INFO:Preloading libraries
+2024-04-29 15:08:11,216:INFO:Set up data.
+2024-04-29 15:08:11,222:INFO:Set up index.
+2024-04-29 15:08:54,042:INFO:Initializing load_model()
+2024-04-29 15:08:54,042:INFO:load_model(model_name=AI_model/corrosion_regression_repsol_hybrid, platform=None, authentication=None, verbose=True)
+2024-04-29 15:08:54,070:INFO:Initializing predict_model()
+2024-04-29 15:08:54,070:INFO:predict_model(self=<pycaret.regression.oop.RegressionExperiment object at 0x00000262E0B5D990>, estimator=Pipeline(memory=Memory(location=None),
+         steps=[('numerical_imputer',
+                 TransformerWrapper(include=['crudo_BPPD', 'agua_BAPD',
+                                             'gas_MMCFD', 'presion_cabeza_psi',
+                                             'temperatura_cabeza_F',
+                                             'solidos_PTB', 'cloruros_ppmCl',
+                                             'CO2_gas', 'CO2_agua%',
+                                             'H2S_gas_%', 'H2S_agua_ppm',
+                                             'alcalinidad_ppm', 'magnesio_ppm',
+                                             'calcio_ppm', 'sulfatos_ppm',
+                                             'dureza_total_ppm', 'hierro_ppm',
+                                             'd...
+                                    transformer=SimpleImputer(strategy='most_frequent'))),
+                ('remove_multicollinearity',
+                 TransformerWrapper(exclude=[],
+                                    transformer=RemoveMulticollinearity(threshold=0.9))),
+                ('normalize', TransformerWrapper(transformer=StandardScaler())),
+                ('clean_column_names',
+                 TransformerWrapper(transformer=CleanColumnNames())),
+                ('trained_model', LGBMRegressor(n_jobs=-1, random_state=123))]), probability_threshold=None, encoded_labels=False, raw_score=False, round=4, verbose=True, ml_usecase=None, preprocess=True, encode_labels=<function _SupervisedExperiment.predict_model.<locals>.encode_labels at 0x00000262E2661F80>)
+2024-04-29 15:08:54,070:INFO:Checking exceptions
+2024-04-29 15:08:54,070:INFO:Preloading libraries
+2024-04-29 15:08:54,070:INFO:Set up data.
+2024-04-29 15:08:54,081:INFO:Set up index.
+2024-04-29 15:09:16,973:INFO:Initializing load_model()
+2024-04-29 15:09:16,973:INFO:load_model(model_name=AI_model/corrosion_regression_repsol_hybrid, platform=None, authentication=None, verbose=True)
+2024-04-29 15:09:17,003:INFO:Initializing predict_model()
+2024-04-29 15:09:17,003:INFO:predict_model(self=<pycaret.regression.oop.RegressionExperiment object at 0x00000262E25618D0>, estimator=Pipeline(memory=Memory(location=None),
+         steps=[('numerical_imputer',
+                 TransformerWrapper(include=['crudo_BPPD', 'agua_BAPD',
+                                             'gas_MMCFD', 'presion_cabeza_psi',
+                                             'temperatura_cabeza_F',
+                                             'solidos_PTB', 'cloruros_ppmCl',
+                                             'CO2_gas', 'CO2_agua%',
+                                             'H2S_gas_%', 'H2S_agua_ppm',
+                                             'alcalinidad_ppm', 'magnesio_ppm',
+                                             'calcio_ppm', 'sulfatos_ppm',
+                                             'dureza_total_ppm', 'hierro_ppm',
+                                             'd...
+                                    transformer=SimpleImputer(strategy='most_frequent'))),
+                ('remove_multicollinearity',
+                 TransformerWrapper(exclude=[],
+                                    transformer=RemoveMulticollinearity(threshold=0.9))),
+                ('normalize', TransformerWrapper(transformer=StandardScaler())),
+                ('clean_column_names',
+                 TransformerWrapper(transformer=CleanColumnNames())),
+                ('trained_model', LGBMRegressor(n_jobs=-1, random_state=123))]), probability_threshold=None, encoded_labels=False, raw_score=False, round=4, verbose=True, ml_usecase=None, preprocess=True, encode_labels=<function _SupervisedExperiment.predict_model.<locals>.encode_labels at 0x00000262E29FF600>)
+2024-04-29 15:09:17,003:INFO:Checking exceptions
+2024-04-29 15:09:17,003:INFO:Preloading libraries
+2024-04-29 15:09:17,003:INFO:Set up data.
+2024-04-29 15:09:17,019:INFO:Set up index.
+2024-04-29 15:09:21,536:INFO:Initializing load_model()
+2024-04-29 15:09:21,536:INFO:load_model(model_name=AI_model/corrosion_regression_repsol_hybrid, platform=None, authentication=None, verbose=True)
+2024-04-29 15:09:21,565:INFO:Initializing predict_model()
+2024-04-29 15:09:21,565:INFO:predict_model(self=<pycaret.regression.oop.RegressionExperiment object at 0x00000262E279A950>, estimator=Pipeline(memory=Memory(location=None),
+         steps=[('numerical_imputer',
+                 TransformerWrapper(include=['crudo_BPPD', 'agua_BAPD',
+                                             'gas_MMCFD', 'presion_cabeza_psi',
+                                             'temperatura_cabeza_F',
+                                             'solidos_PTB', 'cloruros_ppmCl',
+                                             'CO2_gas', 'CO2_agua%',
+                                             'H2S_gas_%', 'H2S_agua_ppm',
+                                             'alcalinidad_ppm', 'magnesio_ppm',
+                                             'calcio_ppm', 'sulfatos_ppm',
+                                             'dureza_total_ppm', 'hierro_ppm',
+                                             'd...
+                                    transformer=SimpleImputer(strategy='most_frequent'))),
+                ('remove_multicollinearity',
+                 TransformerWrapper(exclude=[],
+                                    transformer=RemoveMulticollinearity(threshold=0.9))),
+                ('normalize', TransformerWrapper(transformer=StandardScaler())),
+                ('clean_column_names',
+                 TransformerWrapper(transformer=CleanColumnNames())),
+                ('trained_model', LGBMRegressor(n_jobs=-1, random_state=123))]), probability_threshold=None, encoded_labels=False, raw_score=False, round=4, verbose=True, ml_usecase=None, preprocess=True, encode_labels=<function _SupervisedExperiment.predict_model.<locals>.encode_labels at 0x00000262E29FC860>)
+2024-04-29 15:09:21,565:INFO:Checking exceptions
+2024-04-29 15:09:21,565:INFO:Preloading libraries
+2024-04-29 15:09:21,566:INFO:Set up data.
+2024-04-29 15:09:21,573:INFO:Set up index.
+2024-04-29 15:09:24,061:INFO:Initializing load_model()
+2024-04-29 15:09:24,061:INFO:load_model(model_name=AI_model/corrosion_regression_repsol_hybrid, platform=None, authentication=None, verbose=True)
+2024-04-29 15:09:24,089:INFO:Initializing predict_model()
+2024-04-29 15:09:24,089:INFO:predict_model(self=<pycaret.regression.oop.RegressionExperiment object at 0x00000262E2952510>, estimator=Pipeline(memory=Memory(location=None),
+         steps=[('numerical_imputer',
+                 TransformerWrapper(include=['crudo_BPPD', 'agua_BAPD',
+                                             'gas_MMCFD', 'presion_cabeza_psi',
+                                             'temperatura_cabeza_F',
+                                             'solidos_PTB', 'cloruros_ppmCl',
+                                             'CO2_gas', 'CO2_agua%',
+                                             'H2S_gas_%', 'H2S_agua_ppm',
+                                             'alcalinidad_ppm', 'magnesio_ppm',
+                                             'calcio_ppm', 'sulfatos_ppm',
+                                             'dureza_total_ppm', 'hierro_ppm',
+                                             'd...
+                                    transformer=SimpleImputer(strategy='most_frequent'))),
+                ('remove_multicollinearity',
+                 TransformerWrapper(exclude=[],
+                                    transformer=RemoveMulticollinearity(threshold=0.9))),
+                ('normalize', TransformerWrapper(transformer=StandardScaler())),
+                ('clean_column_names',
+                 TransformerWrapper(transformer=CleanColumnNames())),
+                ('trained_model', LGBMRegressor(n_jobs=-1, random_state=123))]), probability_threshold=None, encoded_labels=False, raw_score=False, round=4, verbose=True, ml_usecase=None, preprocess=True, encode_labels=<function _SupervisedExperiment.predict_model.<locals>.encode_labels at 0x00000262E29FDE40>)
+2024-04-29 15:09:24,089:INFO:Checking exceptions
+2024-04-29 15:09:24,089:INFO:Preloading libraries
+2024-04-29 15:09:24,089:INFO:Set up data.
+2024-04-29 15:09:24,102:INFO:Set up index.
+2024-04-29 15:09:26,095:INFO:Initializing load_model()
+2024-04-29 15:09:26,095:INFO:load_model(model_name=AI_model/corrosion_regression_repsol_hybrid, platform=None, authentication=None, verbose=True)
+2024-04-29 15:09:26,125:INFO:Initializing predict_model()
+2024-04-29 15:09:26,125:INFO:predict_model(self=<pycaret.regression.oop.RegressionExperiment object at 0x00000262CC64C650>, estimator=Pipeline(memory=Memory(location=None),
+         steps=[('numerical_imputer',
+                 TransformerWrapper(include=['crudo_BPPD', 'agua_BAPD',
+                                             'gas_MMCFD', 'presion_cabeza_psi',
+                                             'temperatura_cabeza_F',
+                                             'solidos_PTB', 'cloruros_ppmCl',
+                                             'CO2_gas', 'CO2_agua%',
+                                             'H2S_gas_%', 'H2S_agua_ppm',
+                                             'alcalinidad_ppm', 'magnesio_ppm',
+                                             'calcio_ppm', 'sulfatos_ppm',
+                                             'dureza_total_ppm', 'hierro_ppm',
+                                             'd...
+                                    transformer=SimpleImputer(strategy='most_frequent'))),
+                ('remove_multicollinearity',
+                 TransformerWrapper(exclude=[],
+                                    transformer=RemoveMulticollinearity(threshold=0.9))),
+                ('normalize', TransformerWrapper(transformer=StandardScaler())),
+                ('clean_column_names',
+                 TransformerWrapper(transformer=CleanColumnNames())),
+                ('trained_model', LGBMRegressor(n_jobs=-1, random_state=123))]), probability_threshold=None, encoded_labels=False, raw_score=False, round=4, verbose=True, ml_usecase=None, preprocess=True, encode_labels=<function _SupervisedExperiment.predict_model.<locals>.encode_labels at 0x00000262E29FE480>)
+2024-04-29 15:09:26,126:INFO:Checking exceptions
+2024-04-29 15:09:26,126:INFO:Preloading libraries
+2024-04-29 15:09:26,126:INFO:Set up data.
+2024-04-29 15:09:26,133:INFO:Set up index.
+2024-04-29 15:09:27,768:INFO:Initializing load_model()
+2024-04-29 15:09:27,768:INFO:load_model(model_name=AI_model/corrosion_regression_repsol_hybrid, platform=None, authentication=None, verbose=True)
+2024-04-29 15:09:27,786:INFO:Initializing predict_model()
+2024-04-29 15:09:27,786:INFO:predict_model(self=<pycaret.regression.oop.RegressionExperiment object at 0x00000262E0AC8510>, estimator=Pipeline(memory=Memory(location=None),
+         steps=[('numerical_imputer',
+                 TransformerWrapper(include=['crudo_BPPD', 'agua_BAPD',
+                                             'gas_MMCFD', 'presion_cabeza_psi',
+                                             'temperatura_cabeza_F',
+                                             'solidos_PTB', 'cloruros_ppmCl',
+                                             'CO2_gas', 'CO2_agua%',
+                                             'H2S_gas_%', 'H2S_agua_ppm',
+                                             'alcalinidad_ppm', 'magnesio_ppm',
+                                             'calcio_ppm', 'sulfatos_ppm',
+                                             'dureza_total_ppm', 'hierro_ppm',
+                                             'd...
+                                    transformer=SimpleImputer(strategy='most_frequent'))),
+                ('remove_multicollinearity',
+                 TransformerWrapper(exclude=[],
+                                    transformer=RemoveMulticollinearity(threshold=0.9))),
+                ('normalize', TransformerWrapper(transformer=StandardScaler())),
+                ('clean_column_names',
+                 TransformerWrapper(transformer=CleanColumnNames())),
+                ('trained_model', LGBMRegressor(n_jobs=-1, random_state=123))]), probability_threshold=None, encoded_labels=False, raw_score=False, round=4, verbose=True, ml_usecase=None, preprocess=True, encode_labels=<function _SupervisedExperiment.predict_model.<locals>.encode_labels at 0x00000262E29FE8E0>)
+2024-04-29 15:09:27,786:INFO:Checking exceptions
+2024-04-29 15:09:27,786:INFO:Preloading libraries
+2024-04-29 15:09:27,786:INFO:Set up data.
+2024-04-29 15:09:27,796:INFO:Set up index.
+2024-04-29 15:09:36,448:INFO:Initializing load_model()
+2024-04-29 15:09:36,448:INFO:load_model(model_name=AI_model/corrosion_regression_repsol_hybrid, platform=None, authentication=None, verbose=True)
+2024-04-29 15:09:36,470:INFO:Initializing predict_model()
+2024-04-29 15:09:36,470:INFO:predict_model(self=<pycaret.regression.oop.RegressionExperiment object at 0x00000262CC64D590>, estimator=Pipeline(memory=Memory(location=None),
+         steps=[('numerical_imputer',
+                 TransformerWrapper(include=['crudo_BPPD', 'agua_BAPD',
+                                             'gas_MMCFD', 'presion_cabeza_psi',
+                                             'temperatura_cabeza_F',
+                                             'solidos_PTB', 'cloruros_ppmCl',
+                                             'CO2_gas', 'CO2_agua%',
+                                             'H2S_gas_%', 'H2S_agua_ppm',
+                                             'alcalinidad_ppm', 'magnesio_ppm',
+                                             'calcio_ppm', 'sulfatos_ppm',
+                                             'dureza_total_ppm', 'hierro_ppm',
+                                             'd...
+                                    transformer=SimpleImputer(strategy='most_frequent'))),
+                ('remove_multicollinearity',
+                 TransformerWrapper(exclude=[],
+                                    transformer=RemoveMulticollinearity(threshold=0.9))),
+                ('normalize', TransformerWrapper(transformer=StandardScaler())),
+                ('clean_column_names',
+                 TransformerWrapper(transformer=CleanColumnNames())),
+                ('trained_model', LGBMRegressor(n_jobs=-1, random_state=123))]), probability_threshold=None, encoded_labels=False, raw_score=False, round=4, verbose=True, ml_usecase=None, preprocess=True, encode_labels=<function _SupervisedExperiment.predict_model.<locals>.encode_labels at 0x00000262E29FCB80>)
+2024-04-29 15:09:36,470:INFO:Checking exceptions
+2024-04-29 15:09:36,470:INFO:Preloading libraries
+2024-04-29 15:09:36,471:INFO:Set up data.
+2024-04-29 15:09:36,478:INFO:Set up index.
+2024-04-29 15:10:02,495:INFO:Initializing load_model()
+2024-04-29 15:10:02,495:INFO:load_model(model_name=AI_model/corrosion_regression_repsol_hybrid, platform=None, authentication=None, verbose=True)
+2024-04-29 15:10:02,517:INFO:Initializing predict_model()
+2024-04-29 15:10:02,518:INFO:predict_model(self=<pycaret.regression.oop.RegressionExperiment object at 0x00000262E2939F10>, estimator=Pipeline(memory=Memory(location=None),
+         steps=[('numerical_imputer',
+                 TransformerWrapper(include=['crudo_BPPD', 'agua_BAPD',
+                                             'gas_MMCFD', 'presion_cabeza_psi',
+                                             'temperatura_cabeza_F',
+                                             'solidos_PTB', 'cloruros_ppmCl',
+                                             'CO2_gas', 'CO2_agua%',
+                                             'H2S_gas_%', 'H2S_agua_ppm',
+                                             'alcalinidad_ppm', 'magnesio_ppm',
+                                             'calcio_ppm', 'sulfatos_ppm',
+                                             'dureza_total_ppm', 'hierro_ppm',
+                                             'd...
+                                    transformer=SimpleImputer(strategy='most_frequent'))),
+                ('remove_multicollinearity',
+                 TransformerWrapper(exclude=[],
+                                    transformer=RemoveMulticollinearity(threshold=0.9))),
+                ('normalize', TransformerWrapper(transformer=StandardScaler())),
+                ('clean_column_names',
+                 TransformerWrapper(transformer=CleanColumnNames())),
+                ('trained_model', LGBMRegressor(n_jobs=-1, random_state=123))]), probability_threshold=None, encoded_labels=False, raw_score=False, round=4, verbose=True, ml_usecase=None, preprocess=True, encode_labels=<function _SupervisedExperiment.predict_model.<locals>.encode_labels at 0x00000262E29FCB80>)
+2024-04-29 15:10:02,518:INFO:Checking exceptions
+2024-04-29 15:10:02,518:INFO:Preloading libraries
+2024-04-29 15:10:02,518:INFO:Set up data.
+2024-04-29 15:10:02,527:INFO:Set up index.
+2024-04-29 15:10:03,286:INFO:Initializing load_model()
+2024-04-29 15:10:03,286:INFO:load_model(model_name=AI_model/corrosion_regression_repsol_hybrid, platform=None, authentication=None, verbose=True)
+2024-04-29 15:10:03,307:INFO:Initializing predict_model()
+2024-04-29 15:10:03,307:INFO:predict_model(self=<pycaret.regression.oop.RegressionExperiment object at 0x00000262E0B5EB50>, estimator=Pipeline(memory=Memory(location=None),
+         steps=[('numerical_imputer',
+                 TransformerWrapper(include=['crudo_BPPD', 'agua_BAPD',
+                                             'gas_MMCFD', 'presion_cabeza_psi',
+                                             'temperatura_cabeza_F',
+                                             'solidos_PTB', 'cloruros_ppmCl',
+                                             'CO2_gas', 'CO2_agua%',
+                                             'H2S_gas_%', 'H2S_agua_ppm',
+                                             'alcalinidad_ppm', 'magnesio_ppm',
+                                             'calcio_ppm', 'sulfatos_ppm',
+                                             'dureza_total_ppm', 'hierro_ppm',
+                                             'd...
+                                    transformer=SimpleImputer(strategy='most_frequent'))),
+                ('remove_multicollinearity',
+                 TransformerWrapper(exclude=[],
+                                    transformer=RemoveMulticollinearity(threshold=0.9))),
+                ('normalize', TransformerWrapper(transformer=StandardScaler())),
+                ('clean_column_names',
+                 TransformerWrapper(transformer=CleanColumnNames())),
+                ('trained_model', LGBMRegressor(n_jobs=-1, random_state=123))]), probability_threshold=None, encoded_labels=False, raw_score=False, round=4, verbose=True, ml_usecase=None, preprocess=True, encode_labels=<function _SupervisedExperiment.predict_model.<locals>.encode_labels at 0x00000262E29FFE20>)
+2024-04-29 15:10:03,307:INFO:Checking exceptions
+2024-04-29 15:10:03,307:INFO:Preloading libraries
+2024-04-29 15:10:03,307:INFO:Set up data.
+2024-04-29 15:10:03,324:INFO:Set up index.
+2024-04-30 10:11:44,049:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-04-30 10:11:44,049:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-04-30 10:11:44,049:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-04-30 10:11:44,049:WARNING:
+'cuml' is a soft dependency and not included in the pycaret installation. Please run: `pip install cuml` to install.
+2024-04-30 10:11:44,195:INFO:Initializing load_model()
+2024-04-30 10:11:44,196:INFO:load_model(model_name=AI_model/corrosion_regression_repsol_hybrid, platform=None, authentication=None, verbose=True)
+2024-04-30 10:11:45,121:INFO:Initializing predict_model()
+2024-04-30 10:11:45,121:INFO:predict_model(self=<pycaret.regression.oop.RegressionExperiment object at 0x00000261E744A790>, estimator=Pipeline(memory=Memory(location=None),
+         steps=[('numerical_imputer',
+                 TransformerWrapper(include=['crudo_BPPD', 'agua_BAPD',
+                                             'gas_MMCFD', 'presion_cabeza_psi',
+                                             'temperatura_cabeza_F',
+                                             'solidos_PTB', 'cloruros_ppmCl',
+                                             'CO2_gas', 'CO2_agua%',
+                                             'H2S_gas_%', 'H2S_agua_ppm',
+                                             'alcalinidad_ppm', 'magnesio_ppm',
+                                             'calcio_ppm', 'sulfatos_ppm',
+                                             'dureza_total_ppm', 'hierro_ppm',
+                                             'd...
+                                    transformer=SimpleImputer(strategy='most_frequent'))),
+                ('remove_multicollinearity',
+                 TransformerWrapper(exclude=[],
+                                    transformer=RemoveMulticollinearity(threshold=0.9))),
+                ('normalize', TransformerWrapper(transformer=StandardScaler())),
+                ('clean_column_names',
+                 TransformerWrapper(transformer=CleanColumnNames())),
+                ('trained_model', LGBMRegressor(n_jobs=-1, random_state=123))]), probability_threshold=None, encoded_labels=False, raw_score=False, round=4, verbose=True, ml_usecase=None, preprocess=True, encode_labels=<function _SupervisedExperiment.predict_model.<locals>.encode_labels at 0x00000261E9041F80>)
+2024-04-30 10:11:45,121:INFO:Checking exceptions
+2024-04-30 10:11:45,121:INFO:Preloading libraries
+2024-04-30 10:11:45,122:INFO:Set up data.
+2024-04-30 10:11:45,123:INFO:Set up index.
+2024-04-30 10:21:24,914:INFO:Initializing load_model()
+2024-04-30 10:21:24,914:INFO:load_model(model_name=AI_model/corrosion_regression_repsol_hybrid, platform=None, authentication=None, verbose=True)
+2024-04-30 10:21:28,299:INFO:Initializing load_model()
+2024-04-30 10:21:28,300:INFO:load_model(model_name=AI_model/corrosion_regression_repsol_hybrid, platform=None, authentication=None, verbose=True)
+2024-04-30 10:21:28,318:INFO:Initializing predict_model()
+2024-04-30 10:21:28,320:INFO:predict_model(self=<pycaret.regression.oop.RegressionExperiment object at 0x00000261E938EB50>, estimator=Pipeline(memory=Memory(location=None),
+         steps=[('numerical_imputer',
+                 TransformerWrapper(include=['crudo_BPPD', 'agua_BAPD',
+                                             'gas_MMCFD', 'presion_cabeza_psi',
+                                             'temperatura_cabeza_F',
+                                             'solidos_PTB', 'cloruros_ppmCl',
+                                             'CO2_gas', 'CO2_agua%',
+                                             'H2S_gas_%', 'H2S_agua_ppm',
+                                             'alcalinidad_ppm', 'magnesio_ppm',
+                                             'calcio_ppm', 'sulfatos_ppm',
+                                             'dureza_total_ppm', 'hierro_ppm',
+                                             'd...
+                                    transformer=SimpleImputer(strategy='most_frequent'))),
+                ('remove_multicollinearity',
+                 TransformerWrapper(exclude=[],
+                                    transformer=RemoveMulticollinearity(threshold=0.9))),
+                ('normalize', TransformerWrapper(transformer=StandardScaler())),
+                ('clean_column_names',
+                 TransformerWrapper(transformer=CleanColumnNames())),
+                ('trained_model', LGBMRegressor(n_jobs=-1, random_state=123))]), probability_threshold=None, encoded_labels=False, raw_score=False, round=4, verbose=True, ml_usecase=None, preprocess=True, encode_labels=<function _SupervisedExperiment.predict_model.<locals>.encode_labels at 0x00000261E9391EE0>)
+2024-04-30 10:21:28,320:INFO:Checking exceptions
+2024-04-30 10:21:28,320:INFO:Preloading libraries
+2024-04-30 10:21:28,320:INFO:Set up data.
+2024-04-30 10:21:28,328:INFO:Set up index.
+2024-04-30 10:21:29,437:INFO:Initializing load_model()
+2024-04-30 10:21:29,437:INFO:load_model(model_name=AI_model/corrosion_regression_repsol_hybrid, platform=None, authentication=None, verbose=True)
+2024-04-30 10:21:58,317:INFO:Initializing load_model()
+2024-04-30 10:21:58,317:INFO:load_model(model_name=AI_model/corrosion_regression_repsol_hybrid, platform=None, authentication=None, verbose=True)
+2024-04-30 10:21:58,345:INFO:Initializing predict_model()
+2024-04-30 10:21:58,345:INFO:predict_model(self=<pycaret.regression.oop.RegressionExperiment object at 0x00000261E8FD2150>, estimator=Pipeline(memory=Memory(location=None),
+         steps=[('numerical_imputer',
+                 TransformerWrapper(include=['crudo_BPPD', 'agua_BAPD',
+                                             'gas_MMCFD', 'presion_cabeza_psi',
+                                             'temperatura_cabeza_F',
+                                             'solidos_PTB', 'cloruros_ppmCl',
+                                             'CO2_gas', 'CO2_agua%',
+                                             'H2S_gas_%', 'H2S_agua_ppm',
+                                             'alcalinidad_ppm', 'magnesio_ppm',
+                                             'calcio_ppm', 'sulfatos_ppm',
+                                             'dureza_total_ppm', 'hierro_ppm',
+                                             'd...
+                                    transformer=SimpleImputer(strategy='most_frequent'))),
+                ('remove_multicollinearity',
+                 TransformerWrapper(exclude=[],
+                                    transformer=RemoveMulticollinearity(threshold=0.9))),
+                ('normalize', TransformerWrapper(transformer=StandardScaler())),
+                ('clean_column_names',
+                 TransformerWrapper(transformer=CleanColumnNames())),
+                ('trained_model', LGBMRegressor(n_jobs=-1, random_state=123))]), probability_threshold=None, encoded_labels=False, raw_score=False, round=4, verbose=True, ml_usecase=None, preprocess=True, encode_labels=<function _SupervisedExperiment.predict_model.<locals>.encode_labels at 0x00000261E9392840>)
+2024-04-30 10:21:58,346:INFO:Checking exceptions
+2024-04-30 10:21:58,346:INFO:Preloading libraries
+2024-04-30 10:21:58,346:INFO:Set up data.
+2024-04-30 10:21:58,354:INFO:Set up index.
+2024-04-30 10:22:02,060:INFO:Initializing load_model()
+2024-04-30 10:22:02,060:INFO:load_model(model_name=AI_model/corrosion_regression_repsol_hybrid, platform=None, authentication=None, verbose=True)
+2024-04-30 10:22:03,593:INFO:Initializing load_model()
+2024-04-30 10:22:03,594:INFO:load_model(model_name=AI_model/corrosion_regression_repsol_hybrid, platform=None, authentication=None, verbose=True)

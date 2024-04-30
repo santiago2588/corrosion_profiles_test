@@ -63,11 +63,6 @@ df42 = []
 df43 = []
 df44 = []
 df45 = []
-df46 = []
-df47 = []
-df48=[]
-df49=[]
-df50=[]
 
 # Calculo de los resultados
 
@@ -85,7 +80,9 @@ def run():
     st.write("4. Presiona Resultados criticidad para obtener el indice de criticidad del pozo junto con su nivel de prioridad")
     st.write("5. Presiona Resultados optimizacion para obtener las dosis recomendadas de los quimicos, junto con el ahorro generado")
 
-    st.write("## Ingreso de datos")
+    st.title("Ingreso de datos")
+
+    st.write('## Parametros del modelo Norsok')
 
     BOPD = st.slider(label='Barriles de petroleo por dia, BPPD', min_value=0,
                      max_value=5000,
@@ -167,21 +164,15 @@ def run():
                            max_value=20000,
                            value=10000, step=1)
 
+    st.write('## Parametros de Inteligencia Artificial')
+
     dosis_ic = st.slider(label='Dosis Anticorrosivo, gal/dia', min_value=0,
                          max_value=20,
-                         value=10, step=1)
-    
-    precio_ic = st.slider(label='Precio Anticorrosivo, USD/gal', min_value=1,
-                         max_value=100,
                          value=10, step=1)
 
     dosis_is = st.slider(label='Dosis Antiescala, gal/dia', min_value=0,
                          max_value=20,
-                         value=10, step=1)
-    
-    precio_is=st.slider(label='Precio Antiescala, USD/gal', min_value=1,
-                         max_value=100,
-                         value=10, step=1)
+                         value=10, step=1)    
     
     h2s_gas=st.slider(label='H2S gas, %', min_value=0.000,
                          max_value=0.100,
@@ -194,10 +185,6 @@ def run():
     h2s_agua=st.slider(label='H2S agua, ppm', min_value=0.0,
                          max_value=30.0,
                          value=0.5, step=0.1)
-
-    solidos_PTB=st.slider(label='Solidos, PTB', min_value=1,
-                         max_value=100,
-                         value=10, step=1)
     
     dureza_total=st.slider(label='Dureza total, ppm', min_value=100,
                          max_value=50000,
@@ -206,11 +193,96 @@ def run():
     hierro=st.slider(label='Dureza total, ppm', min_value=0,
                          max_value=200,
                          value=20, step=1)
+     
+    solidos_PTB=st.slider(label='Solidos, PTB', min_value=1,
+                         max_value=100,
+                         value=10, step=1)
     
+    st.write('## Precio de los quimicos')
 
+    precio_ic = st.slider(label='Precio Anticorrosivo, USD/gal', min_value=1,
+                         max_value=100,
+                         value=10, step=1)
+    
+    precio_is=st.slider(label='Precio Antiescala, USD/gal', min_value=1,
+                         max_value=100,
+                         value=10, step=1)
+    
+    
+    #Modelo Norsok
+    i = 'Pozo_1'
 
-    # Factor de correccion del modelo AI (0.026 global)
-    correction_factor = 1
+    output = ""
+
+    features = {'BOPD': BOPD, 'BWPD': BWPD,
+                'Caudal_gas_MSCFD': MSCF, 'Presion_cabeza_psi': pressure_head,
+                'Temperatura_cabeza_F': temperature_head, 'Presion_fondo_psi': pressure_bottom,
+                'Temperatura_fondo_F': temperature_bottom, 'Cloruros_ppm': chlorides,
+                'CO2_gas': co2_gas, 'Alcalinidad_ppm': alkalinity,
+                'Sodio_ppm': sodium, 'Potasio_ppm': potassium,
+                'Magnesio_ppm': magnesium, 'Calcio_ppm': calcium,
+                'Estroncio_ppm': strontium, 'Bario_ppm': barium,
+                'Sulfatos_ppm': sulphates, 'Acidos_carboxilicos_ppm': carb_acids,
+                'Diametro tuberia_ppm': pipe_diameter, 
+                'Profundidad pozo_ft': well_depth}
+
+    features_df = pd.DataFrame([features])
+
+    # st.dataframe(features_df)
+
+    # Velocidad de corrosion en cabeza
+    nk_temp, corr_ic_temp = calcNorsok(temperature_head,
+                                                       pressure_head, BOPD, BWPD, MSCF, co2_gas, alkalinity,
+                                                       chlorides, sodium,
+                                                       potassium, magnesium, calcium, strontium, barium, sulphates,
+                                                       carb_acids,
+                                                       pipe_diameter)
+
+    # Velocidad de corrosion en fondo
+    nk_temp1, corr_ic_temp1 = calcNorsok(temperature_bottom,
+                                                          pressure_bottom, BOPD, BWPD, MSCF, co2_gas, alkalinity,
+                                                          chlorides, sodium,
+                                                          potassium, magnesium, calcium, strontium, barium,
+                                                          sulphates, carb_acids,
+                                                          pipe_diameter)
+
+    # Indice de saturacion en cabeza
+    calcite_si_temp, solid_temp, scale_risk_temp = calCalcite(pressure_head,
+                                                              temperature_head, sodium, potassium, magnesium,
+                                                              calcium, strontium, barium, chlorides, sulphates,
+                                                              alkalinity, co2_gas, carb_acids, BOPD,
+                                                              BWPD, MSCF)
+
+    # Indice de saturacion en fondo
+    calcite_si_temp1, solid_temp1, scale_risk_temp1 = calCalcite(pressure_bottom,
+                                                                 temperature_bottom, sodium, potassium, magnesium,
+                                                                 calcium, strontium, barium, chlorides, sulphates,
+                                                                 alkalinity, co2_gas, carb_acids, BOPD,
+                                                                 BWPD, MSCF)
+
+    # Perfil de la velocidad de corrosion
+    temp_array, press_array, depth_array, fy_df, ph_df, nk_df = grahpNorskok(temperature_head,
+                                                                                                temperature_bottom,
+                                                                                                pressure_head,
+                                                                                                pressure_bottom,
+                                                                                                BOPD, BWPD, MSCF,
+                                                                                                co2_gas, alkalinity,
+                                                                                                chlorides, sodium,
+                                                                                                potassium,
+                                                                                                magnesium, calcium,
+                                                                                                strontium, barium,
+                                                                                                sulphates,
+                                                                                                carb_acids,
+                                                                                                pipe_diameter,
+                                                                                                well_depth)
+
+    # Perfil del indice de saturacion
+    temp_array, press_array, depth_array, fy, ph1, calcite, ptb1, scale_profile_risk = graphCalcite(
+        temperature_head,temperature_bottom, pressure_head, pressure_bottom,
+        well_depth, BOPD, BWPD, MSCF, co2_gas, alkalinity,
+        chlorides, sodium, potassium, magnesium, calcium,
+        strontium, barium, sulphates, carb_acids)
+    
 
     #Modelo AI
     model = load_model('AI_model/corrosion_regression_repsol_hybrid')
@@ -233,87 +305,36 @@ def run():
 
     mpy_AI = predict_corrosion(model, features_df_AI)
 
+    #Asegurar que mpy no sea negativo
+    if mpy_AI<0:
+        mpy_AI=0.01
 
-    #Modelo Norsok
-    i = 'Pozo_1'
+    #Factor de correccion global modelo AI (0.026 global)
+    correction_factor=mpy_AI/corr_ic_temp
 
-    output = ""
+    corr_ic_temp_ai=corr_ic_temp*correction_factor
+    corr_ic_temp1_ai=corr_ic_temp1*correction_factor
 
-    features = {'BOPD': BOPD, 'BWPD': BWPD,
-                'Caudal_gas_MSCFD': MSCF, 'Presion_cabeza_psi': pressure_head,
-                'Temperatura_cabeza_F': temperature_head, 'Presion_fondo_psi': pressure_bottom,
-                'Temperatura_fondo_F': temperature_bottom, 'Cloruros_ppm': chlorides,
-                'CO2_gas': co2_gas, 'Alcalinidad_ppm': alkalinity,
-                'Sodio_ppm': sodium, 'Potasio_ppm': potassium,
-                'Magnesio_ppm': magnesium, 'Calcio_ppm': calcium,
-                'Estroncio_ppm': strontium, 'Bario_ppm': barium,
-                'Sulfatos_ppm': sulphates, 'Acidos_carboxilicos_ppm': carb_acids,
-                'Diametro tuberia_ppm': pipe_diameter, 'factor_correcion': correction_factor,
-                'Profundidad pozo_ft': well_depth}
+    # Nivel de riesgo en cabeza segun norma NACE
+    if corr_ic_temp_ai < 1:
+        corr_risk_temp = 'Bajo'
+    if corr_ic_temp_ai >= 1 and corr_ic_temp_ai < 5:
+        corr_risk_temp = 'Moderado'
+    if corr_ic_temp_ai >= 5 and corr_ic_temp_ai < 10:
+        corr_risk_temp = "Alto"
+    if corr_ic_temp_ai >= 10:
+        corr_risk_temp = 'Muy alto'
 
-    features_df = pd.DataFrame([features])
+    # Nivel de riesgo en fondo segun norma NACE
+    if corr_ic_temp1_ai < 1:
+        corr_risk_temp1 = 'Bajo'
+    if corr_ic_temp1_ai >= 1 and corr_ic_temp1_ai < 5:
+        corr_risk_temp1 = 'Moderado'
+    if corr_ic_temp1_ai >= 5 and corr_ic_temp1_ai < 10:
+        corr_risk_temp1 = "Alto"
+    if corr_ic_temp1_ai >= 10:
+        corr_risk_temp1 = 'Muy alto'
 
-    # st.dataframe(features_df)
-
-    # Velocidad de corrosion en cabeza
-    nk_temp, corr_ic_temp, corr_risk_temp = calcNorsok(temperature_head,
-                                                       pressure_head, BOPD, BWPD, MSCF, co2_gas, alkalinity,
-                                                       chlorides, sodium,
-                                                       potassium, magnesium, calcium, strontium, barium, sulphates,
-                                                       carb_acids,
-                                                       pipe_diameter, correction_factor)
-
-    # Velocidad de corrosion en fondo
-    nk_temp1, corr_ic_temp1, corr_risk_temp1 = calcNorsok(temperature_bottom,
-                                                          pressure_bottom, BOPD, BWPD, MSCF, co2_gas, alkalinity,
-                                                          chlorides, sodium,
-                                                          potassium, magnesium, calcium, strontium, barium,
-                                                          sulphates, carb_acids,
-                                                          pipe_diameter, correction_factor)
-
-    # Indice de saturacion en cabeza
-    calcite_si_temp, solid_temp, scale_risk_temp = calCalcite(pressure_head,
-                                                              temperature_head, sodium, potassium, magnesium,
-                                                              calcium, strontium, barium, chlorides, sulphates,
-                                                              alkalinity, co2_gas, carb_acids, BOPD,
-                                                              BWPD, MSCF)
-
-    # Indice de saturacion en fondo
-    calcite_si_temp1, solid_temp1, scale_risk_temp1 = calCalcite(pressure_bottom,
-                                                                 temperature_bottom, sodium, potassium, magnesium,
-                                                                 calcium, strontium, barium, chlorides, sulphates,
-                                                                 alkalinity, co2_gas, carb_acids, BOPD,
-                                                                 BWPD, MSCF)
-
-    # Perfil de la velocidad de corrosion
-    temp_array, press_array, depth_array, fy_df, ph_df, nk_df, corr_profile_risk = grahpNorskok(temperature_head,
-                                                                                                temperature_bottom,
-                                                                                                pressure_head,
-                                                                                                pressure_bottom,
-                                                                                                BOPD, BWPD, MSCF,
-                                                                                                co2_gas, alkalinity,
-                                                                                                chlorides, sodium,
-                                                                                                potassium,
-                                                                                                magnesium, calcium,
-                                                                                                strontium, barium,
-                                                                                                sulphates,
-                                                                                                carb_acids,
-                                                                                                pipe_diameter,
-                                                                                                correction_factor, well_depth)
-    
-    factor_AI=mpy_AI/corr_ic_temp
-    corr_ic_temp_ai=corr_ic_temp*factor_AI
-    corr_ic_temp1_ai=corr_ic_temp1*factor_AI
-
-
-    # Perfil del indice de saturacion
-    temp_array, press_array, depth_array, fy, ph1, calcite, ptb1, scale_profile_risk = graphCalcite(
-        temperature_head,
-        temperature_bottom, pressure_head, pressure_bottom,
-        well_depth, BOPD, BWPD, MSCF, co2_gas, alkalinity,
-        chlorides, sodium, potassium, magnesium, calcium,
-        strontium, barium, sulphates, carb_acids)
-    
 
     # Guardar los resultados de cabeza y fondo en un data frame
     df0.append(i)
@@ -325,17 +346,14 @@ def run():
     df22.append(scale_risk_temp)
     df4.append(calcite_si_temp1)
     df23.append(scale_risk_temp1)
-    df48.append(corr_ic_temp_ai)
-    df49.append(corr_ic_temp1_ai)
-    df50.append(mpy_AI)
-    
+
     # Resultados de velocidad de corrosion e indice de saturacion en cabeza y fondo
-    results_corr = pd.DataFrame({'Velocidad de corrosion cabeza Norsok [mpy]': df1,
+    results_corr = pd.DataFrame({'Velocidad de corrosion cabeza [mpy]': df1,
+                                 'Riesgo de corrosion cabeza Norsok': df20,
                                  'Riesgo de corrosion cabeza': df20,
-                                 'Velocidad de corrosion cabeza AI [mpy]':df48,
-                                 'Velocidad de corrosion fondo Norsok [mpy]': df2,
-                                 'Velocidad de corrosion fondo AI [mpy]': df49,
-                                 'Riesgo de corrosion fondo': df21})
+                                 'Velocidad de corrosion fondo [mpy]': df2,
+                                 'Riesgo de corrosion fondo': df21
+                                 })
 
     results_esc = pd.DataFrame({'Indice de saturacion cabeza': df3,
                                 'Riesgo de incrustaciones cabeza': df22,
@@ -349,14 +367,16 @@ def run():
     df13.append(fy_df)
     df14.append(ph_df)
     df15.append(nk_df)
-    df25.append(corr_profile_risk)
+    #df25.append(corr_profile_risk)
 
     # Resultados del perfil de velocidad de corrosion
     results_corr_profile = pd.DataFrame({'Pozo': df0, 'Temperatura [F]': df10, 'Presion [psi]': df11,
                                          'Profundidad [ft]': df12, 'Fugacidad CO2': df13,
-                                         'pH': df14, 'Velocidad de corrosion (mpy)': df15,
-                                         'Riesgo de corrosion': df25}).set_index(['Pozo']).apply(
+                                         'pH': df14, 'Velocidad de corrosion (mpy)': df15
+                                         }).set_index(['Pozo']).apply(
         pd.Series.explode).reset_index()
+    
+    results_corr_profile['Velocidad de corrosion'] = results_corr_profile['Velocidad de corrosion (mpy)'] * correction_factor
 
     # Guardar los resultados del perfil del indice de saturacion en un data frame
     df16.append(fy)
@@ -373,9 +393,9 @@ def run():
         pd.Series.explode).reset_index()
 
     # Graficar el perfil de velocidad de corrosion
-    fig_corr = px.line(results_corr_profile, x='Velocidad de corrosion (mpy)', y='Profundidad [ft]',
+    fig_corr = px.line(results_corr_profile, x='Velocidad de corrosion', y='Profundidad [ft]',
                        title='Perfil de velocidad de corrosion',
-                       hover_name='Pozo', hover_data=['Presion [psi]', 'Temperatura [F]', 'Riesgo de corrosion'])
+                       hover_name='Pozo', hover_data=['Presion [psi]', 'Temperatura [F]'])
 
     fig_corr.update_traces(mode="markers+lines")
     fig_corr.update_xaxes(showspikes=True, spikecolor='black')
@@ -396,6 +416,7 @@ def run():
     # Calculo de la criticidad
     prod = BOPD
     corr_max = np.max(df15)
+    corr_max_ai=corr_max*correction_factor
     scale_max = np.max(df18)
 
     if prod > 500:
@@ -407,16 +428,16 @@ def run():
     if prod <= 200:
         critic_prod = 1
 
-    if corr_max > 10:
+    if corr_max_ai > 10:
         critic_corr = 4
         risk_corr_max = 'Muy alto'
-    if corr_max > 5 and corr_max <= 10:
+    if corr_max_ai > 5 and corr_max_ai <= 10:
         critic_corr = 3
         risk_corr_max = "Alto"
-    if corr_max > 1 and corr_max <= 5:
+    if corr_max_ai > 1 and corr_max_ai <= 5:
         critic_corr = 2
         risk_corr_max = 'Moderado'
-    if corr_max <= 1:
+    if corr_max_ai <= 1:
         critic_corr = 1
         risk_corr_max = 'Bajo'
 
@@ -453,16 +474,14 @@ def run():
     df24.append(nivel_critic)
 
     # Calculo de dosis de quimicos y ahorro
-    #precio_ic = 20
-    #precio_is = 20
 
-    if corr_max > 10:
+    if corr_max_ai > 10:
         dosis_recomendada_ic = math.ceil(80 * BWPD / 23810)
-    if corr_max > 5 and corr_max <= 10:
+    if corr_max_ai > 5 and corr_max_ai <= 10:
         dosis_recomendada_ic = math.ceil(60 * BWPD / 23810)
-    if corr_max > 1 and corr_max <= 5:
+    if corr_max_ai > 1 and corr_max_ai <= 5:
         dosis_recomendada_ic = math.ceil(40 * BWPD / 23810)
-    if corr_max <= 1:
+    if corr_max_ai <= 1:
         dosis_recomendada_ic = math.ceil(20 * BWPD / 23810)
 
     diferencia_dosis_ic = dosis_ic - dosis_recomendada_ic
@@ -528,13 +547,7 @@ def run():
 
     ahorro_total = ahorro_anual_ic + ahorro_anual_is
 
-    # corr_button=st.button('Resultados de corrosion')
-    #
-    # if "corr_state" not in st.session_state:
-    #     st.session_state.corr_state = False
-    #
-    # if corr_button or st.session_state.corr_state:
-    #     st.session_state.corr_state=True
+
 
     st.write("## Resultados")
 
@@ -542,17 +555,15 @@ def run():
         col1, col2, col3 = st.columns(3)
 
         with col1:
-            st.metric('Velocidad de corrosion en cabeza Norsok', str("%.2f" % np.float_(df1[0])) + ' MPY')
-            st.metric('Velocidad de corrosion en cabeza AI', str("%.2f" % np.float_(df48[0])) + ' MPY')
-            st.metric('Riesgo de corrosion en cabeza', df20[0])
+            st.metric('Velocidad de corrosion en cabeza', str("%.2f" % np.float_(df1[0]*correction_factor)) + ' MPY')
+            st.metric('Riesgo de corrosion en cabeza AI', df20[0])
 
         with col2:
-            st.metric('Velocidad de corrosion en fondo', str("%.2f" % np.float_(df2[0])) + ' MPY')
-            st.metric('Velocidad de corrosion en fondo AI', str("%.2f" % np.float_(df49[0])) + ' MPY')
-            st.metric('Riesgo de corrosion en fondo', df21[0])
+            st.metric('Velocidad de corrosion en fondo', str("%.2f" % np.float_(df2[0]*correction_factor)) + ' MPY')
+            st.metric('Riesgo de corrosion en fondo AI', df21[0])
 
         with col3:
-            st.metric('Velocidad de corrosion maxima', str("%.2f" % np.float_(corr_max)) + ' MPY')
+            st.metric('Velocidad de corrosion maxima', str("%.2f" % np.float_(corr_max*correction_factor)) + ' MPY')
             st.metric('Riesgo de corrosion maximo', risk_corr_max)
 
         st.plotly_chart(fig_corr, use_container_width=True)
