@@ -5,6 +5,8 @@ import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
 from typing import List
+from pycaret.regression import load_model, predict_model
+import numpy as np
 
 from Functions.funciones import *
 
@@ -68,6 +70,10 @@ df46 = []
 df47 = []
 df48=[]
 df49=[]
+df50=[]
+df51=[]
+df52=[]
+df53=[]
 
 
 # Calculo de los resultados
@@ -100,15 +106,14 @@ def run():
              "CO2 Fraction in Gas", "Alkalinity", "Chlorides", "Sodium", "Magnesium", "Potassium", "Calcium",
              "Strontium",
              "Barium", "Sulphates", "Carboxylic acids", "Well Depth", "Well Pipe Diameter",
-             "Correction factor",
-             "dosis_ic", "dosis_is", "precio_ic", "precio_is"])
+             "dosis_ic", "dosis_is", "precio_ic", "precio_is",'h2s_gas','co2_agua','h2s_agua','dureza_total','hierro','solidos'])
 
         for i in data.drop(["Well", "Unit"], axis=1).columns:
             for id_j, j in enumerate(parameters_names):
                 parameters[j] = float(data[i].iloc[int(np.where(data["Well"] == j)[0])])
 
             # Velocidad de corrosion en cabeza
-            nk_temp, corr_ic_temp, corr_risk_temp = calcNorsok(parameters["Temperature Head"],
+            nk_temp, corr_ic_temp = calcNorsok(parameters["Temperature Head"],
                                                                parameters["Pressure Head"],
                                                                parameters["BOPD"],
                                                                parameters["BWPD"],
@@ -124,11 +129,11 @@ def run():
                                                                parameters["Barium"],
                                                                parameters["Sulphates"],
                                                                parameters["Carboxylic acids"],
-                                                               parameters["Well Pipe Diameter"],
-                                                               parameters["Correction factor"])
+                                                               parameters["Well Pipe Diameter"]
+                                                               )
 
             # Velocidad de corrosion en fondo
-            nk_temp1, corr_ic_temp1, corr_risk_temp1 = calcNorsok(parameters["Temperature Bottom"],
+            nk_temp1, corr_ic_temp1 = calcNorsok(parameters["Temperature Bottom"],
                                                                   parameters["Pressure Bottom"],
                                                                   parameters["BOPD"],
                                                                   parameters["BWPD"],
@@ -144,11 +149,11 @@ def run():
                                                                   parameters["Barium"],
                                                                   parameters["Sulphates"],
                                                                   parameters["Carboxylic acids"],
-                                                                  parameters["Well Pipe Diameter"],
-                                                                  parameters["Correction factor"])
+                                                                  parameters["Well Pipe Diameter"]
+                                                                  )
 
             # Perfil de la velocidad de corrosion
-            temp_array, press_array, depth_array, fy_df, ph_df, nk_df, corr_profile_risk = grahpNorskok(
+            temp_array, press_array, depth_array, fy_df, ph_df, nk_df = grahpNorskok(
                 parameters["Temperature Head"],
                 parameters["Temperature Bottom"],
                 parameters["Pressure Head"],
@@ -168,7 +173,6 @@ def run():
                 parameters["Sulphates"],
                 parameters["Carboxylic acids"],
                 parameters["Well Pipe Diameter"],
-                parameters["Correction factor"],
                 parameters["Well Depth"])
 
             # Indice de saturacion en cabeza
@@ -228,6 +232,60 @@ def run():
                 parameters["Barium"],
                 parameters["Sulphates"],
                 parameters["Carboxylic acids"])
+            
+
+            #Modelo AI
+            model = load_model('AI_model/corrosion_regression_repsol_hybrid')
+
+            def predict_corrosion(model, df):
+                predictions_data = predict_model(estimator = model, data = df)
+                predictions=predictions_data['prediction_label'][0]
+                return predictions
+
+            features_AI = {'crudo_BPPD': parameters["BOPD"], 'agua_BAPD': parameters["BWPD"],
+                    'gas_MMCFD': parameters["MSCF"], 'presion_cabeza_psi': parameters["Pressure Head"],
+                    'temperatura_cabeza_F': parameters["Temperature Head"], 'solidos_PTB': parameters['solidos'],
+                    'cloruros_ppmCl': parameters["Chlorides"], 'CO2_gas': parameters["CO2 Fraction in Gas"], 'CO2_agua%': parameters['co2_agua'], 
+                    'H2S_gas_%':parameters['h2s_gas'],'H2S_agua_ppm':parameters['h2s_agua'],
+                    'alcalinidad_ppm': parameters["Alkalinity"], 'magnesio_ppm': parameters["Magnesium"],'calcio_ppm': parameters["Calcium"],
+                    'sulfatos_ppm': parameters["Sulphates"], 'dureza_total_ppm': parameters['dureza_total'], 'hierro_ppm': parameters['hierro'],
+                    'diametro_tuberia_in':parameters["Well Pipe Diameter"],'longitud_tuberia_pies':parameters['Well Depth'], 
+                    'dosis_IC_ppm': parameters['dosis_ic'], 'dosis_IS_ppm': parameters['dosis_is']
+                     }  
+
+            features_df_AI  = pd.DataFrame([features_AI])
+
+            mpy_AI = predict_corrosion(model, features_df_AI)
+
+            #Asegurar que mpy no sea negativo
+            if mpy_AI<0:
+                mpy_AI=0.01
+
+            #Factor de correccion global modelo AI (0.026 global)
+            correction_factor=mpy_AI/corr_ic_temp
+
+            corr_ic_temp_ai=corr_ic_temp*correction_factor
+            corr_ic_temp1_ai=corr_ic_temp1*correction_factor
+
+            # Nivel de riesgo en cabeza segun norma NACE
+            if corr_ic_temp_ai < 1:
+                corr_risk_temp = 'Bajo'
+            if corr_ic_temp_ai >= 1 and corr_ic_temp_ai < 5:
+                corr_risk_temp = 'Moderado'
+            if corr_ic_temp_ai >= 5 and corr_ic_temp_ai < 10:
+                corr_risk_temp = "Alto"
+            if corr_ic_temp_ai >= 10:
+                corr_risk_temp = 'Muy alto'
+
+            # Nivel de riesgo en fondo segun norma NACE
+            if corr_ic_temp1_ai < 1:
+                corr_risk_temp1 = 'Bajo'
+            if corr_ic_temp1_ai >= 1 and corr_ic_temp1_ai < 5:
+                corr_risk_temp1 = 'Moderado'
+            if corr_ic_temp1_ai >= 5 and corr_ic_temp1_ai < 10:
+                corr_risk_temp1 = "Alto"
+            if corr_ic_temp1_ai >= 10:
+                corr_risk_temp1 = 'Muy alto'
 
             # Guardar los resultados de cabeza y fondo en un data frame
             df0.append(i)
@@ -240,6 +298,9 @@ def run():
             df4.append(calcite_si_temp1)
             df23.append(scale_risk_temp1)
             df5.append(parameters['BOPD'])
+            df50.append(corr_ic_temp_ai)
+            df51.append(corr_ic_temp1_ai)
+            df53.append(correction_factor)
 
             # Guardar los resultados del perfil de velocidad de corrosion en un data frame
             df10.append(temp_array)
@@ -248,7 +309,6 @@ def run():
             df13.append(fy_df)
             df14.append(ph_df)
             df15.append(nk_df)
-            df25.append(corr_profile_risk)
 
             # Guardar los resultados del perfil del indice de saturacion en un data frame
             df16.append(fy)
@@ -264,6 +324,7 @@ def run():
             # Velocidad de corrosion maximo
             for list in df15:
                 corr_max = np.max(list)
+                corr_max_ai=corr_max*correction_factor
 
             # Indice de saturacion maximo
             for list in df18:
@@ -278,16 +339,16 @@ def run():
             if prod <= 200:
                 critic_prod = 1
 
-            if corr_max > 10:
+            if corr_max_ai > 10:
                 critic_corr = 4
                 risk_corr_max = 'Muy alto'
-            if corr_max > 5 and corr_max <= 10:
+            if corr_max_ai > 5 and corr_max_ai <= 10:
                 critic_corr = 3
                 risk_corr_max = "Alto"
-            if corr_max > 1 and corr_max <= 5:
+            if corr_max_ai > 1 and corr_max_ai <= 5:
                 critic_corr = 2
                 risk_corr_max = 'Moderado'
-            if corr_max <= 1:
+            if corr_max_ai <= 1:
                 critic_corr = 1
                 risk_corr_max = 'Bajo'
 
@@ -325,6 +386,7 @@ def run():
             df45.append(scale_max)
             df46.append(risk_corr_max)
             df47.append(risk_scale_max)
+            df52.append(corr_max_ai)
 
             # Calculo de la dosis de quimico recomendada y el ahorro
             BWPD = parameters['BWPD']
@@ -337,13 +399,13 @@ def run():
             def round_to_half(n):
                 return round(n*2)/2
 
-            if corr_max > 10:
+            if corr_max_ai > 10:
                 dosis_recomendada_ic = math.ceil(80 * BWPD / 23810)
-            if corr_max > 5 and corr_max <= 10:
+            if corr_max_ai > 5 and corr_max_ai <= 10:
                 dosis_recomendada_ic = math.ceil(60 * BWPD / 23810)
-            if corr_max > 1 and corr_max <= 5:
+            if corr_max_ai > 1 and corr_max_ai <= 5:
                 dosis_recomendada_ic = math.ceil(40 * BWPD / 23810)
-            if corr_max <= 1:
+            if corr_max_ai <= 1:
                 dosis_recomendada_ic = math.ceil(20 * BWPD / 23810)
 
             diferencia_dosis_ic = dosis_ic - dosis_recomendada_ic
@@ -395,22 +457,31 @@ def run():
             df43.append(estado_dosis_is)
             df49.append(ahorro_anual_is)
 
+
             # Resultados de corrosion
 
             results_corr = pd.DataFrame(
-                {'Pozo': df0, 'Velocidad de corrosion cabeza [mpy]': df1, 'Riesgo de corrosion cabeza': df20,
-                 'Velocidad de corrosion fondo [mpy]': df2, 'Riesgo de corrosion fondo': df21,
-                 'Velocidad de corrosion maximo [mpy]': df44, 'Riesgo de corrosion maximo': df46}).set_index(
+                {'Pozo': df0, 'Velocidad de corrosion cabeza Norsok [mpy]': df1, 
+                 'Velocidad de corrosion cabeza AI [mpy]': df50, 
+                 'Riesgo de corrosion cabeza': df20,
+                 'Velocidad de corrosion fondo [mpy]': df2,
+                 'Velocidad de corrosion fondo AI [mpy]': df51,
+                 'Riesgo de corrosion fondo': df21,
+                 'Velocidad de corrosion maximo Norsok [mpy]': df44, 
+                 'Velocidad de corrosion maximo AI [mpy]': df52,
+                 'Riesgo de corrosion maximo': df46}).set_index(
                 ['Pozo'])
 
             results_corr_profile = pd.DataFrame({'Pozo': df0, 'Temperatura [F]': df10, 'Presion [psi]': df11,
                                                  'Profundidad [ft]': df12, 'Fugacidad CO2': df13,
-                                                 'pH': df14, 'Velocidad de corrosion (mpy)': df15,
-                                                 'Riesgo de corrosion': df25}).set_index(['Pozo']).apply(
+                                                 'pH': df14, 'Velocidad de corrosion (mpy)': df15}).set_index(['Pozo']).apply(
                 pd.Series.explode).reset_index()
 
             for i, (Pozo, subdf) in enumerate(results_corr_profile.groupby('Pozo'), 1):
                 locals()[f'well_corr{i}'] = subdf
+            
+
+            results_corr_profile['Velocidad de corrosion'] = results_corr_profile['Velocidad de corrosion (mpy)'] * correction_factor
 
             # Resultados de escala
 
@@ -471,7 +542,7 @@ def run():
 
             for i, df in enumerate(corr_sliced):
                 with tab_names[i]:
-                    fig_corr = px.line(df, x='Velocidad de corrosion (mpy)', y='Profundidad [ft]',
+                    fig_corr = px.line(df, x='Velocidad de corrosion', y='Profundidad [ft]',
                                        hover_name='Pozo',
                                        hover_data=['Presion [psi]', 'Temperatura [F]', 'Riesgo de corrosion'])
 

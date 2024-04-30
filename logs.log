@@ -3695,3 +3695,30 @@
 2024-04-30 12:20:46,258:INFO:Preloading libraries
 2024-04-30 12:20:46,258:INFO:Set up data.
 2024-04-30 12:20:46,264:INFO:Set up index.
+2024-04-30 13:39:47,381:INFO:Initializing load_model()
+2024-04-30 13:39:47,396:INFO:load_model(model_name=AI_model/corrosion_regression_repsol_hybrid, platform=None, authentication=None, verbose=True)
+2024-04-30 13:39:47,426:INFO:Initializing predict_model()
+2024-04-30 13:39:47,426:INFO:predict_model(self=<pycaret.regression.oop.RegressionExperiment object at 0x0000017A85A04D50>, estimator=Pipeline(memory=Memory(location=None),
+         steps=[('numerical_imputer',
+                 TransformerWrapper(include=['crudo_BPPD', 'agua_BAPD',
+                                             'gas_MMCFD', 'presion_cabeza_psi',
+                                             'temperatura_cabeza_F',
+                                             'solidos_PTB', 'cloruros_ppmCl',
+                                             'CO2_gas', 'CO2_agua%',
+                                             'H2S_gas_%', 'H2S_agua_ppm',
+                                             'alcalinidad_ppm', 'magnesio_ppm',
+                                             'calcio_ppm', 'sulfatos_ppm',
+                                             'dureza_total_ppm', 'hierro_ppm',
+                                             'd...
+                                    transformer=SimpleImputer(strategy='most_frequent'))),
+                ('remove_multicollinearity',
+                 TransformerWrapper(exclude=[],
+                                    transformer=RemoveMulticollinearity(threshold=0.9))),
+                ('normalize', TransformerWrapper(transformer=StandardScaler())),
+                ('clean_column_names',
+                 TransformerWrapper(transformer=CleanColumnNames())),
+                ('trained_model', LGBMRegressor(n_jobs=-1, random_state=123))]), probability_threshold=None, encoded_labels=False, raw_score=False, round=4, verbose=True, ml_usecase=None, preprocess=True, encode_labels=<function _SupervisedExperiment.predict_model.<locals>.encode_labels at 0x0000017AEDA702C0>)
+2024-04-30 13:39:47,427:INFO:Checking exceptions
+2024-04-30 13:39:47,427:INFO:Preloading libraries
+2024-04-30 13:39:47,427:INFO:Set up data.
+2024-04-30 13:39:47,434:INFO:Set up index.

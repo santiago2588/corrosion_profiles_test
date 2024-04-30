@@ -190,7 +190,7 @@ def run():
                          max_value=50000,
                          value=5000, step=100)
     
-    hierro=st.slider(label='Dureza total, ppm', min_value=0,
+    hierro=st.slider(label='Hierro, ppm', min_value=0,
                          max_value=200,
                          value=20, step=1)
      
@@ -349,8 +349,7 @@ def run():
 
     # Resultados de velocidad de corrosion e indice de saturacion en cabeza y fondo
     results_corr = pd.DataFrame({'Velocidad de corrosion cabeza [mpy]': df1,
-                                 'Riesgo de corrosion cabeza Norsok': df20,
-                                 'Riesgo de corrosion cabeza': df20,
+                                 'Riesgo de corrosion cabeza': df20,                                 
                                  'Velocidad de corrosion fondo [mpy]': df2,
                                  'Riesgo de corrosion fondo': df21
                                  })
@@ -367,7 +366,6 @@ def run():
     df13.append(fy_df)
     df14.append(ph_df)
     df15.append(nk_df)
-    #df25.append(corr_profile_risk)
 
     # Resultados del perfil de velocidad de corrosion
     results_corr_profile = pd.DataFrame({'Pozo': df0, 'Temperatura [F]': df10, 'Presion [psi]': df11,
