@@ -74,6 +74,7 @@ df50=[]
 df51=[]
 df52=[]
 df53=[]
+df54=[]
 
 
 # Calculo de los resultados
@@ -302,6 +303,7 @@ def run():
             df51.append(corr_ic_temp1_ai)
             df53.append(correction_factor)
 
+
             # Guardar los resultados del perfil de velocidad de corrosion en un data frame
             df10.append(temp_array)
             df11.append(press_array)
@@ -309,6 +311,8 @@ def run():
             df13.append(fy_df)
             df14.append(ph_df)
             df15.append(nk_df)
+            #Check this
+            df54 = [[x * correction_factor for x in sublist] for sublist in df15]
 
             # Guardar los resultados del perfil del indice de saturacion en un data frame
             df16.append(fy)
@@ -469,20 +473,18 @@ def run():
                  'Riesgo de corrosion fondo': df21,
                  'Velocidad de corrosion maximo Norsok [mpy]': df44, 
                  'Velocidad de corrosion maximo AI [mpy]': df52,
-                 'Riesgo de corrosion maximo': df46}).set_index(
+                 'Riesgo de corrosion maximo': df46,
+                 'Factor de correccion AI':df53}).set_index(
                 ['Pozo'])
 
             results_corr_profile = pd.DataFrame({'Pozo': df0, 'Temperatura [F]': df10, 'Presion [psi]': df11,
                                                  'Profundidad [ft]': df12, 'Fugacidad CO2': df13,
-                                                 'pH': df14, 'Velocidad de corrosion (mpy)': df15}).set_index(['Pozo']).apply(
+                                                 'pH': df14, 'Velocidad de corrosion (mpy)': df54}).set_index(['Pozo']).apply(
                 pd.Series.explode).reset_index()
 
             for i, (Pozo, subdf) in enumerate(results_corr_profile.groupby('Pozo'), 1):
                 locals()[f'well_corr{i}'] = subdf
             
-
-            results_corr_profile['Velocidad de corrosion'] = results_corr_profile['Velocidad de corrosion (mpy)'] * correction_factor
-
             # Resultados de escala
 
             results_scale = pd.DataFrame(
@@ -504,7 +506,7 @@ def run():
             # Resultados criticidad
 
             results_critic = pd.DataFrame(
-                {'Pozo': df0, 'Producción [bopd]': df5, 'Velocidad de corrosion maxima [mpy]': df44,
+                {'Pozo': df0, 'Producción [bopd]': df5, 'Velocidad de corrosion maxima [mpy]': df52,
                  'Indice de saturacion maximo [mpy]': df45,
                  'Criticidad total': df9, 'Prioridad TQ': df24})
 
@@ -542,9 +544,9 @@ def run():
 
             for i, df in enumerate(corr_sliced):
                 with tab_names[i]:
-                    fig_corr = px.line(df, x='Velocidad de corrosion', y='Profundidad [ft]',
+                    fig_corr = px.line(df, x='Velocidad de corrosion (mpy)', y='Profundidad [ft]',
                                        hover_name='Pozo',
-                                       hover_data=['Presion [psi]', 'Temperatura [F]', 'Riesgo de corrosion'])
+                                       hover_data=['Presion [psi]', 'Temperatura [F]'])
 
                     fig_corr.update_traces(mode="markers+lines")
                     fig_corr.update_xaxes(showspikes=True, spikecolor='black')
