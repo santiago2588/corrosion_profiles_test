@@ -262,7 +262,7 @@ def run():
             if mpy_AI<0:
                 mpy_AI=0.01
 
-            #Factor de correccion global modelo AI (0.026 global)
+            #Factor de correccion
             correction_factor=mpy_AI/corr_ic_temp
 
             corr_ic_temp_ai=corr_ic_temp*correction_factor
@@ -311,8 +311,9 @@ def run():
             df13.append(fy_df)
             df14.append(ph_df)
             df15.append(nk_df)
-            #Check this
-            df54 = [[x * correction_factor for x in sublist] for sublist in df15]
+
+            #This line multiplies each element of df15 (list of lists, where each list contains the results of a well) by the corresponding correction factor (df53). As a result, we have the corrected mpy in the profile
+            df54 = [[a * b for a in row] for row, b in zip(df15, df53)]
 
             # Guardar los resultados del perfil del indice de saturacion en un data frame
             df16.append(fy)
@@ -468,7 +469,7 @@ def run():
                 {'Pozo': df0, 'Velocidad de corrosion cabeza Norsok [mpy]': df1, 
                  'Velocidad de corrosion cabeza AI [mpy]': df50, 
                  'Riesgo de corrosion cabeza': df20,
-                 'Velocidad de corrosion fondo [mpy]': df2,
+                 'Velocidad de corrosion fondo Norsok [mpy]': df2,
                  'Velocidad de corrosion fondo AI [mpy]': df51,
                  'Riesgo de corrosion fondo': df21,
                  'Velocidad de corrosion maximo Norsok [mpy]': df44, 
